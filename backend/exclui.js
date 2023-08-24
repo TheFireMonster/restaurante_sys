@@ -2,34 +2,10 @@ const db = require('./conexao')
 
 async function excluiRegistro(){
     await db.connect()
-    const excluir="DELETE FROM alunos WHERE id_aluno = '10'"
+    const excluir="DELETE FROM ingrediente WHERE nome_ingrediente = 'extrato de tomate'"
     await db.query(excluir)
-    await db.end()
     console.log("Excluído com sucesso")
-}
-
-async function excluiRegistro(){
-    await db.connect()
-    const excluir="DELETE FROM alunos WHERE id_aluno = '10'"
-    await db.query(excluir)
     await db.end()
-    console.log("Excluído com sucesso")
-}
-
-async function excluiRegistro(){
-    await db.connect()
-    const excluir="DELETE FROM alunos WHERE id_aluno = '10'"
-    await db.query(excluir)
-    await db.end()
-    console.log("Excluído com sucesso")
-}
-
-async function excluiRegistro(){
-    await db.connect()
-    const excluir="DELETE FROM alunos WHERE id_aluno = '10'"
-    await db.query(excluir)
-    await db.end()
-    console.log("Excluído com sucesso")
 }
 
 excluiRegistro()
