@@ -2,34 +2,10 @@ const db = require('./conexao')
 
 async function atualizaRegistro(){
     await db.connect()
-    const atualiza="UPDATE alunos SET nome_aluno = 'Maria do Bairro' WHERE nome_aluno = 'Maria'"
+    const atualiza="UPDATE ingrediente SET nome_ingrediente = 'extrato de tomate' WHERE nome_ingrediente = 'molho de tomate'"
     await db.query(atualiza)
-    await db.end()
     console.log("Alterado com sucesso")
-}
-
-async function atualizaRegistro(){
-    await db.connect()
-    const atualiza="UPDATE alunos SET nome_aluno = 'Maria do Bairro' WHERE nome_aluno = 'Maria'"
-    await db.query(atualiza)
     await db.end()
-    console.log("Alterado com sucesso")
-}
-
-async function atualizaRegistro(){
-    await db.connect()
-    const atualiza="UPDATE alunos SET nome_aluno = 'Maria do Bairro' WHERE nome_aluno = 'Maria'"
-    await db.query(atualiza)
-    await db.end()
-    console.log("Alterado com sucesso")
-}
-
-async function atualizaRegistro(){
-    await db.connect()
-    const atualiza="UPDATE alunos SET nome_aluno = 'Maria do Bairro' WHERE nome_aluno = 'Maria'"
-    await db.query(atualiza)
-    await db.end()
-    console.log("Alterado com sucesso")
 }
 
 atualizaRegistro()
