@@ -3,6 +3,9 @@ const express = require('express')
 const app = express()
 const routes = require('./config/routes')
 const path = require('path')
+const promises = require('./promises')
+
+console.log(promises.teste())
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
