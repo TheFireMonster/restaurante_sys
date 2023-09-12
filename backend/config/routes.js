@@ -40,5 +40,50 @@ routes.post('/cad-fim', function(req,res){
           res.send("Não foi possível finalizar o cadastro")
     })
 })
-  
+
+//testes no insomnia
+//criação de array base
+
+let infos=[
+      {id:1, nome:"Calabresa", valor:50},
+      {id:2, nome:"Carne", valor:30},
+      {id:3, nome:"Frango", valor:50},
+      {id:4, nome:"Queijo", valor:50},
+      {id:5, nome:"Tomate", valor:35},
+]
+
+routes.get('/insomnia', function(req,res){
+      res.json(infos)
+})
+
+routes.post('/insomnia', function(req,res){
+      infos.push(req.body)
+      res.send("Cadastro realizado")
+})
+
+function encontrar(id){
+      return infos.filter(info => info.id == id)
+}
+
+function encontrarIndice(id){
+      return infos.findIndex(info => info.id == id)
+}
+
+routes.get('/insomnia/:id', function(req,res){
+      res.json(encontrar(req.params.id))
+})
+
+routes.delete('/insomnia/:id', function(req,res){
+      let index = encontrarIndice(req.params.id)
+      infos.splice(index,1)
+      res.send("Registro excluído")
+})
+
+routes.put('/insomnia/:id', function(req,res){
+      let index = encontrarIndice(req.params.id)
+      infos[index].nome = req.body.nome
+      infos[index].valor = req.body.valor
+      res.send("Alteração realizada com sucesso")
+})
+
 module.exports = routes
