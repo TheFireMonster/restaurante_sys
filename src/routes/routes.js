@@ -1,11 +1,11 @@
 const express = require('express')
-const usuarioNovo = require('./../insere')
+const usuarioNovo = require('./../../db/insere')
 
 const routes = express.Router()
 const path = require('path')
 
 routes.get('/login', function (req,res) {
-    res.sendFile(path.join(__dirname+'/../src/login/login.html'))
+    res.sendFile(path.join(__dirname+'./../../public/login.html'))
 })
   
 routes.get('/cardapio', function (req,res) {
@@ -25,7 +25,7 @@ routes.get('/contato', function (req,res) {
 })
 
 routes.get('/cadastro', function (req, res) {
-    res.sendFile(path.join(__dirname+'/../../frontend/html/cadastro.html'))
+    res.sendFile(path.join(__dirname+'./../../public/cadastro.html'))
 })
 
 routes.post('/cad-fim', function(req,res){

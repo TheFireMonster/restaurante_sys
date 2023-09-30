@@ -1,4 +1,4 @@
-const db = require('./conexao')
+const db = require('./../src/config/conexao')
 
 exports.insereUsuario = function(senha, nome, cpf, telefone, email){
     async function inserirDados(senha, nome, cpf, telefone, email){
