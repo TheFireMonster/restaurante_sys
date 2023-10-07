@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,28 +5,37 @@
     <link rel="stylesheet" href="../css/Pedidos.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Pedidos</title>
+    <script src="../js/Pedidos.js"></script>
 </head>
 <body>
 
     <div class="wrapper">
         <form>
             <h1>Pedidos</h1>
-            <label for>1º Item</label>
+
             <div class="input-box">
 
                 <input type="text" placeholder="Nome do produto" id="nome_produto" required>
                 <i class='bx bx-box'></i>
             </div>
-            <label for>2º Item</label>
             <div class="input-box">
-                <input type="text" placeholder="Nome do produto" id="nome_produto">
+                <input type="text" inputmode="numeric" placeholder="Quantidade do produto" id="quantidade_produto" required onchange="Calc()">
                 <i class='bx bx-box'></i>
             </div>
-            <label for>3º Item</label>
             <div class="input-box">
-                <input type="text" placeholder="Nome do produto" id="nome_produto">
+                <input type="text" inputmode="numeric" placeholder="Id do usuário" id="id_usuário" required>
+                <i class='bx bx-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="text" inputmode="numeric" placeholder="Valor do produto" id="valor_produto" required onchange="Calc()">
+                <i class='bx bx-dollar-circle'></i>
+            </div>
+            <div class="input-box">
+                <input type="text" inputmode="numeric" placeholder="Número da mesa" id="numero_mesa" required>
                 <i class='bx bx-box'></i>
             </div>
+            <label>Preço Total:</label>
+            <span id="PrecoTotal"></span>
             <button type="submit" class="btn">Finalizar pedido</button>
         </form>
     </div>
