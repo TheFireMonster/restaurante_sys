@@ -1,0 +1,24 @@
+{
+  "name": "sistema-restaurante",
+  "version": "0.3.0-alpha",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.11.3",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.33.0"
+  },
+  "description": "",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
