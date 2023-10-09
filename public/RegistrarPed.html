@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/Pedidos.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Pedidos</title>
+    <!--<script src="../src/Pedidos.js"></script>-->
+</head>
+<body>
+    <div class="wrapper">
+        <form action="/ped-fim" method="POST">
+            <h1>Fazer Pedido</h1>
+            <!--<div class="input-box">
+                <input type="text" placeholder="Nome do produto" id="ped_nome_produto" required>
+                <i class='bx bx-box'></i>
+            </div>-->
+            <div class="input-box">
+                <input type="number" placeholder="Id do usuário" id="ped_id_usuario" name="ped_id_usuario" required>
+                <i class='bx bx-user'></i>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Número da mesa" id="ped_numero_mesa" name="ped_numero_mesa"required>
+                <i class='bx bx-box'></i>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Id do produto" id="ped_id_produto" name="ped_id_produto" required>
+                <i class='bx bx-box'></i>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Quantidade do produto" id="ped_quantidade_produto" name="ped_quantidade_produto" required> <!--onchange="Calc()">--> 
+                <i class='bx bx-box'></i>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="Valor do pedido" id="valor_ped"  name="valor_ped" required> <!--onchange="Calc()">--> 
+                <i class='bx bx-dollar-circle'></i>
+            </div>
+            <!--<label>Total:</label>
+            <span id="total" name="total"></span>-->
+            <button type="submit" class="btn">Finalizar pedido</button>
+        </form>
+    </div>
+</body>
+</html>
