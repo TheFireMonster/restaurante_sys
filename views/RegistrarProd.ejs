@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./../public/css/Registra.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Registre um novo produto</title>
+</head>
+<body>
+    <div class="wrapper">
+        <form action="/prod-fim" method="POST" autocomplete="off">
+            <h1>Registre um novo produto</h1>
+            <div class="input-box">
+                <input type="numb" placeholder="Nome do produto" id="nome_produto" name="nome_produto" required>
+                <i class='bx bx-box'></i>
+            </div>
+            <div class="input-box">
+                <input type="number" placeholder="Quantidade do produto" id="quantidade_produto" name="quantidade_produto" required>
+                <i class='bx bx-box'></i>
+            </div>
+            <!--<div class="input-box">
+                <input type="number" placeholder="Valor do produto" id="valor_produto" name="valor_produto" required>
+                <i class='bx bx-dollar-circle'></i>
+            </div>-->
+                <select class="custom-select" id="tipo_produto"  name="tipo_produto">
+                    <option value="" disabled selected hidden>Tipo do produto</option>
+                    <option value="comida">Comida</option>
+                    <option value="bebida">Bebida</option>
+                </select>
+               <!--<div class="remember-forgot">
+                    <label><input type="checkbox" id="produto_transformacao" name="valor_produto">É produto de transformação?</label>
+                </div>-->
+            <button type="submit" class="btn">Registrar produto</button>
+        </form>
+    </div>
+</body>
+</html>
