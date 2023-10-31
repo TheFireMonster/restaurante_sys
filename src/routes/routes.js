@@ -5,16 +5,12 @@ const insereCad = require('./../../db/insere')
 const routes = express.Router()
 const path = require('path')
 
-routes.get('/login', function (req,res) {
-    res.sendFile(path.join(__dirname+'./../../public/login.html'))
-})
-  
 routes.get('/cardapio', function (req,res) {
     res.send('Hello World')
 })
   
 routes.get('/home', function (req,res) {
-    res.sendFile(path.join(__dirname+'/../../public/home.html'))
+      res.render('./../../views/home')
 })
   
 routes.get('/ajuda', function (req,res) {
@@ -25,17 +21,22 @@ routes.get('/contato', function (req,res) {
     res.sendFile(path.join(__dirname+'/../src/contato/contato.html'))
 })
 
+routes.get('/login', function (req,res) {
+      res.render('./../../views/Login')
+  })
+
 routes.get('/cadastro', function (req, res) {
-    res.sendFile(path.join(__dirname+'./../../public/cadastro.html'))
+      res.render('./../../views/Cadastro')
 })
 
 routes.get('/produtocad', function (req, res) {
-      res.sendFile(path.join(__dirname+'./../../public/registrarprod.html'))
-  })
-
-routes.get('/pedidocad', function (req, res) {
-      res.sendFile(path.join(__dirname+'./../../public/registrarped.html'))
+      res.render('./../../views/RegistrarProd')
 })
+ 
+routes.get('/pedidocad', function (req, res) {
+      res.render('./../../views/RegistrarPed')
+})
+
 
 routes.post('/cad-fim', function (req, res) {
       const email = req.body.email
@@ -55,7 +56,7 @@ routes.post('/prod-fim', function (req, res) {
       const quant_prod = req.body.quantidade_produto
       const tipo_prod = req.body.tipo_produto
       insereCad.insereProduto(nome_prod, quant_prod, tipo_prod).then(function () {
-            res.sendFile(path.join(__dirname+'./../../public/registrarnovoprod.html'))
+            res.render('./../../views/RegistrarNovoProd')
       }).catch(function (erro) {
             res.send("Não foi possível finalizar o cadastro do produto")
       })
