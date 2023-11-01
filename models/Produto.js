@@ -16,10 +16,22 @@ const Produto = sequelize.define('produto', {
     },
 
     quantidade_produto: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.INTEGER
     },
 
     valor_produto: {
+    },
+
+    tipo_produto: {
+        type: DataTypes.STRING(50)
+    },
+
+    produto_transformacao: {
+        type: DataTypes.BOOLEAN
+    },
+
+    tamanho_produto: {
+        type: DataTypes.STRING(50)
     }
 })
 
