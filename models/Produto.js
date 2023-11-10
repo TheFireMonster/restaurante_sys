@@ -20,6 +20,7 @@ const Produto = sequelize.define('produto', {
     },
 
     valor_produto: {
+        type: DataTypes.DECIMAL(10, 2)
     },
 
     tipo_produto: {
