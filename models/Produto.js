@@ -28,11 +28,9 @@ const Produto = sequelize.define('produto', {
 
     produto_transformacao: {
         type: DataTypes.BOOLEAN
-    },
-
-    tamanho_produto: {
-        type: DataTypes.STRING(50)
     }
+}, {
+    timestamps: false
 })
 
 module.exports=Produto
