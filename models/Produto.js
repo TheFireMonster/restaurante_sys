@@ -20,6 +20,7 @@ const Produto = sequelize.define('produto', {
     },
 
     valor_produto: {
+        type: DataTypes.DECIMAL(10, 2)
     },
 
     tipo_produto: {
@@ -28,11 +29,9 @@ const Produto = sequelize.define('produto', {
 
     produto_transformacao: {
         type: DataTypes.BOOLEAN
-    },
-
-    tamanho_produto: {
-        type: DataTypes.STRING(50)
     }
+}, {
+    timestamps: false
 })
 
 module.exports=Produto
