@@ -23,5 +23,4 @@ const Ingrediente = sequelize.define('ingrediente', {
 }, {
     timestamps: false
 })
-
 module.exports=Ingrediente

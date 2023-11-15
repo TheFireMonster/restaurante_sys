@@ -11,5 +11,4 @@ const Mesa = sequelize.define('mesa', {
 }, {
     timestamps: false
 })
-
 module.exports=Mesa
