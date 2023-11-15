@@ -30,6 +30,15 @@ const Produto = sequelize.define('produto', {
         type: DataTypes.INTEGER
     },
 
+    tipo_produto: {
+        type: DataTypes.STRING,
+        length: 15,
+    },
+
+    produto_transformacao: {
+        type: DataTypes.BOOLEAN,
+    }
+
 }, {
     timestamps: false
 })
