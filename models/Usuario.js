@@ -31,7 +31,10 @@ const Usuario = sequelize.define('usuario', {
     
     tipo_usuario: {
         type: DataTypes.STRING(15)
-    }
+    },
+
+}, {
+    timestamps: false
 })
 
 module.exports=Usuario
