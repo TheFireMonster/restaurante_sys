@@ -20,6 +20,8 @@ const Ingrediente = sequelize.define('ingrediente', {
     nome_ingrediente: {
         type: DataTypes.STRING(50)
     }
+}, {
+    timestamps: false
 })
 
 module.exports=Ingrediente
