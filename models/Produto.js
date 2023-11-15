@@ -15,21 +15,21 @@ const Produto = sequelize.define('produto', {
         allowNull: false
     },
 
-    quantidade_produto: {
+    descricao_produto: {
+        type: DataTypes.STRING,
+        length: 50,
+        allowNull: false
+    },
+
+    preco_produto: {
+        type: DataTypes.DECIMAL(8, 2),
+        allowNull: false
+    },
+
+    estoque: {
         type: DataTypes.INTEGER
     },
 
-    valor_produto: {
-        type: DataTypes.DECIMAL(10, 2)
-    },
-
-    tipo_produto: {
-        type: DataTypes.STRING(50)
-    },
-
-    produto_transformacao: {
-        type: DataTypes.BOOLEAN
-    }
 }, {
     timestamps: false
 })
