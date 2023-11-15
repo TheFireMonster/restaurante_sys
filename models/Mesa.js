@@ -8,6 +8,7 @@ const Mesa = sequelize.define('mesa', {
         autoIncrement: true,
         allowNull: false
     }
+}, {
+    timestamps: false
 })
-
 module.exports=Mesa
