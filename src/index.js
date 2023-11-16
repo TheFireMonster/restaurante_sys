@@ -16,6 +16,10 @@ app.use('/public', express.static('public'))
 
 app.use(routes)
 
+app.get('/', function(req, res) {
+    res.redirect('/home')
+})
+
 app.use((req, res, next) => {
     next(createError(404))
 })
