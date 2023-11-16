@@ -1,5 +1,5 @@
-const {DataTypes} = require("sequelize")
-const sequelize = require('../config/cnxconexaosequelize')
+const { DataTypes } = require("sequelize")
+const sequelize = require('../config/cnxsequelize')
 
 const Produto = sequelize.define('produto', {
     id_produto: {
@@ -26,21 +26,27 @@ const Produto = sequelize.define('produto', {
         allowNull: false
     },
 
-    estoque: {
+    quantidade_produto: {
         type: DataTypes.INTEGER
     },
 
     tipo_produto: {
         type: DataTypes.STRING,
-        length: 15,
+        length: 15
     },
 
     produto_transformacao: {
         type: DataTypes.BOOLEAN,
     }
-
 }, {
-    timestamps: false
+    indexes: [
+        {
+            unique: true,
+            fields: ['id_produto']
+        }
+    ]
 })
 
-module.exports=Produto
+Produto.sync({alter:true})
+
+module.exports = Produto

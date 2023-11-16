@@ -1,5 +1,6 @@
-const {DataTypes} = require("sequelize")
-const sequelize = require('../config/cnxconexaosequelize')
+const { DataTypes } = require("sequelize")
+const sequelize = require('../config/cnxsequelize')
+
 
 const Ingrediente = sequelize.define('ingrediente', {
     id_ingrediente: {
@@ -21,6 +22,15 @@ const Ingrediente = sequelize.define('ingrediente', {
         type: DataTypes.STRING(50)
     }
 }, {
-    timestamps: false
+    indexes: [
+        {
+            unique: true,
+            fields: ['id_ingrediente']
+        }
+    ]
 })
-module.exports=Ingrediente
+
+Ingrediente.sync({alter:true})
+
+module.exports = Ingrediente
+
