@@ -1,7 +1,9 @@
-const {DataTypes} = require("sequelize")
-const sequelize = require('../config/cnxconexaosequelize')
+const { DataTypes } = require("sequelize")
+const sequelize = require('../config/cnxsequelize')
+const Pedido = require('./Pedido')
+const Produto = require('./Produto')
 
-const Pedido = sequelize.define('pedido', {
+const Item_pedido = sequelize.define('item_pedido', {
     id_item_pedido: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -9,9 +11,13 @@ const Pedido = sequelize.define('pedido', {
         allowNull: false
     },
 
-    id_produto_item_pedido: {
+    id_pedido_item_pedido: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: Pedido,
+            key: 'id_pedido'
+        }
     },
 
     quantidade_item_pedido: {
@@ -21,18 +27,34 @@ const Pedido = sequelize.define('pedido', {
 
     id_produto_item_pedido: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: Produto,
+            key: 'id_produto'
+        }
     },
 
-    valor: {
+    valor_item_pedido: {
         type: DataTypes.DECIMAL(8, 2)
     },
 
-    total_item: {
+    total_item_pedido: {
         type: DataTypes.DECIMAL(8, 2)
     }
 }, {
-    timestamps: false
+    indexes: [
+        {
+            unique: true,
+            fields: ['id_item_pedido']
+        }
+    ]
 })
 
-module.exports=Pedido
+Item_pedido.belongsTo(Pedido, { foreignKey: 'id_pedido_item_pedido' })
+Pedido.hasMany(Item_pedido, {foreignKey: 'id_pedido_item_pedido'})
+Item_pedido.belongsTo(Produto, { foreignKey: 'id_produto_item_pedido' })
+Produto.hasMany(Item_pedido, {foreignKey: 'id_pedido_item_pedido'})
+
+Item_pedido.sync({ alter: true })
+
+module.exports = Item_pedido

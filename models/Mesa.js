@@ -1,14 +1,15 @@
-const {DataTypes} = require("sequelize")
-const sequelize = require('../config/cnxconexaosequelize')
+const { DataTypes } = require("sequelize")
+const sequelize = require('../config/cnxsequelize')
 
 const Mesa = sequelize.define('mesa', {
-    id_ingrediente: {
+    id_mesa: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false
     }
-}, {
-    timestamps: false
 })
-module.exports=Mesa
+
+Mesa.sync({alter:true})
+
+module.exports = Mesa
