@@ -1,6 +1,7 @@
-const {DataTypes} = require("sequelize")
-const sequelize = require('../config/cnxconexaosequelize')
-const sequelize = require("./Usuario")
+const { DataTypes } = require("sequelize")
+const sequelize = require('../config/cnxsequelize')
+const Usuario = require("./Usuario")
+const Pedido = require("./Pedido")
 
 const Pagamento = sequelize.define('pagamento', {
     id_pagamento: {
@@ -20,18 +21,37 @@ const Pagamento = sequelize.define('pagamento', {
         allowNull: false
     },
 
-    id_usuario: {
+    id_usuario_pagamento: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: Usuario,
+            key: 'id_usuario'
+        }
     },
 
-    id_pedido: {
+    id_pedido_pagamento: {
         type: DataTypes.INTEGER,
-        allowNull: false
+        allowNull: false,
+        references: {
+            model: Pedido,
+            key: 'id_pedido'
+        }
     }
-
 }, {
-    timestamps: false
+    indexes: [
+        {
+            unique: true,
+            fields: ['id_pagamento']
+        }
+    ]
 })
 
-module.exports=Produto
+Pagamento.belongsTo(Usuario, { foreignKey: 'id_usuario_pagamento' })
+Usuario.hasMany(Pagamento, {foreignKey: 'id_usuario_pagamento'})
+Pagamento.belongsTo(Pedido, { foreignKey: 'id_pedido_pagamento' })
+Pedido.hasMany(Pagamento, { foreignKey: 'id_pedido_pagamento' })
+
+Pagamento.sync({ alter: true })
+
+module.exports = Pagamento
