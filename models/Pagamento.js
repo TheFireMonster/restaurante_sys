@@ -52,6 +52,6 @@ Usuario.hasMany(Pagamento, {foreignKey: 'id_usuario_pagamento'})
 Pagamento.belongsTo(Pedido, { foreignKey: 'id_pedido_pagamento' })
 Pedido.hasMany(Pagamento, { foreignKey: 'id_pedido_pagamento' })
 
-Pagamento.sync({ alter: true })
+Pagamento.sync()
 
 module.exports = Pagamento
