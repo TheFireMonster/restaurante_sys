@@ -1,5 +1,7 @@
 const express = require('express')
 const insereCad = require('./../../db/insere')
+const Usuario = require('./../../models/Usuario')
+const Produto = require('./../../models/Produto')
 
 
 const routes = express.Router()
@@ -44,20 +46,25 @@ routes.post('/cad-fim', function (req, res) {
       const senha = req.body.senha
       const telefone = req.body.fone
       const cpf = req.body.cpf
-      insereCad.insereUsuario(senha, nome, cpf, telefone, email).then(function () {
+      Usuario.create({senha_usuario: senha, nome_usuario: nome, cpf_usuario: cpf, telefone_usuario: telefone, email_usuario: email}).then(function () {
             res.send("Usuário cadastrado com sucesso")
       }).catch(function (erro) {
+            console.error(erro)
             res.send("Não foi possível finalizar o cadastro")
       })
 })
 
 routes.post('/prod-fim', function (req, res) {
       const nome_prod = req.body.nome_produto
+      const desc_prod = req.body.descricao_produto
+      const preco_prod = req.body.preco_produto
       const quant_prod = req.body.quantidade_produto
       const tipo_prod = req.body.tipo_produto
-      insereCad.insereProduto(nome_prod, quant_prod, tipo_prod).then(function () {
+      const trans_prod = req.body.produto_transformacao
+      Produto.create({nome_produto: nome_prod, descricao_produto: desc_prod, preco_produto: preco_prod, quantidade_produto: quant_prod, tipo_produto: tipo_prod, produto_transformacao: trans_prod}).then(function () {
             res.render('./../../views/RegistrarNovoProd')
       }).catch(function (erro) {
+            console.error(erro)
             res.send("Não foi possível finalizar o cadastro do produto")
       })
 })

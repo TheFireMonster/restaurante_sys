@@ -55,6 +55,6 @@ Pedido.hasMany(Item_pedido, {foreignKey: 'id_pedido_item_pedido'})
 Item_pedido.belongsTo(Produto, { foreignKey: 'id_produto_item_pedido' })
 Produto.hasMany(Item_pedido, {foreignKey: 'id_pedido_item_pedido'})
 
-Item_pedido.sync({ alter: true })
+Item_pedido.sync()
 
 module.exports = Item_pedido
