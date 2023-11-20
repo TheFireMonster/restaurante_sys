@@ -30,7 +30,7 @@ const Ingrediente = sequelize.define('ingrediente', {
     ]
 })
 
-Ingrediente.sync({alter:true})
+Ingrediente.sync()
 
 module.exports = Ingrediente
 

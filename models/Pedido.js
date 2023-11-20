@@ -54,6 +54,6 @@ Pedido.belongsTo(Mesa, {foreignKey: 'id_mesa_pedido'})
 Mesa.hasMany(Pedido, { foreignKey: 'id_mesa_pedido' })
 
 
-Pedido.sync({ alter: true })
+Pedido.sync()
 
 module.exports = Pedido
