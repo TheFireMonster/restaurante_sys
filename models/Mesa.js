@@ -10,6 +10,6 @@ const Mesa = sequelize.define('mesa', {
     }
 })
 
-Mesa.sync({alter:true})
+Mesa.sync()
 
 module.exports = Mesa

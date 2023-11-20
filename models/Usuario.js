@@ -11,10 +11,10 @@ const Usuario = sequelize.define('usuario', {
     },
 
     senha_usuario: {
-        type: DataTypes.STRING(50),
+        type: DataTypes.STRING(60),
         allowNull: false,
         set(value) {
-            const hash = bcrypt.hasSync(value, 11)
+            const hash = bcrypt.hashSync(value, 11)
             this.setDataValue('senha_usuario', hash)
         }
     },
@@ -30,7 +30,7 @@ const Usuario = sequelize.define('usuario', {
     },
 
     telefone_usuario: {
-        type: DataTypes.STRING(14),
+        type: DataTypes.STRING(20),
         allowNull: false
     },
 
@@ -58,5 +58,6 @@ Usuario.prototype.validPassword = function(senha_usuario) {
 
 
 Usuario.sync({alter:true})
+//{alter:true}
 
 module.exports = Usuario
