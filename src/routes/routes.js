@@ -1,7 +1,7 @@
 const express = require('express')
-const insereCad = require('./../../db/insere')
 const Usuario = require('./../../models/Usuario')
 const Produto = require('./../../models/Produto')
+const Pedido = require('./../../models/Pedido')
 
 
 const routes = express.Router()
@@ -72,10 +72,9 @@ routes.post('/prod-fim', function (req, res) {
 routes.post('/ped-fim', function (req, res) {
       const ped_quantidade_produto = req.body.ped_quantidade_produto
       const ped_id_usuario = req.body.ped_id_usuario
-      const ped_id_produto = req.body.ped_id_produto
       const valor_ped = req.body.valor_ped
       const ped_numero_mesa = req.body.ped_numero_mesa
-      insereCad.inserePedido(ped_numero_mesa, ped_id_usuario, ped_id_produto, ped_quantidade_produto, valor_ped).then(function () {
+      Pedido.create({id_mesa_pedido: ped_numero_mesa, id_usuario_pedido: ped_id_usuario}).then(function () {
             res.send("Pedido cadastrado com sucesso")
       }).catch(function (erro) {
             res.send("Não foi possível finalizar o pedido")
