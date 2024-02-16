@@ -6,4 +6,6 @@ Para executar o código no computador, executar no prompt de comando dentro do d
 **npm install express**
 **npm install http-errors**
 **npm install sequelize**
+**npm install bcrypt**
+**npm install dotenv**
 
