@@ -9,7 +9,7 @@ const routes = express.Router()
 
 class MenuRoute {
       static getMenu(req, res) {
-            res.send('Hello World')
+            res.send('Hello World') //vai ser adicionado em breve
       }
 }
 
@@ -21,18 +21,19 @@ class HomeRoute {
 
 class HelpRoute {
       static getHelp(req, res) {
+            //vai ser adicionado em breve
       }
 }
 
 class ContactRoute{
       static getContact(req, res){
-
+            //vai ser adicionado em breve
       }
 }
 
 class LoginRoute{
       static getLogin(req, res){
-            
+            //vai ser adicionado em breve
       }
 }
 
