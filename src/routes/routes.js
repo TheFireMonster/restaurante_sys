@@ -4,9 +4,6 @@ const Usuario = require('./../../models/Usuario')
 const Produto = require('./../../models/Produto')
 const Pedido = require('./../../models/Pedido')
 
-
-const routes = express.Router()
-
 class MenuRoute {
       static getMenu(req, res) {
             res.send('Hello World') //vai ser adicionado em breve
@@ -33,7 +30,7 @@ class ContactRoute{
 
 class LoginRoute{
       static getLogin(req, res){
-            //vai ser adicionado em breve
+            res.render('./../../views/login')
       }
 }
 
@@ -91,8 +88,6 @@ class RegOrdRoute{
             }).catch(function (erro) {
                   res.send("Não foi possível finalizar o pedido")
             })
-
-
       }
 }
 
@@ -101,7 +96,7 @@ class Routes {
             this.routes = express.Router()
             this.initRoutes()
       }
-
+      
       initRoutes(){
             this.routes.get('/cardapio', MenuRoute.getMenu)
             this.routes.get('/home', HomeRoute.getHome)
@@ -114,7 +109,6 @@ class Routes {
             this.routes.post('/prod-fim', RegProdRoute.postRegProd)
             this.routes.get('/pedidocad', RegOrdRoute.getRegOrd)
             this.routes.post('/ped-fim', RegOrdRoute.postRegOrd)
-            
       }
 }
 
