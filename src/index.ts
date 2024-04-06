@@ -9,7 +9,7 @@ import createError, { HttpError } from 'http-errors';
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
-app.set('views', path.join(__dirname,'/views'))
+app.set('views', path.join(__dirname,'../views'))
 app.set('view engine', 'ejs')
 
 app.use('/public', express.static('public'))
@@ -26,12 +26,12 @@ app.use((req: Request, res: Response, next) => {
 
 app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
   if (!createError.isHttpError(err)) {
-      err = createError(500) as HttpError;
+      err = createError(500) as HttpError
   }
 
   const statusCode = err.status || 500;
-  res.status(statusCode);
-  res.render(`${statusCode.toString()}`);
-});
+  res.status(statusCode)
+  res.render(`${statusCode.toString()}`)
+})
   
 app.listen(3000)
