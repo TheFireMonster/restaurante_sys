@@ -2,7 +2,7 @@ import { DataTypes, Model } from 'sequelize'
 import sequelize from '../config/cnxsequelize'
 
 interface ProdutoAttributes {
-    id_produto: number;
+    id_produto?: number;
     nome_produto: string;
     descricao_produto: string;
     preco_produto: number;

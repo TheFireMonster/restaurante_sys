@@ -69,11 +69,11 @@ ItemPedido.init({
     ]
 });
 
-ItemPedido.belongsTo(Pedido, { foreignKey: 'id_pedido_item_pedido' });
-Pedido.hasMany(ItemPedido, { foreignKey: 'id_pedido_item_pedido' });
-ItemPedido.belongsTo(Produto, { foreignKey: 'id_produto_item_pedido' });
-Produto.hasMany(ItemPedido, { foreignKey: 'id_produto_item_pedido' });
+ItemPedido.belongsTo(Pedido, { foreignKey: 'id_pedido_item_pedido' })
+Pedido.hasMany(ItemPedido, { foreignKey: 'id_pedido_item_pedido' })
+ItemPedido.belongsTo(Produto, { foreignKey: 'id_produto_item_pedido' })
+Produto.hasMany(ItemPedido, { foreignKey: 'id_produto_item_pedido' })
 
-ItemPedido.sync();
+ItemPedido.sync()
 
-export default ItemPedido;
+export default ItemPedido

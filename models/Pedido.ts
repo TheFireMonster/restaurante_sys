@@ -1,10 +1,10 @@
-import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/cnxsequelize'; // Assuming sequelize is properly imported
-import Usuario from './Usuario';
-import Mesa from './Mesa';
+import { DataTypes, Model } from 'sequelize'
+import sequelize from '../config/cnxsequelize'
+import Usuario from './Usuario'
+import Mesa from './Mesa'
 
 interface PedidoAttributes {
-    id_pedido: number;
+    id_pedido?: number;
     id_usuario_pedido: number;
     id_mesa_pedido: number;
     status_pedido?: string;
@@ -30,7 +30,7 @@ Pedido.init({
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
-        allowNull: false
+        allowNull: true
     },
     id_usuario_pedido: {
         type: DataTypes.INTEGER,

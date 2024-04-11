@@ -9,7 +9,7 @@ interface UsuarioAttributes {
     cpf_usuario: string;
     telefone_usuario: string;
     email_usuario: string;
-    tipo_usuario: string;
+    tipo_usuario?: string;
 }
 
 interface UsuarioCreationAttributes extends Omit<UsuarioAttributes, 'id_usuario'> {}

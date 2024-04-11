@@ -16,15 +16,15 @@ app.use('/public', express.static('public'))
 
 app.use(routes)
 
-app.get('/', function(req: Request, res: Response) {
+app.get('/', (req: Request, res: Response) => {
     res.redirect('/home')
 })
 
-app.use((req: Request, res: Response, next) => {
+app.use((req: Request, res: Response, next: NextFunction) => {
     next(createError(404))
 })
 
-app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => {
+app.use((err: HttpError, req: Request, res: Response, next:NextFunction) => {
   if (!createError.isHttpError(err)) {
       err = createError(500) as HttpError
   }

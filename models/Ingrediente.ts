@@ -46,6 +46,6 @@ Ingrediente.init({
     ]
 });
 
-Ingrediente.sync();
+Ingrediente.sync()
 
-export default Ingrediente;
+export default Ingrediente
