@@ -35,7 +35,7 @@ Produto.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            len: [1, 50] // Length validation
+            len: [1, 50]
         }
     },
     descricao_produto: {
@@ -70,8 +70,8 @@ Produto.init({
             fields: ['id_produto']
         }
     ]
-});
+})
 
-Produto.sync();
+Produto.sync()
 
 export default Produto;

@@ -1,5 +1,3 @@
-'use strict';
-
 import fs from 'fs';
 import path from 'path';
 import Sequelize from 'sequelize';
@@ -38,5 +36,6 @@ Object.keys(db).forEach(modelName => {
 });
 
 db.sequelize = sequelize;
+db.Sequelize = Sequelize;
 
-module.exports = db;
+export default db

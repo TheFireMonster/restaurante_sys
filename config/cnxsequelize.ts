@@ -1,6 +1,6 @@
 import { Sequelize } from "sequelize"
-import db from "./config"
+import config from "./config"
 
-const sequelize = new Sequelize(db)
+const sequelize = new Sequelize(config)
 
-module.exports = sequelize
+export default sequelize
