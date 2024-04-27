@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/cnxsequelize'; // Assuming sequelize is properly imported
+import { sequelize } from '../config/cnxsequelize';
 
 interface MesaAttributes {
     id_mesa: number;
@@ -24,6 +24,12 @@ Mesa.init({
     modelName: 'Mesa'
 });
 
-Mesa.sync();
+Mesa.sync()
+    .then(() => {
+        console.log('Modelo Mesa sincronizado com o banco de dados.');
+    })
+    .catch((error) => {
+        console.error('Erro ao sincronizar modelo Mesa com o banco de dados:', error);
+    });
 
 export default Mesa;

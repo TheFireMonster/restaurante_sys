@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/cnxsequelize'; // Assuming sequelize is properly imported
-import Usuario from './Usuario';
-import Pedido from './Pedido';
+import { sequelize } from '../config/cnxsequelize'; 
+import Usuario from './Usuario'; 
+import Pedido from './Pedido'; 
 
 interface PagamentoAttributes {
     id_pagamento: number;
@@ -18,7 +18,6 @@ class Pagamento extends Model<PagamentoAttributes> implements PagamentoAttribute
     public id_usuario_pagamento!: number;
     public id_pedido_pagamento!: number;
 
-    // Timestamps
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
@@ -70,6 +69,12 @@ Usuario.hasMany(Pagamento, { foreignKey: 'id_usuario_pagamento' });
 Pagamento.belongsTo(Pedido, { foreignKey: 'id_pedido_pagamento' });
 Pedido.hasMany(Pagamento, { foreignKey: 'id_pedido_pagamento' });
 
-Pagamento.sync();
+Pagamento.sync()
+    .then(() => {
+        console.log('Modelo Pagamento sincronizado com o banco de dados.');
+    })
+    .catch((error) => {
+        console.error('Erro ao sincronizar modelo Pagamento com o banco de dados:', error);
+    });
 
 export default Pagamento;

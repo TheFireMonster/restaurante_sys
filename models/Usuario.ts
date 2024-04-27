@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/cnxsequelize'; // Assuming sequelize is properly imported
+import { sequelize } from '../config/cnxsequelize';
 import bcrypt from 'bcrypt';
 
 interface UsuarioAttributes {
@@ -12,9 +12,19 @@ interface UsuarioAttributes {
     tipo_usuario?: string;
 }
 
-interface UsuarioCreationAttributes extends Omit<UsuarioAttributes, 'id_usuario'> {}
+interface UsuarioCreationAttributes extends Omit<UsuarioAttributes, 'id_usuario'> 
+{
+    id_usuario: number;
+    senha_usuario: string;
+    nome_usuario: string;
+    cpf_usuario: string;
+    telefone_usuario: string;
+    email_usuario: string;
+    tipo_usuario?: string;
+}
 
-class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes> implements UsuarioAttributes {
+
+class Usuario extends Model implements UsuarioAttributes {
     public id_usuario!: number;
     public senha_usuario!: string;
     public nome_usuario!: string;
@@ -26,10 +36,12 @@ class Usuario extends Model<UsuarioAttributes, UsuarioCreationAttributes> implem
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
+    // Método para validar a senha do usuário
     validPassword(senha_usuario: string) {
         return bcrypt.compareSync(senha_usuario, this.senha_usuario);
     }
 }
+
 
 Usuario.init({
     id_usuario: {
@@ -77,6 +89,13 @@ Usuario.init({
     ]
 });
 
-Usuario.sync({ alter: true });
+Usuario.sync({ alter: true })
+    .then(() => {
+        console.log('Modelo Usuario sincronizado com o banco de dados.');
+    })
+    .catch((error) => {
+        console.error('Erro ao sincronizar modelo Usuario com o banco de dados:', error);
+    });
 
 export default Usuario;
+

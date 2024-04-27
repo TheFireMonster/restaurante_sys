@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/cnxsequelize'; // Assuming sequelize is properly imported
+import { sequelize } from '../config/cnxsequelize';
 
 interface IngredienteAttributes {
     id_ingrediente: number;
@@ -8,44 +8,43 @@ interface IngredienteAttributes {
     nome_ingrediente?: string;
 }
 
-class Ingrediente extends Model<IngredienteAttributes> implements IngredienteAttributes {
-    public id_ingrediente!: number;
-    public quantidade_ingrediente?: number;
-    public unidade_medida?: string;
-    public nome_ingrediente?: string;
-
-    // Timestamps
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
-}
-
-Ingrediente.init({
-    id_ingrediente: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-        allowNull: false
-    },
-    quantidade_ingrediente: {
-        type: DataTypes.INTEGER
-    },
-    unidade_medida: {
-        type: DataTypes.STRING(2)
-    },
-    nome_ingrediente: {
-        type: DataTypes.STRING(50)
+class Ingrediente extends Model{
+        public id_ingrediente!: number;
+        public quantidade_ingrediente?: number;
+        public unidade_medida?: string;
+        public nome_ingrediente?: string;
+    
+        public readonly createdAt!: Date;
+        public readonly updatedAt!: Date;
     }
-}, {
-    sequelize,
-    modelName: 'Ingrediente',
-    indexes: [
-        {
-            unique: true,
-            fields: ['id_ingrediente']
+    
+    Ingrediente.init({
+        id_ingrediente: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            allowNull: false
+        },
+        quantidade_ingrediente: {
+            type: DataTypes.INTEGER
+        },
+        unidade_medida: {
+            type: DataTypes.STRING(2)
+        },
+        nome_ingrediente: {
+            type: DataTypes.STRING(50)
         }
-    ]
-});
-
-Ingrediente.sync()
-
-export default Ingrediente
+    }, {
+        sequelize,
+        modelName: 'Ingrediente',
+        indexes: [
+            {
+                unique: true,
+                fields: ['id_ingrediente']
+            }
+        ]
+    });
+    
+    Ingrediente.sync();
+    
+    export default Ingrediente;

@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../config/cnxsequelize'; // Assuming sequelize is properly imported
+import { sequelize } from '../config/cnxsequelize';
 import Pedido from './Pedido';
 import Produto from './Produto';
 
@@ -20,7 +20,6 @@ class ItemPedido extends Model<ItemPedidoAttributes> implements ItemPedidoAttrib
     public valor_item_pedido?: number;
     public total_item_pedido?: number;
 
-    // Timestamps
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
@@ -69,11 +68,11 @@ ItemPedido.init({
     ]
 });
 
-ItemPedido.belongsTo(Pedido, { foreignKey: 'id_pedido_item_pedido' })
-Pedido.hasMany(ItemPedido, { foreignKey: 'id_pedido_item_pedido' })
-ItemPedido.belongsTo(Produto, { foreignKey: 'id_produto_item_pedido' })
-Produto.hasMany(ItemPedido, { foreignKey: 'id_produto_item_pedido' })
+ItemPedido.belongsTo(Pedido, { foreignKey: 'id_pedido_item_pedido' });
+Pedido.hasMany(ItemPedido, { foreignKey: 'id_pedido_item_pedido' });
+ItemPedido.belongsTo(Produto, { foreignKey: 'id_produto_item_pedido' });
+Produto.hasMany(ItemPedido, { foreignKey: 'id_produto_item_pedido' });
 
-ItemPedido.sync()
+ItemPedido.sync();
 
-export default ItemPedido
+export default ItemPedido;

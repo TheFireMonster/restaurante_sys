@@ -1,7 +1,7 @@
-import { DataTypes, Model } from 'sequelize'
-import sequelize from '../config/cnxsequelize'
-import Usuario from './Usuario'
-import Mesa from './Mesa'
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../config/cnxsequelize'; 
+import Usuario from './Usuario'; 
+import Mesa from './Mesa'; 
 
 interface PedidoAttributes {
     id_pedido?: number;
@@ -20,7 +20,6 @@ class Pedido extends Model<PedidoAttributes> implements PedidoAttributes {
     public data_pedido?: Date;
     public total_pedido?: number;
 
-    // Timestamps
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
@@ -72,6 +71,12 @@ Usuario.hasMany(Pedido, { foreignKey: 'id_usuario_pedido' });
 Pedido.belongsTo(Mesa, { foreignKey: 'id_mesa_pedido' });
 Mesa.hasMany(Pedido, { foreignKey: 'id_mesa_pedido' });
 
-Pedido.sync();
+Pedido.sync()
+    .then(() => {
+        console.log('Modelo Pedido sincronizado com o banco de dados.');
+    })
+    .catch((error) => {
+        console.error('Erro ao sincronizar modelo Pedido com o banco de dados:', error);
+    });
 
 export default Pedido;
