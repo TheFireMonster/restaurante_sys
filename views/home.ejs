@@ -4,12 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="../public/css/styles.css", rel="stylesheet">
 </head>
 <body>
-    <header>Home</header>
-    <br>
-    <main>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    <div class="grid grid-cols-4 gap-4">
+        <%- include('./templates/Header') %>
+        <main>
+            <p class="text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
             Donec mi nulla, tincidunt rhoncus consequat ut, accumsan in mauris.
             Phasellus sit amet justo non nibh placerat convallis. 
             Phasellus convallis nisl odio, in pellentesque quam consectetur ut. 
@@ -21,8 +23,8 @@
             Donec at laoreet quam, eu aliquet diam. Suspendisse sed lacus quis dolor vehicula aliquet vel a ipsum. 
             Vivamus vel lectus molestie, pretium tellus vitae, commodo odio. 
             Aenean nec turpis ac nunc interdum sagittis et quis est. In id tortor efficitur, vestibulum dolor id, pharetra metus.
-        </p>
-    </main>
-    <%- include('./templates/Footer') %>
+            </p>
+        </main>
+        <%- include('./templates/Footer') %>
 </body>
 </html>

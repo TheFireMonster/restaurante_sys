@@ -72,6 +72,6 @@ Produto.init({
     ]
 })
 
-Produto.sync()
+//Produto.sync()
 
 export default Produto;

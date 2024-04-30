@@ -45,6 +45,6 @@ class Ingrediente extends Model{
         ]
     });
     
-    Ingrediente.sync();
+/*     Ingrediente.sync(); */
     
     export default Ingrediente;

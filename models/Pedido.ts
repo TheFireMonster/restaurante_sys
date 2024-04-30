@@ -71,12 +71,12 @@ Usuario.hasMany(Pedido, { foreignKey: 'id_usuario_pedido' });
 Pedido.belongsTo(Mesa, { foreignKey: 'id_mesa_pedido' });
 Mesa.hasMany(Pedido, { foreignKey: 'id_mesa_pedido' });
 
-Pedido.sync()
+/* Pedido.sync()
     .then(() => {
         console.log('Modelo Pedido sincronizado com o banco de dados.');
     })
     .catch((error) => {
         console.error('Erro ao sincronizar modelo Pedido com o banco de dados:', error);
-    });
+    }); */
 
 export default Pedido;

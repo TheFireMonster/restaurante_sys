@@ -89,13 +89,13 @@ Usuario.init({
     ]
 });
 
-Usuario.sync({ alter: true })
+/* Usuario.sync({ alter: true })
     .then(() => {
         console.log('Modelo Usuario sincronizado com o banco de dados.');
     })
     .catch((error) => {
         console.error('Erro ao sincronizar modelo Usuario com o banco de dados:', error);
-    });
+    }); */
 
 export default Usuario;
 

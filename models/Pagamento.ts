@@ -69,12 +69,12 @@ Usuario.hasMany(Pagamento, { foreignKey: 'id_usuario_pagamento' });
 Pagamento.belongsTo(Pedido, { foreignKey: 'id_pedido_pagamento' });
 Pedido.hasMany(Pagamento, { foreignKey: 'id_pedido_pagamento' });
 
-Pagamento.sync()
+/* Pagamento.sync()
     .then(() => {
         console.log('Modelo Pagamento sincronizado com o banco de dados.');
     })
     .catch((error) => {
         console.error('Erro ao sincronizar modelo Pagamento com o banco de dados:', error);
-    });
+    }); */
 
 export default Pagamento;
