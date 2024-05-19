@@ -8,6 +8,34 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Pedidos</title>
     <!--<script src="../src/Pedidos.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("formSanitizacao").addEventListener("submit", function(event) {
+                event.preventDefault(); // Evita o envio do formulário
+
+                const idUsuario = document.getElementById("ped_id_usuario").value;
+                const numeroMesa = document.getElementById("ped_numero_mesa").value;
+                const idProduto = document.getElementById("ped_id_produto").value;
+                const quantidadeProduto = document.getElementById("ped_quantidade_produto").value;
+                const valorPedido = document.getElementById("valor_ped").value;
+
+                const idUsuarioSanitizado = xss(idUsuario);
+                const numeroMesaSanitizado = xss(numeroMesa);
+                const idProdutoSanitizado = xss(idProduto);
+                const quantidadeProdutoSanitizada = xss(quantidadeProduto);
+                const valorPedidoSanitizado = xss(valorPedido);
+
+                document.getElementById("ped_id_usuario").value = idUsuarioSanitizado;
+                document.getElementById("ped_numero_mesa").value = numeroMesaSanitizado;
+                document.getElementById("ped_id_produto").value = idProdutoSanitizado;
+                document.getElementById("ped_quantidade_produto").value = quantidadeProdutoSanitizada;
+                document.getElementById("valor_ped").value = valorPedidoSanitizado;
+
+                event.target.submit();
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="wrapper">

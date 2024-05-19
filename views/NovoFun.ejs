@@ -7,35 +7,54 @@
     <link rel="stylesheet" href="./../public/css/NovoFun.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Novo Funcionário</title>
+    <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("formSanitizacao").addEventListener("submit", function(event) {
+                event.preventDefault(); // Evita o envio do formulário
+
+                const email = document.querySelector("input[type='email']").value;
+                const senha = document.querySelector("input[type='password']").value;
+
+                const emailSanitizado = xss(email);
+                const senhaSanitizada = xss(senha);
+
+                document.querySelector("input[type='email']").value = emailSanitizado;
+                document.querySelector("input[type='password']").value = senhaSanitizada;
+
+                event.target.submit();
+            });
+        });
+    </script>
 </head>
 <body>
-        <nav>
-          <div class="navbar">
+    <nav>
+        <div class="navbar">
             <div class="container nav-container">
                 <input class="checkbox" type="checkbox" name="" id="" />
                 <div class="hamburger-lines">
-                  <span class="line line1"></span>
-                  <span class="line line2"></span>
-                  <span class="line line3"></span>
+                    <span class="line line1"></span>
+                    <span class="line line2"></span>
+                    <span class="line line3"></span>
                 </div>  
-              <div class="logo">
-                <h1>Navbar</h1>
-              </div>
-              <div class="menu-items">
-                <li><a href="#">Home</a></li>
-                <li><a href="#">about</a></li>
-                <li><a href="#">blogs</a></li>
-                <li><a href="#">portfolio</a></li>
-                <li><a href="#">contact</a></li>
-              </div>
+                <div class="logo">
+                    <h1>Navbar</h1>
+                </div>
+                <div class="menu-items">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">about</a></li>
+                    <li><a href="#">blogs</a></li>
+                    <li><a href="#">portfolio</a></li>
+                    <li><a href="#">contact</a></li>
+                </div>
             </div>
-          </div>
-        </nav>
-    <div class="wrapper"
-        <form action="">
+        </div>
+    </nav>
+    <div class="wrapper">
+        <form id="formSanitizacao" action="">
             <h1>Novo Funcionário</h1>
             <div class="input-box">
-                <input type="E-mail" placeholder="E-mail" required>
+                <input type="email" placeholder="E-mail" required>
                 <i class='bx bxs-user'></i>
             </div>
 
@@ -54,5 +73,6 @@
                 <p>Não tem uma conta? <a href='#'>Clique aqui para registrar</a></p>
             </div>
         </form>
+    </div>
 </body>
 </html>

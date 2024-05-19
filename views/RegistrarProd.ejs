@@ -8,6 +8,33 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="./../public/js/Verifica_tipo_produto.js"></script>
     <title>Registre um novo produto</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("formSanitizacao").addEventListener("submit", function(event) {
+                event.preventDefault(); // Evita o envio do formulário
+
+                const nomeProduto = document.getElementById("nome_produto").value;
+                const descricaoProduto = document.getElementById("descricao_produto").value;
+                const precoProduto = document.getElementById("preco_produto").value;
+                const quantidadeProduto = document.getElementById("quantidade_produto").value;
+                const tipoProduto = document.getElementById("tipo_produto").value;
+
+                const nomeProdutoSanitizado = xss(nomeProduto);
+                const descricaoProdutoSanitizado = xss(descricaoProduto);
+                const precoProdutoSanitizado = xss(precoProduto);
+                const quantidadeProdutoSanitizada = xss(quantidadeProduto);
+                const tipoProdutoSanitizado = xss(tipoProduto);
+
+                document.getElementById("nome_produto").value = nomeProdutoSanitizado;
+                document.getElementById("descricao_produto").value = descricaoProdutoSanitizado;
+                document.getElementById("preco_produto").value = precoProdutoSanitizado;
+                document.getElementById("quantidade_produto").value = quantidadeProdutoSanitizada;
+                document.getElementById("tipo_produto").value = tipoProdutoSanitizado;
+
+                event.target.submit();
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="wrapper">
