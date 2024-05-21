@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,26 +8,30 @@
     <link rel="stylesheet" href="./../public/css/NovoFun.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Novo Funcionário</title>
+    <script src="../public/js/validations.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("formSanitizacao").addEventListener("submit", function(event) {
-                event.preventDefault(); // Evita o envio do formulário
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("formfun").addEventListener("submit", function (event) {
+                event.preventDefault();
 
-                const email = document.querySelector("input[type='email']").value;
-                const senha = document.querySelector("input[type='password']").value;
+                email = document.getElementById("email").value;
+                pass = document.getElementById("pass").value;
 
-                const emailSanitizado = xss(email);
-                const senhaSanitizada = xss(senha);
+                if (validate_email("email") && validate_password("pass")) {
+                    const emailSanitized = xss(email);
+                    const passSanitized = xss(pass);
 
-                document.querySelector("input[type='email']").value = emailSanitizado;
-                document.querySelector("input[type='password']").value = senhaSanitizada;
+                    email = emailSanitized;
+                    pass = passSanitized;
 
-                event.target.submit();
+                    event.target.submit();
+                }
             });
         });
     </script>
 </head>
+
 <body>
     <nav>
         <div class="navbar">
@@ -36,7 +41,7 @@
                     <span class="line line1"></span>
                     <span class="line line2"></span>
                     <span class="line line3"></span>
-                </div>  
+                </div>
                 <div class="logo">
                     <h1>Navbar</h1>
                 </div>
@@ -51,16 +56,16 @@
         </div>
     </nav>
     <div class="wrapper">
-        <form id="formSanitizacao" action="">
+        <form id="formfun" action="">
             <h1>Novo Funcionário</h1>
             <div class="input-box">
-                <input type="email" placeholder="E-mail" required>
+                <input type="email" id="email" placeholder="E-mail" required>
                 <i class='bx bxs-user'></i>
             </div>
 
             <div class="input-box">
-                <input type="password" placeholder="Senha" required>
-                <i class='bx bxs-lock-alt' ></i>
+                <input type="password" id="pass" placeholder="Senha" required>
+                <i class='bx bxs-lock-alt'></i>
             </div>
 
             <div class="remember-forgot">
@@ -75,4 +80,5 @@
         </form>
     </div>
 </body>
+
 </html>

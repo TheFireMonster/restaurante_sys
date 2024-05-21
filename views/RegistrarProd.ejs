@@ -6,39 +6,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../public/css/Registra.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="../public/js/validations.js"></script>
     <script src="./../public/js/Verifica_tipo_produto.js"></script>
     <title>Registre um novo produto</title>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("formSanitizacao").addEventListener("submit", function(event) {
-                event.preventDefault(); // Evita o envio do formulário
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("formprod").addEventListener("submit", function (event) {
+                event.preventDefault();
 
-                const nomeProduto = document.getElementById("nome_produto").value;
-                const descricaoProduto = document.getElementById("descricao_produto").value;
-                const precoProduto = document.getElementById("preco_produto").value;
-                const quantidadeProduto = document.getElementById("quantidade_produto").value;
-                const tipoProduto = document.getElementById("tipo_produto").value;
+                nomeProduto = document.getElementById("nome_produto").value;
+                descricaoProduto = document.getElementById("descricao_produto").value;
+                precoProduto = document.getElementById("preco_produto").value;
+                quantidadeProduto = document.getElementById("quantidade_produto").value;
+                tipoProduto = document.getElementById("tipo_produto").value;
 
-                const nomeProdutoSanitizado = xss(nomeProduto);
-                const descricaoProdutoSanitizado = xss(descricaoProduto);
-                const precoProdutoSanitizado = xss(precoProduto);
-                const quantidadeProdutoSanitizada = xss(quantidadeProduto);
-                const tipoProdutoSanitizado = xss(tipoProduto);
+                if (validate_name("nome_produto", "formprod") &&
+                    validate_text("descricao_produto", "formprod") &&
+                    validate_preco("preco_produto", "formprod") &&
+                    validate_quant("quantidade_produto", "formprod") &&
+                    validate_product_type("tipo_produto", "formprod")) {
 
-                document.getElementById("nome_produto").value = nomeProdutoSanitizado;
-                document.getElementById("descricao_produto").value = descricaoProdutoSanitizado;
-                document.getElementById("preco_produto").value = precoProdutoSanitizado;
-                document.getElementById("quantidade_produto").value = quantidadeProdutoSanitizada;
-                document.getElementById("tipo_produto").value = tipoProdutoSanitizado;
+                    const nomeProdutoSanitized = xss(nomeProduto);
+                    const descricaoProdutoSanitized = xss(descricaoProduto);
+                    const precoProdutoSanitized = xss(precoProduto);
+                    const quantidadeProdutoSanitized = xss(quantidadeProduto);
+                    const tipoProdutoSanitized = xss(tipoProduto);
 
-                event.target.submit();
+                    nomeProduto = nomeProdutoSanitized;
+                    descricaoProduto = descricaoProdutoSanitized;
+                    precoProduto = precoProdutoSanitized;
+                    quantidadeProduto = quantidadeProdutoSanitized;
+                    tipoProduto = tipoProdutoSanitized;
+
+                    event.target.submit();
+                }
             });
         });
     </script>
 </head>
 <body>
     <div class="wrapper">
-        <form action="/prod-fim" method="POST" autocomplete="off">
+        <form id="formprod" action="/prod-fim" method="POST" autocomplete="off">
             <h1>Registre um novo produto</h1>
             <div class="input-box">
                 <input type="text" placeholder="Nome do produto" id="nome_produto" name="nome_produto" required>

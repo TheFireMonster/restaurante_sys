@@ -9,37 +9,39 @@
     <title>Login</title>
     <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("formSanitizacao").addEventListener("submit", function(event) {
-                event.preventDefault(); // Evita o envio do formulário
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("formlogin").addEventListener("submit", function(event) {
+        event.preventDefault();
 
-                const email = document.querySelector("input[type='email']").value;
-                const senha = document.querySelector("input[type='password']").value;
+        email = document.getElementById("email").value;
+        pass = document.getElementById("pass").value;
 
-                const emailSanitizado = xss(email);
-                const senhaSanitizada = xss(senha);
+        if (validate_email(email) && validate_password(pass)) {
+            const emailSanitized = xss(email);
+            const passSanitized = xss(pass);
 
-                document.querySelector("input[type='email']").value = emailSanitizado;
-                document.querySelector("input[type='password']").value = senhaSanitizada;
+            email = emailSanitized; 
+            pass = passSanitized;
 
-                event.target.submit();
-            });
-        });
+            event.target.submit();
+        }
+    });
+});
     </script>
 </head>
 <body>
 
 <div class="wrapper">
-    <form id="formSanitizacao" action="">
+    <form id="formlogin" action="">
         <i class='bx bxs-pizza' id="icone"></i>
         <h1>Login</h1>
         <div class="input-box">
-            <input type="email" placeholder="E-mail" required>
+            <input type="email" id="email" placeholder="E-mail" required>
             <i class='bx bxs-user'></i>
         </div>
 
         <div class="input-box">
-            <input type="password" placeholder="Senha" required>
+            <input type="password" id="pass" placeholder="Senha" required>
             <i class='bx bxs-lock-alt' ></i>
         </div>
 
