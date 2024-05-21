@@ -168,7 +168,7 @@ function validate_product_type(productId, formId) {
     }
 }
 function validate_price(priceId, formId) {
-    var regexPrice = RegExp(/^(R\$|\$|€|£|¥)?(\d{1,3}(,\d{3})*|\d+)(\.\d{1,2})?$/);
+    var regexPrice = RegExp(/^(R\$|\$|€|£|¥)(\d{1,3}(\.\d{3})*|\d+)(,\d{1,2})?$/);
     var formElement = document.getElementById(formId);
     if (!formElement) {
         console.error("Elemento formulário não encontrado");
