@@ -191,7 +191,7 @@ function validate_product_type(productId: string, formId: string): void{
 }
 
 function validate_price(priceId: string, formId: string): void{
-    const regexPrice = RegExp(/^(R\$|\$|€|£|¥)?(\d{1,3}(,\d{3})*|\d+)(\.\d{1,2})?$/)
+    const regexPrice = RegExp(/^(R\$|\$|€|£|¥)(\d{1,3}(\.\d{3})*|\d+)(,\d{1,2})?$/)
     const formElement = document.getElementById(formId);
 
     if (!formElement) {
