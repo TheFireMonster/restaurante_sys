@@ -1,33 +1,42 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
+    <script src="../public/js/validations.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("formSanitizacao").addEventListener("submit", function(event) {
-                event.preventDefault(); // Evita o envio do formulário
+        document.addEventListener("DOMContentLoaded", function () {
 
-                const email = document.getElementById("email").value;
-                const nome = document.getElementById("nome").value;
-                const senha = document.getElementById("senha").value;
-                const telefone = document.getElementById("fone").value;
-                const cpf = document.getElementById("cpf").value;
+            validate_phone("phone");
+            validate_cpf("cpf");
 
-                const emailSanitizado = xss(email);
-                const nomeSanitizado = xss(nome);
-                const senhaSanitizada = xss(senha);
-                const telefoneSanitizado = xss(telefone);
-                const cpfSanitizado = xss(cpf);
+            document.getElementById("formcad").addEventListener("submit", function (event) {
+                event.preventDefault();
 
-                document.getElementById("email").value = emailSanitizado;
-                document.getElementById("nome").value = nomeSanitizado;
-                document.getElementById("senha").value = senhaSanitizada;
-                document.getElementById("fone").value = telefoneSanitizado;
-                document.getElementById("cpf").value = cpfSanitizado;
-                
-                event.target.submit();
+                email = document.getElementById("email").value;
+                name = document.getElementById("name").value;
+                pass = document.getElementById("pass").value;
+                phone = document.getElementById("phone").value;
+                cpf = document.getElementById("cpf").value;
+
+
+                if (validate_email(email) && validate_name(name) && validate_password(pass)) {
+                    const emailSanitized = xss(email);
+                    const nameSanitized = xss(name);
+                    const passSanitized = xss(pass);
+                    const phoneSanitized = xss(phone);
+                    const cpfSanitized = xss(cpf);
+
+                    email = emailSanitized;
+                    name = nameSanitized;
+                    pass = passSanitized;
+                    phone = phoneSanitized;
+                    cpf = cpfSanitized;
+
+                    event.target.submit();
+                }
             });
-        });
+        })
     </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -36,10 +45,11 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' type="text/css">
     <title>Cadastro</title>
 </head>
+
 <body>
 
     <div class="wrapper">
-        <form id="formSanitizacao" action="/cad-fim" method="POST">
+        <form id="formcad" action="/cad-fim" method="POST">
             <i class='bx bxs-pizza' id="icone"></i>
             <div class="input-box">
                 <input type="email" placeholder="Digite seu E-mail" id="email" name="email" required>
@@ -47,26 +57,27 @@
             </div>
 
             <div class="input-box">
-                <input type="text" placeholder="Digite seu Nome" id="nome" name="nome" required>
+                <input type="text" placeholder="Digite seu Name" id="name" name="name" required>
                 <i class='bx bxs-user'></i>
             </div>
 
             <div class="input-box">
-                <input type="password" placeholder="Digite sua Senha" id="senha" name="senha" required>
-                <i class='bx bxs-lock-alt' ></i>    
+                <input type="password" placeholder="Digite sua pass" id="pass" name="pass" required>
+                <i class='bx bxs-lock-alt'></i>
             </div>
 
             <div class="input-box">
-                <input type="tel" pattern="[0-9]{10}" placeholder="Digite seu telefone" id="fone" name="fone" required>
-                <i class='bx bxs-lock-alt' ></i>
+                <input type="text" placeholder="Digite seu fone" id="phone" name="phone" required>
+                <i class='bx bxs-user'></i>
             </div>
 
             <div class="input-box">
-                <input type="number" placeholder="Digite seu CPF" id="cpf" name="cpf" required>
+                <input type="text" placeholder="Digite seu CPF" id="cpf" name="cpf" required>
                 <i class='bx bxs-user'></i>
             </div>
             <button type="submit" class="btn">Cadastrar</button>
         </form>
     </div>
 </body>
+
 </html>

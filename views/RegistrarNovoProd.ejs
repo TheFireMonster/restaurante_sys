@@ -12,7 +12,6 @@
 </head>
 
 <body>
-
     <div class="wrapper">
         <i class='bx bx-check' id="icone"></i>
         <h1>Produto registrado com sucesso</h1>
@@ -23,14 +22,6 @@
             <button id="novamente">Registrar outro produto</button>
         </a>
     </div>
-
-    <script>
-        // Sanitizar os elementos do DOM
-        const wrapper = document.querySelector(".wrapper");
-        const h1 = wrapper.querySelector("h1");
-        h1.innerHTML = xss(h1.innerHTML);
-    </script>
-
 </body>
 
 </html>
