@@ -16,7 +16,9 @@
                 event.preventDefault();
 
                 email = document.getElementById("email").value;
+                console.log("Email valid:", isEmailValid);
                 pass = document.getElementById("pass").value;
+                const isPasswordValid = validate_password("pass", "formcad");
 
                 if (validate_email("email") && validate_password("pass")) {
                     const emailSanitized = xss(email);

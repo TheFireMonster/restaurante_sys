@@ -2,6 +2,9 @@ import express, { Request, Response, Router } from 'express';
 import Usuario from '../../models/Usuario';
 import Produto from '../../models/Produto';
 import Pedido from '../../models/Pedido';
+import { LoginController } from '../controllers/LoginController';
+import { LogoutController } from '../controllers/LogoutController';
+import { authMiddleware } from '../middlewares/authMiddleware';
 
 class MenuRoute {
     static getMenu(req: Request, res: Response) {
@@ -21,9 +24,9 @@ class SignupRoute {
     }
     
     static async postSignup(req: Request, res: Response) {
-        const { email, nome, senha, fone, cpf } = req.body;
+        const { email, name, pass, phone, cpf } = req.body;
         try {
-            await Usuario.create({ senha_usuario: senha, nome_usuario: nome, cpf_usuario: cpf, telefone_usuario: fone, email_usuario: email });
+            await Usuario.create({ senha_usuario: pass, nome_usuario: name, cpf_usuario: cpf, telefone_usuario: phone, email_usuario: email });
             res.send("Usuário cadastrado com sucesso");
         } catch (error) {
             console.error(error);
@@ -84,11 +87,14 @@ class Routes {
         this.router.get('/cardapio', getMenu);
         this.router.get('/home', getHome);
         this.router.get('/cadastro', getSignup);
+        this.router.post('/login', new LoginController().login);
+        this.router.post('/logout', authMiddleware, new LogoutController().logout);
+        this.router.get('/profile', new LoginController().getProfile);
         this.router.post('/cad-fim', postSignup);
-        this.router.get('/produtocad', getRegProd);
-        this.router.post('/prod-fim', postRegProd);
-        this.router.get('/pedidocad', getRegOrd);
-        this.router.post('/ped-fim', postRegOrd);
+        this.router.get('/produtocad', authMiddleware, getRegProd);
+        this.router.post('/prod-fim', authMiddleware, postRegProd);
+        this.router.get('/pedidocad', authMiddleware, getRegOrd);
+        this.router.post('/ped-fim', authMiddleware, postRegOrd);
     }
 }
 
