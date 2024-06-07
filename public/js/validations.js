@@ -3,19 +3,21 @@ function validate_email(emailId, formId) {
     var formElement = document.getElementById(formId);
     if (!formElement) {
         console.error("Elemento formulário não encontrado");
-        return;
+        return false;
     }
     var emailElement = document.getElementById(emailId);
     if (!emailElement) {
         console.error("Elemento email não encontrado!");
-        return;
+        return false;
     }
     var emailValue = emailElement.value;
     if (regexEmail.test(emailValue)) {
         alert("Endereço de e-mail válido!");
+        return true;
     }
     else {
         alert("Endereço de e-mail inválido!");
+        return false;
     }
 }
 function validate_name(nameId, formId) {
@@ -23,18 +25,21 @@ function validate_name(nameId, formId) {
     var formElement = document.getElementById(formId);
     if (!formElement) {
         console.error("Elemento formulário não encontrado");
-        return;
+        return false;
     }
     var nameElement = document.getElementById(nameId);
     if (!nameElement) {
         console.error("Elemento nome não encontrado");
+        return false;
     }
     var nameValue = nameElement.value;
     if (regexName.test(nameValue)) {
         alert("Nome válido!");
+        return true;
     }
     else {
         alert("Nome inválido!");
+        return false;
     }
 }
 function validate_password(passId, formId) {
@@ -42,18 +47,21 @@ function validate_password(passId, formId) {
     var formElement = document.getElementById(formId);
     if (!formElement) {
         console.error("Elemento formulário não encontrado");
-        return;
+        return false;
     }
     var passElement = document.getElementById(passId);
     if (!passElement) {
         console.error("Elemento senha não encontrado");
+        return false;
     }
     var passValue = passElement.value;
     if (regexPass.test(passValue)) {
         alert("Senha válida!");
+        return true;
     }
     else {
         alert("Senha inválida!");
+        return false;
     }
 }
 function validate_phone(phoneId) {
@@ -94,19 +102,21 @@ function validate_id(idId, formId) {
     var formElement = document.getElementById(formId);
     if (!formElement) {
         console.error("Elemento formulário não encontrado");
-        return;
+        return false;
     }
     var IdElement = document.getElementById(idId);
     if (!IdElement) {
         console.error("Elemento email não encontrado!");
-        return;
+        return false;
     }
     var IdValue = IdElement.value;
     if (regexId.test(IdValue)) {
         alert("Endereço de e-mail válido!");
+        return true;
     }
     else {
         alert("Endereço de e-mail inválido!");
+        return false;
     }
 }
 function validate_quant(quantId, formId) {
@@ -114,19 +124,21 @@ function validate_quant(quantId, formId) {
     var formElement = document.getElementById(formId);
     if (!formElement) {
         console.error("Elemento formulário não encontrado");
-        return;
+        return false;
     }
     var IdElement = document.getElementById(quantId);
     if (!IdElement) {
         console.error("Elemento email não encontrado!");
-        return;
+        return false;
     }
     var IdValue = IdElement.value;
     if (regexQuant.test(IdValue)) {
         alert("Endereço de e-mail válido!");
+        return true;
     }
     else {
         alert("Endereço de e-mail inválido!");
+        return false;
     }
 }
 function validate_text(textId, formId) {
@@ -134,18 +146,21 @@ function validate_text(textId, formId) {
     var formElement = document.getElementById(formId);
     if (!formElement) {
         console.error("Elemento formulário não encontrado");
-        return;
+        return false;
     }
     var nameElement = document.getElementById(textId);
     if (!nameElement) {
         console.error("Elemento de texto não encontrado");
+        return false;
     }
     var nameValue = nameElement.value;
     if (regexText.test(nameValue)) {
         alert("Texto válido!");
+        return true;
     }
     else {
         alert("Texto inválido!");
+        return false;
     }
 }
 function validate_product_type(productId, formId) {
@@ -153,18 +168,21 @@ function validate_product_type(productId, formId) {
     var formElement = document.getElementById(formId);
     if (!formElement) {
         console.error("Elemento formulário não encontrado");
-        return;
+        return false;
     }
     var productElement = document.getElementById(productId);
     if (!productElement) {
         console.error("Elemento nome não encontrado");
+        return false;
     }
     var productValue = productElement.value;
     if (regexProductType.test(productValue)) {
         alert("Tipo de produto válido!");
+        return true;
     }
     else {
         alert("Tipo inválido!");
+        return false;
     }
 }
 function validate_price(priceId, formId) {
@@ -172,17 +190,20 @@ function validate_price(priceId, formId) {
     var formElement = document.getElementById(formId);
     if (!formElement) {
         console.error("Elemento formulário não encontrado");
-        return;
+        return false;
     }
     var productElement = document.getElementById(priceId);
     if (!productElement) {
         console.error("Elemento preço não encontrado");
+        return false;
     }
     var productValue = productElement.value;
     if (regexPrice.test(productValue)) {
         alert("Preço válido!");
+        return true;
     }
     else {
         alert("Preço inválido!");
+        return false;
     }
 }
