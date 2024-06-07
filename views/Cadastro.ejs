@@ -1,34 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+    <script src="../public/js/validations.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("formSanitizacao").addEventListener("submit", function(event) {
-                event.preventDefault(); // Evita o envio do formulário
+        document.addEventListener("DOMContentLoaded", function () {
+            validate_phone("phone");
+            validate_cpf("cpf");
+
+            document.getElementById("formcad").addEventListener("submit", function (event) {
+                event.preventDefault();
 
                 const email = document.getElementById("email").value;
-                const nome = document.getElementById("nome").value;
-                const senha = document.getElementById("senha").value;
-                const telefone = document.getElementById("fone").value;
+                const name = document.getElementById("name").value;
+                const password = document.getElementById("password").value;
+                const phone = document.getElementById("phone").value;
                 const cpf = document.getElementById("cpf").value;
 
-                const emailSanitizado = xss(email);
-                const nomeSanitizado = xss(nome);
-                const senhaSanitizada = xss(senha);
-                const telefoneSanitizado = xss(telefone);
-                const cpfSanitizado = xss(cpf);
+                const isEmailValid = validate_email("email", "formcad");
+                console.log("Email valid:", isEmailValid);
+                const isNameValid = validate_name("name", "formcad");
+                console.log("Name valid:", isNameValid);
+                const isPasswordValid = validate_password("password", "formcad");
+                console.log("Password valid:", isPasswordValid);
 
-                document.getElementById("email").value = emailSanitizado;
-                document.getElementById("nome").value = nomeSanitizado;
-                document.getElementById("senha").value = senhaSanitizada;
-                document.getElementById("fone").value = telefoneSanitizado;
-                document.getElementById("cpf").value = cpfSanitizado;
-                
-                event.target.submit();
+                if (isEmailValid && isNameValid && isPasswordValid) {
+
+                    const emailSanitized = filterXSS(email);
+                    const nameSanitized = filterXSS(name);
+                    const passSanitized = filterXSS(pass);
+                    const phoneSanitized = filterXSS(phone);
+                    const cpfSanitized = filterXSS(cpf);
+
+                    const formData = {
+                        email: emailSanitized,
+                        name: nameSanitized,
+                        password: passSanitized,
+                        phone: phoneSanitized,
+                        cpf: cpfSanitized
+                    };
+
+                    fetch("/cad-fim", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(formData)
+                    })  
+                        .then(response => {
+                            if (response.ok) {
+                                alert("Cadastro realizado com sucesso");
+                                document.getElementById("formcad").reset();
+                            } else {
+                                alert("Senha ou email inválidos.");
+                            }
+                        })
+                } else {
+                    alert("Por favor corrija os campos incorretos");
+                }
             });
         });
-    </script>
+            </script>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,10 +69,11 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' type="text/css">
     <title>Cadastro</title>
 </head>
+
 <body>
 
     <div class="wrapper">
-        <form id="formSanitizacao" action="/cad-fim" method="POST">
+        <form id="formcad">
             <i class='bx bxs-pizza' id="icone"></i>
             <div class="input-box">
                 <input type="email" placeholder="Digite seu E-mail" id="email" name="email" required>
@@ -47,26 +81,27 @@
             </div>
 
             <div class="input-box">
-                <input type="text" placeholder="Digite seu Nome" id="nome" name="nome" required>
+                <input type="text" placeholder="Digite seu nome" id="name" name="name" required>
                 <i class='bx bxs-user'></i>
             </div>
 
             <div class="input-box">
-                <input type="password" placeholder="Digite sua Senha" id="senha" name="senha" required>
-                <i class='bx bxs-lock-alt' ></i>    
+                <input type="password" placeholder="Digite sua senha" id="password" name="pass" required>
+                <i class='bx bxs-lock-alt'></i>
             </div>
 
             <div class="input-box">
-                <input type="tel" pattern="[0-9]{10}" placeholder="Digite seu telefone" id="fone" name="fone" required>
-                <i class='bx bxs-lock-alt' ></i>
-            </div>
-
-            <div class="input-box">
-                <input type="number" placeholder="Digite seu CPF" id="cpf" name="cpf" required>
+                <input type="text" placeholder="Digite seu fone" id="phone" name="phone" required>
                 <i class='bx bxs-user'></i>
             </div>
-            <button type="submit" class="btn">Cadastrar</button>
+
+            <div class="input-box">
+                <input type="text" placeholder="Digite seu CPF" id="cpf" name="cpf" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            <button type="submit" id="enviar" class="btn">Cadastrar</button>
         </form>
     </div>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,26 +8,55 @@
     <link rel="stylesheet" href="./../public/css/NovoFun.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <title>Novo Funcionário</title>
+    <script src="../public/js/validations.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.getElementById("formSanitizacao").addEventListener("submit", function(event) {
-                event.preventDefault(); // Evita o envio do formulário
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("formfun").addEventListener("submit", function (event) {
+        event.preventDefault();
 
-                const email = document.querySelector("input[type='email']").value;
-                const senha = document.querySelector("input[type='password']").value;
+        const email = document.getElementById("email").value;
+        const pass = document.getElementById("pass").value;
 
-                const emailSanitizado = xss(email);
-                const senhaSanitizada = xss(senha);
+        const isEmailValid = validate_email(email);
+        const isPasswordValid = validate_password(pass);
 
-                document.querySelector("input[type='email']").value = emailSanitizado;
-                document.querySelector("input[type='password']").value = senhaSanitizada;
+        if (isEmailValid && isPasswordValid) {
+            const emailSanitized = xss(email);
+            const passSanitized = xss(pass);
 
-                event.target.submit();
+            const formData = {
+                email: emailSanitized,
+                pass: passSanitized
+            };
+
+            fetch("/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Request successful!");
+                    document.getElementById("formfun").reset();
+                } else {
+                    alert("Invalid email or password.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while processing your request.");
             });
-        });
+        } else {
+            alert("Please correct the invalid fields.");
+        }
+    });
+});
     </script>
 </head>
+
 <body>
     <nav>
         <div class="navbar">
@@ -36,7 +66,7 @@
                     <span class="line line1"></span>
                     <span class="line line2"></span>
                     <span class="line line3"></span>
-                </div>  
+                </div>
                 <div class="logo">
                     <h1>Navbar</h1>
                 </div>
@@ -51,16 +81,16 @@
         </div>
     </nav>
     <div class="wrapper">
-        <form id="formSanitizacao" action="">
+        <form id="formfun">
             <h1>Novo Funcionário</h1>
             <div class="input-box">
-                <input type="email" placeholder="E-mail" required>
+                <input type="email" id="email" placeholder="E-mail" required>
                 <i class='bx bxs-user'></i>
             </div>
 
             <div class="input-box">
-                <input type="password" placeholder="Senha" required>
-                <i class='bx bxs-lock-alt' ></i>
+                <input type="password" id="pass" placeholder="Senha" required>
+                <i class='bx bxs-lock-alt'></i>
             </div>
 
             <div class="remember-forgot">
@@ -75,4 +105,10 @@
         </form>
     </div>
 </body>
-</html>
+
+</html> 
+
+TO BE IMPLEMENTED...
+
+-->
+

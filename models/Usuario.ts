@@ -36,7 +36,7 @@ class Usuario extends Model implements UsuarioAttributes {
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
-    // Método para validar a senha do usuário
+
     validPassword(senha_usuario: string) {
         return bcrypt.compareSync(senha_usuario, this.senha_usuario);
     }
@@ -54,8 +54,10 @@ Usuario.init({
         type: DataTypes.STRING(60),
         allowNull: false,
         set(this: Usuario, value: string) {
-            const hash = bcrypt.hashSync(value, 11);
-            this.setDataValue('senha_usuario', hash);
+            if (this.isNewRecord || this.changed('senha_usuario')) {
+                const hash = bcrypt.hashSync(value, 11);
+                this.setDataValue('senha_usuario', hash);
+            }
         }
     },
     nome_usuario: {
