@@ -14,17 +14,42 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("formlogin").addEventListener("submit", function(event) {
         event.preventDefault();
 
-        email = document.getElementById("email").value;
-        pass = document.getElementById("pass").value;
+        const email = document.getElementById("email").value;
+        const pass = document.getElementById("pass").value;
 
-        if (validate_email(email) && validate_password(pass)) {
+        const isEmailValid = validate_email(email);
+        const isPasswordValid = validate_password(pass);
+
+        if (isEmailValid && isPasswordValid) {
             const emailSanitized = xss(email);
             const passSanitized = xss(pass);
 
-            email = emailSanitized; 
-            pass = passSanitized;
+            const formData = {
+                email: emailSanitized,
+                pass: passSanitized
+            };
 
-            event.target.submit();
+            fetch("/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Login successful!");
+                    document.getElementById("formlogin").reset();
+                } else {
+                    alert("Invalid email or password.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while processing your request.");
+            });
+        } else {
+            alert("Please correct the invalid fields.");
         }
     });
 });

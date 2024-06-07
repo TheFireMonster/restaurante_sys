@@ -14,31 +14,60 @@
             document.getElementById("formprod").addEventListener("submit", function (event) {
                 event.preventDefault();
 
-                nomeProduto = document.getElementById("nome_produto").value;
-                descricaoProduto = document.getElementById("descricao_produto").value;
-                precoProduto = document.getElementById("preco_produto").value;
-                quantidadeProduto = document.getElementById("quantidade_produto").value;
-                tipoProduto = document.getElementById("tipo_produto").value;
+                const nomeProduto = document.getElementById("nome_produto").value;
+                const descricaoProduto = document.getElementById("descricao_produto").value;
+                const precoProduto = document.getElementById("preco_produto").value;
+                const quantidadeProduto = document.getElementById("quantidade_produto").value;
+                const tipoProduto = document.getElementById("tipo_produto").value;
 
-                if (validate_name("nome_produto", "formprod") &&
-                    validate_text("descricao_produto", "formprod") &&
-                    validate_preco("preco_produto", "formprod") &&
-                    validate_quant("quantidade_produto", "formprod") &&
-                    validate_product_type("tipo_produto", "formprod")) {
+                const isNameValid = validate_name("nome_produto", "formprod");
+                console.log("Name valid:", isIdUsuarioValid);
+                const isDescValid = validate_text("descricao_produto", "formprod");
+                console.log("Number valid:", isDescValid);
+                const isQuantProdValid = validate_quant("quantidade_produto", "formprod");
+                console.log("Quant valid:", isQuantProdValid);
+                const isPriceValid = validate_price("preco_produto", "formprod");
+                console.log("Price valid:", isPriceValid);
+                const isTypeValid = validate_product_type("tipo_produto", "formprod");
+                console.log("Type valid:", isTypeValid);
+                
+                if (isNameValid && isDescValid && isQuantProdValid && isPriceValid && isTypeValid) {
 
-                    const nomeProdutoSanitized = xss(nomeProduto);
-                    const descricaoProdutoSanitized = xss(descricaoProduto);
-                    const precoProdutoSanitized = xss(precoProduto);
-                    const quantidadeProdutoSanitized = xss(quantidadeProduto);
-                    const tipoProdutoSanitized = xss(tipoProduto);
+                    const nomeProdutoSanitized = filterXSS(nomeProduto);
+                    const descricaoProdutoSanitized = filterXSS(descricaoProduto);
+                    const precoProdutoSanitized = filterXSS(precoProduto);
+                    const quantidadeProdutoSanitized = filterXSS(quantidadeProduto);
+                    const tipoProdutoSanitized = filterXSS(tipoProduto);
 
-                    nomeProduto = nomeProdutoSanitized;
-                    descricaoProduto = descricaoProdutoSanitized;
-                    precoProduto = precoProdutoSanitized;
-                    quantidadeProduto = quantidadeProdutoSanitized;
-                    tipoProduto = tipoProdutoSanitized;
+                    const formData = {
+                        nome_produto: nomeProdutoSanitized,
+                        descricao_produto: descricaoProdutoSanitized,
+                        preco_produto: precoProdutoSanitized,
+                        quantidade_produto: quantidadeProdutoSanitized,
+                        tipo_produto: tipoProdutoSanitized
+                    };
 
-                    event.target.submit();
+                    fetch("/cad-produto", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            alert("Produto cadastrado com sucesso!");
+                            document.getElementById("formprod").reset();
+                        } else {
+                            alert("Erro ao cadastrar produto.");
+                        }
+                    })
+                    .catch(error => {
+                        console.error("Erro:", error);
+                        alert("Erro ao cadastrar produto.");
+                    });
+                } else {
+                    alert("Por favor, corrija os campos inválidos.");
                 }
             });
         });

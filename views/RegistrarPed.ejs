@@ -22,7 +22,7 @@
                 valorPedido = document.getElementById("valor_ped").value;
 
                 const isIdUsuarioValid = validate_id("ped_id_usuario", "formped");
-                console.log("Id valid:", isIdUsuarioValid);
+                console.log("Id User valid:", isIdUsuarioValid);
                 const isNumeroMesaValid = validate_id("ped_numero_mesa", "formped");
                 console.log("Number valid:", isNumeroMesaValid);
                 const isIdProdutoValid = validate_id("ped_id_produto", "formped");
@@ -30,17 +30,12 @@
                 const isQuantidadeProdutoValid = validate_quant("ped_quantidade_produto", "formped");
                 console.log("Quant valid:", isQuantidadeProdutoValid);
                 const isPriceValid = validate_price("valor_ped", "formped");
-                console.log("Quant valid:", isPriceValid);
+                console.log("PRICE valid:", isPriceValid);
 
 
 
                 if (isIdUsuarioValid && isNumeroMesaValid && isIdProdutoValid && isQuantidadeProdutoValid && isPriceValid) {
-                    if (typeof filterXSS === 'undefined') {
-                        console.error("A função filterXSS não está definida. Verifique se a biblioteca XSS foi carregada corretamente.");
-                        alert("Erro ao carregar biblioteca de segurança. Por favor, tente novamente.");
-                        return;
-                    }
-
+                    
                     const idUsuarioSanitized = filterXSS(idUsuario);
                     const numeroMesaSanitized = filterXSS(numeroMesa);
                     const idProdutoSanitized = filterXSS(idProduto);
@@ -52,8 +47,6 @@
                     idProduto = idProdutoSanitized;
                     quantidadeProduto = quantidadeProdutoSanitized;
                     valorPedido = valorPedidoSanitized;
-
-                    event.target.submit();
 
                     const formData = {
                         idUsuario: idUsuarioSanitized,
@@ -72,7 +65,7 @@
                     })
                         .then(response => {
                             if (response.ok) {
-                                alert("Cadastro realizado com sucesso!");
+                                alert("Registro de pedido realizado com sucesso!");
                                 document.getElementById("formped").reset();
                             } else {
                                 alert("Erro ao registrar pedido.");

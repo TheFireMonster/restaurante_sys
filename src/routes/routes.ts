@@ -5,6 +5,7 @@ import Pedido from '../../models/Pedido';
 import { LoginController } from '../controllers/LoginController';
 import { LogoutController } from '../controllers/LogoutController';
 import { authMiddleware } from '../middlewares/authMiddleware';
+import { authAdminMiddleware } from '../middlewares/authAdminMiddleware';
 
 class MenuRoute {
     static getMenu(req: Request, res: Response) {
@@ -89,9 +90,8 @@ class Routes {
         this.router.get('/cadastro', getSignup);
         this.router.post('/login', new LoginController().login);
         this.router.post('/logout', authMiddleware, new LogoutController().logout);
-        this.router.get('/profile', new LoginController().getProfile);
         this.router.post('/cad-fim', postSignup);
-        this.router.get('/produtocad', authMiddleware, getRegProd);
+        this.router.get('/produtocad', authAdminMiddleware, getRegProd);
         this.router.post('/prod-fim', authMiddleware, postRegProd);
         this.router.get('/pedidocad', authMiddleware, getRegOrd);
         this.router.post('/ped-fim', authMiddleware, postRegOrd);

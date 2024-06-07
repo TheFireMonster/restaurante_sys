@@ -9,5 +9,10 @@ export const userRepository = {
         return await Usuario.findOne({
             where: {email_usuario}
         });
+    },
+    findByRole: async (tipo_usuario: string) => {
+        return await Usuario.findOne({
+            where: {tipo_usuario}
+        });
     }
-};
+}

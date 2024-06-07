@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="pt-BR">
 
 <head>
@@ -11,26 +11,49 @@
     <script src="../public/js/validations.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("formfun").addEventListener("submit", function (event) {
-                event.preventDefault();
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("formfun").addEventListener("submit", function (event) {
+        event.preventDefault();
 
-                email = document.getElementById("email").value;
-                console.log("Email valid:", isEmailValid);
-                pass = document.getElementById("pass").value;
-                const isPasswordValid = validate_password("pass", "formcad");
+        const email = document.getElementById("email").value;
+        const pass = document.getElementById("pass").value;
 
-                if (validate_email("email") && validate_password("pass")) {
-                    const emailSanitized = xss(email);
-                    const passSanitized = xss(pass);
+        const isEmailValid = validate_email(email);
+        const isPasswordValid = validate_password(pass);
 
-                    email = emailSanitized;
-                    pass = passSanitized;
+        if (isEmailValid && isPasswordValid) {
+            const emailSanitized = xss(email);
+            const passSanitized = xss(pass);
 
-                    event.target.submit();
+            const formData = {
+                email: emailSanitized,
+                pass: passSanitized
+            };
+
+            fetch("/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert("Request successful!");
+                    document.getElementById("formfun").reset();
+                } else {
+                    alert("Invalid email or password.");
                 }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while processing your request.");
             });
-        });
+        } else {
+            alert("Please correct the invalid fields.");
+        }
+    });
+});
     </script>
 </head>
 
@@ -58,7 +81,7 @@
         </div>
     </nav>
     <div class="wrapper">
-        <form id="formfun" action="">
+        <form id="formfun">
             <h1>Novo Funcionário</h1>
             <div class="input-box">
                 <input type="email" id="email" placeholder="E-mail" required>
@@ -83,4 +106,9 @@
     </div>
 </body>
 
-</html>
+</html> 
+
+TO BE IMPLEMENTED...
+
+-->
+

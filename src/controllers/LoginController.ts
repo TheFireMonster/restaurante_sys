@@ -1,7 +1,7 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { userRepository } from '../repositories/userRepository';
-import { BadRequestError, UnauthorizedError } from '../helpers/apiErrors';
-import { generateToken } from '../services/genToken';
+import { UnauthorizedError } from '../helpers/apiErrors';
+import { generateToken, generateAdminToken } from '../services/genToken';
 import bcrypt from 'bcrypt';
 
 //interface UserLogin {
@@ -11,43 +11,57 @@ import bcrypt from 'bcrypt';
 //}
 
 export class LoginController {
-    async login(req: Request, res: Response) {
+    async login(req: Request, res: Response, next:NextFunction) {
         const { email, password } = req.body
 
         const user = await userRepository.findByEmail(email)
 
         if (!user) {
-            throw new UnauthorizedError('Invalid credentials');
+            return next(new UnauthorizedError('Invalid credentials'));
         }
 
         const verifyPass = await bcrypt.compare(password, user.senha_usuario)
 
         if (!verifyPass) {
-            throw new UnauthorizedError('Invalid credentials');
+            return next(new UnauthorizedError('Invalid credentials'));
+        }
+    
+
+        if (user.tipo_usuario === 'gerente'){
+            const { authTokenAdmin } = generateAdminToken(user.id_usuario, user.tipo_usuario);
+            res.cookie (process.env.AUTH_COOKIE_NAME ?? '', authTokenAdmin, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict'});
+
+            const { refreshTokenAdmin } = generateAdminToken(user.id_usuario, user.tipo_usuario);
+            res.cookie (process.env.REFRESH_COOKIE_NAME ?? '', refreshTokenAdmin, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict'});
+            
+            res.redirect('/produtocad')
         }
 
-        const { refreshToken } = generateToken(user.id_usuario);
+        else{
+            const { authToken } = generateToken(user.id_usuario);
+            res.cookie (process.env.AUTH_COOKIE_NAME ?? '', authToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict'});
 
-        res.cookie (process.env.REFRESH_COOKIE_NAME ?? '', refreshToken, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'strict'});
-        
-        res.redirect('/produtocad')
+            const { refreshToken } = generateToken(user.id_usuario);
+            res.cookie (process.env.REFRESH_COOKIE_NAME ?? '', refreshToken, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'strict'});
+            
+            res.redirect('/pedidocad')
+        }
 
-        //const userLogin: UserLogin = { id_usuario: user.id_usuario, email_usuario: user.email_usuario }
-        
-        //return res.json({ message:'Login successful', userLogin, token: refreshToken});
+
     }
 
 
-    async getProfile(req: Request, res: Response){
-        const { authorization } = req.headers
-        
-        if (!authorization) {
-            throw new UnauthorizedError('Não autorizado')
-        }
 
-        console.log(authorization)
-    }
 }

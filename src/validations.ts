@@ -49,7 +49,7 @@ function validate_name(nameId: string, formId: string): boolean {
 }
 
 function validate_password(passId: string, formId: string): boolean{
-    const regexPass = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,10}$/)
+    const regexPass = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,15}$/)
     const formElement = document.getElementById(formId);
 
     if (!formElement) {

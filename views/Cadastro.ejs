@@ -32,11 +32,6 @@
                 console.log("Password valid:", isPasswordValid);
 
                 if (isEmailValid && isNameValid && isPasswordValid) {
-                    if (typeof filterXSS === 'undefined') {
-                        console.error("A função filterXSS não está definida. Verifique se a biblioteca XSS foi carregada corretamente.");
-                        alert("Erro ao carregar biblioteca de segurança. Por favor, tente novamente.");
-                        return;
-                    }
 
                     const emailSanitized = filterXSS(email);
                     const nameSanitized = filterXSS(name);
