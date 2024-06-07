@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,77 +11,77 @@
     <script src="../public/js/validations.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
     <script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("formlogin").addEventListener("submit", function(event) {
-        event.preventDefault();
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("formlogin").addEventListener("submit", function (event) {
+                event.preventDefault();
 
-        const email = document.getElementById("email").value;
-        const pass = document.getElementById("pass").value;
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
 
-        const isEmailValid = validate_email(email);
-        const isPasswordValid = validate_password(pass);
+                const isEmailValid = validate_email("email", "formlogin");
+                const isPasswordValid = validate_password("password", "formlogin");
 
-        if (isEmailValid && isPasswordValid) {
-            const emailSanitized = xss(email);
-            const passSanitized = xss(pass);
+                console.log('Form data being sent:', email, password);
+                if (isEmailValid && isPasswordValid) {
+                    const emailSanitized = filterXSS(email);
+                    const passSanitized = filterXSS(password);
+                    
 
-            const formData = {
-                email: emailSanitized,
-                pass: passSanitized
-            };
+                    const formData = {
+                        email: emailSanitized,
+                        password: passSanitized
+                    };
 
-            fetch("/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
-                if (response.ok) {
-                    alert("Login successful!");
-                    document.getElementById("formlogin").reset();
+                    fetch("/login-fim", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                alert("Login realizado com sucesso");
+                                document.getElementById("formlogin").reset();
+                            } else {
+                                alert("Senha ou email inválidos.");
+                            }
+                        })
                 } else {
-                    alert("Invalid email or password.");
+                    alert("Por favor corrija os campos incorretos");
                 }
-            })
-            .catch(error => {
-                console.error("Error:", error);
-                alert("An error occurred while processing your request.");
             });
-        } else {
-            alert("Please correct the invalid fields.");
-        }
-    });
-});
+        });
     </script>
 </head>
+
 <body>
 
-<div class="wrapper">
-    <form id="formlogin" action="">
-        <i class='bx bxs-pizza' id="icone"></i>
-        <h1>Login</h1>
-        <div class="input-box">
-            <input type="email" id="email" placeholder="E-mail" required>
-            <i class='bx bxs-user'></i>
-        </div>
+    <div class="wrapper">
+        <form id="formlogin">
+            <i class='bx bxs-pizza' id="icone"></i>
+            <h1>Login</h1>
+            <div class="input-box">
+                <input type="email" id="email" placeholder="E-mail" required>
+                <i class='bx bxs-user'></i>
+            </div>
 
-        <div class="input-box">
-            <input type="password" id="pass" placeholder="Senha" required>
-            <i class='bx bxs-lock-alt' ></i>
-        </div>
+            <div class="input-box">
+                <input type="password" id="password" placeholder="Senha" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
 
-        <div class="remember-forgot">
-            <label><input type="checkbox">Lembrar Email</label>
-            <a href="#">Esqueceu Senha?</a>
-        </div>
-        <button type="submit" class="btn">Login</button>
+            <div class="remember-forgot">
+                <label><input type="checkbox">Lembrar Email</label>
+                <a href="#">Esqueceu Senha?</a>
+            </div>
+            <button type="submit" class="btn">Login</button>
 
-        <div class="register-link">
-            <p>Não tem uma conta? <a href='#'>Clique aqui para registrar</a></p>
-        </div>
-    </form>
-</div>
+            <div class="register-link">
+                <p>Não tem uma conta? <a href='#'>Clique aqui para registrar</a></p>
+            </div>
+        </form>
+    </div>
 </body>
+
 </html>

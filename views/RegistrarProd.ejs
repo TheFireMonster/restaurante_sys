@@ -55,21 +55,17 @@
                         body: JSON.stringify(formData)
                     })
                     .then(response => {
-                        if (response.ok) {
-                            alert("Produto cadastrado com sucesso!");
-                            document.getElementById("formprod").reset();
-                        } else {
-                            alert("Erro ao cadastrar produto.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Erro:", error);
-                        alert("Erro ao cadastrar produto.");
-                    });
+                if (response.ok) {
+                    alert("Registro de produto realizado com sucesso");
+                    document.getElementById("formprod").reset();
                 } else {
-                    alert("Por favor, corrija os campos inválidos.");
+                    alert("Erro ao cadastrar produto.");
                 }
-            });
+            })
+        } else {
+            alert("Por favor corrija os campos incorretos");
+        }
+    });
         });
     </script>
 </head>

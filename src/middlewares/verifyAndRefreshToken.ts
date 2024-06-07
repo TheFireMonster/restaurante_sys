@@ -3,12 +3,12 @@ import jwt from 'jsonwebtoken';
 import { UnauthorizedError } from '../helpers/apiErrors';
 import { generateAdminToken } from '../services/genToken';
 
-export const authAdminMiddleware = async (req: Request, res: Response, next: NextFunction) => {
+export const verifyAndRefreshToken = async (req: Request, res: Response, next: NextFunction) => {
     const authToken = req.cookies[process.env.AUTH_COOKIE_NAME ?? ''];
     const refreshToken = req.cookies[process.env.REFRESH_COOKIE_NAME ?? ''];
 
     if (!authToken && refreshToken) {
-        jwt.verify(authToken, process.env.SECRET_KEY ?? '', (err: any, decoded: any) => {
+        jwt.verify(refreshToken, process.env.SECRET_KEY ?? '', (err: any, decoded: any) => {
             if (err){
                 return next(new UnauthorizedError('Invalid credentials'));
             }

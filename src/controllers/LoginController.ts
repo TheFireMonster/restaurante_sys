@@ -4,12 +4,6 @@ import { UnauthorizedError } from '../helpers/apiErrors';
 import { generateToken, generateAdminToken } from '../services/genToken';
 import bcrypt from 'bcrypt';
 
-//interface UserLogin {
-    //id_usuario: number;
-    //email_usuario: string;
-
-//}
-
 export class LoginController {
     async login(req: Request, res: Response, next:NextFunction) {
         const { email, password } = req.body
@@ -58,10 +52,5 @@ export class LoginController {
             
             res.redirect('/pedidocad')
         }
-
-
     }
-
-
-
 }

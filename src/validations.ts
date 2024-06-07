@@ -15,10 +15,8 @@ function validate_email(emailId: string, formId: string): boolean {
 
         const emailValue = emailElement.value;
         if (regexEmail.test(emailValue)) {
-            alert("Endereço de e-mail válido!");
             return true;
         } else {
-            alert("Endereço de e-mail inválido!");
             return false;
         }
 }
@@ -40,10 +38,8 @@ function validate_name(nameId: string, formId: string): boolean {
 
         const nameValue = nameElement.value;
         if (regexName.test(nameValue)) {
-            alert("Nome válido!");
             return true;
         } else {
-            alert("Nome inválido!");
             return false;
         }
 }
@@ -65,10 +61,8 @@ function validate_password(passId: string, formId: string): boolean{
 
         const passValue = passElement.value;
         if (regexPass.test(passValue)) {
-            alert("Senha válida!");
             return true;
         } else {
-            alert("Senha inválida!");
             return false;
         }
 }
@@ -125,10 +119,8 @@ function validate_id(idId: string, formId: string): boolean {
 
         const IdValue = IdElement.value;
         if (regexId.test(IdValue)) {
-            alert("Endereço de e-mail válido!");
             return true;
         } else {
-            alert("Endereço de e-mail inválido!");
             return false;
         }
 }
@@ -175,10 +167,8 @@ function validate_text(textId: string, formId: string): boolean{
 
         const nameValue = nameElement.value;
         if (regexText.test(nameValue)) {
-            alert("Texto válido!");
             return true;
         } else {
-            alert("Texto inválido!");
             return false;
         }
 }
@@ -200,10 +190,8 @@ function validate_product_type(productId: string, formId: string): boolean{
 
         const productValue = productElement.value;
         if (regexProductType.test(productValue)) {
-            alert("Tipo de produto válido!");
             return true;
         } else {
-            alert("Tipo inválido!");
             return false;
         }
 }
@@ -225,10 +213,8 @@ function validate_price(priceId: string, formId: string): boolean{
 
         const productValue = productElement.value;
         if (regexPrice.test(productValue)) {
-            alert("Preço válido!");
             return true;
         } else {
-            alert("Preço inválido!");
             return false;
         }
 }

@@ -4,8 +4,8 @@ import Produto from '../../models/Produto';
 import Pedido from '../../models/Pedido';
 import { LoginController } from '../controllers/LoginController';
 import { LogoutController } from '../controllers/LogoutController';
-import { authMiddleware } from '../middlewares/authMiddleware';
-import { authAdminMiddleware } from '../middlewares/authAdminMiddleware';
+import { verifyAndRefreshTokenAdmin } from '../middlewares/verifyAndRefreshTokenAdmin';
+import { verifyAndRefreshToken } from '../middlewares/verifyAndRefreshToken';
 
 class MenuRoute {
     static getMenu(req: Request, res: Response) {
@@ -25,15 +25,21 @@ class SignupRoute {
     }
     
     static async postSignup(req: Request, res: Response) {
-        const { email, name, pass, phone, cpf } = req.body;
+        const { email, name, password, phone, cpf } = req.body;
         try {
-            await Usuario.create({ senha_usuario: pass, nome_usuario: name, cpf_usuario: cpf, telefone_usuario: phone, email_usuario: email });
+            await Usuario.create({ senha_usuario: password, nome_usuario: name, cpf_usuario: cpf, telefone_usuario: phone, email_usuario: email });
             res.send("Usuário cadastrado com sucesso");
         } catch (error) {
             console.error(error);
             res.send("Não foi possível finalizar o cadastro");
         }
     }
+}
+
+class LoginRoute {
+    static getLogin(req: Request, res: Response) {
+        res.render('Login');
+    }    
 }
 
 class RegProdRoute {
@@ -84,17 +90,22 @@ class Routes {
         const { getSignup, postSignup } = SignupRoute;
         const { getRegProd, postRegProd } = RegProdRoute;
         const { getRegOrd, postRegOrd } = RegOrdRoute;
+        const { getLogin } = LoginRoute;
 
         this.router.get('/cardapio', getMenu);
         this.router.get('/home', getHome);
         this.router.get('/cadastro', getSignup);
-        this.router.post('/login', new LoginController().login);
-        this.router.post('/logout', authMiddleware, new LogoutController().logout);
+        this.router.get('/login', getLogin)
+        this.router.post('/login-fim', new LoginController().login);
+
+        this.router.post('/logout', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, new LogoutController().logout);
         this.router.post('/cad-fim', postSignup);
-        this.router.get('/produtocad', authAdminMiddleware, getRegProd);
-        this.router.post('/prod-fim', authMiddleware, postRegProd);
-        this.router.get('/pedidocad', authMiddleware, getRegOrd);
-        this.router.post('/ped-fim', authMiddleware, postRegOrd);
+
+        this.router.get('/produtocad', verifyAndRefreshTokenAdmin, getRegProd);
+        this.router.post('/prod-fim', verifyAndRefreshTokenAdmin, postRegProd);
+
+        this.router.get('/pedidocad', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, getRegOrd);
+        this.router.post('/ped-fim', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, postRegOrd);
     }
 }
 
