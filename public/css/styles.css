@@ -546,8 +546,12 @@ video {
 .hidden {
   display: none;
 }
-.basis-1\/4 {
-  flex-basis: 25%;
+.size-6 {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+.flex-grow {
+  flex-grow: 1;
 }
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -555,8 +559,16 @@ video {
 .flex-row {
   flex-direction: row;
 }
+.items-center {
+  align-items: center;
+}
 .gap-4 {
   gap: 1rem;
+}
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .bg-\[\#de7254ff\] {
   background-color: #de7254ff;
@@ -574,9 +586,6 @@ video {
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
-}
-.pt-4 {
-  padding-top: 1rem;
 }
 .text-xs {
   font-size: 0.75rem;
