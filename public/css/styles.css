@@ -558,9 +558,11 @@ video {
 .gap-4 {
   gap: 1rem;
 }
-.bg-gray-200 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+.bg-\[\#de7254ff\] {
+  background-color: #de7254ff;
+}
+.bg-\[\#fefee3ff\] {
+  background-color: #fefee3ff;
 }
 .p-0 {
   padding: 0px;
@@ -583,9 +585,6 @@ video {
 
 .btn {
   cursor: pointer;
-  border-radius: 0.25rem;
-  --tw-bg-opacity: 1;
-  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
   padding-left: 1rem;
@@ -593,9 +592,4 @@ video {
   font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.btn:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }

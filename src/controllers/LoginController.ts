@@ -20,6 +20,7 @@ export class LoginController {
             return next(new UnauthorizedError('Invalid credentials'));
         }
     
+        let redirectUrl = '';
 
         if (user.tipo_usuario === 'gerente'){
             const { authTokenAdmin } = generateAdminToken(user.id_usuario, user.tipo_usuario);
@@ -34,7 +35,9 @@ export class LoginController {
                 secure: true,
                 sameSite: 'strict'});
             
-            res.redirect('/produtocad')
+
+                res.redirect('/produtocad')
+                redirectUrl = '/produtocad';
         }
 
         else{
@@ -50,7 +53,7 @@ export class LoginController {
                 secure: true,
                 sameSite: 'strict'});
             
-            res.redirect('/pedidocad')
+            redirectUrl = '/pedidocad';
         }
     }
 }
