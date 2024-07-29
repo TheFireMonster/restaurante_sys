@@ -543,9 +543,6 @@ video {
 .col-span-4 {
   grid-column: span 4 / span 4;
 }
-.ml-auto {
-  margin-left: auto;
-}
 .flex {
   display: flex;
 }
@@ -555,14 +552,8 @@ video {
 .hidden {
   display: none;
 }
-.flex-grow {
-  flex-grow: 1;
-}
 .grid-cols-4 {
   grid-template-columns: repeat(4, minmax(0, 1fr));
-}
-.flex-row {
-  flex-direction: row;
 }
 .items-center {
   align-items: center;
@@ -572,11 +563,6 @@ video {
 }
 .gap-4 {
   gap: 1rem;
-}
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 .bg-\[\#de7254ff\] {
   background-color: #de7254ff;
