@@ -5,55 +5,70 @@ import { generateToken, generateAdminToken } from '../services/genToken';
 import bcrypt from 'bcrypt';
 
 export class LoginController {
-    async login(req: Request, res: Response, next:NextFunction) {
-        const { email, password } = req.body
+    async login(req: Request, res: Response, next: NextFunction) {
+        const { email, password } = req.body;
 
-        const user = await userRepository.findByEmail(email)
+        try {
+            const user = await userRepository.findByEmail(email);
 
-        if (!user) {
-            return next(new UnauthorizedError('Invalid credentials'));
-        }
+            if (!user) {
+                console.log('User not found');
+                return next(new UnauthorizedError('Invalid credentials'));
+            }
 
-        const verifyPass = await bcrypt.compare(password, user.senha_usuario)
+            console.log('User found, verifying password...');
 
-        if (!verifyPass) {
-            return next(new UnauthorizedError('Invalid credentials'));
-        }
-    
-        let redirectUrl = '';
+            const verifyPass = await bcrypt.compare(password, user.senha_usuario);
 
-        if (user.tipo_usuario === 'gerente'){
-            const { authTokenAdmin } = generateAdminToken(user.id_usuario, user.tipo_usuario);
-            res.cookie (process.env.AUTH_COOKIE_NAME ?? '', authTokenAdmin, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'strict'});
+            if (!verifyPass) {
+                console.log('Password verification failed');
+                return next(new UnauthorizedError('Invalid credentials'));
+            }
 
-            const { refreshTokenAdmin } = generateAdminToken(user.id_usuario, user.tipo_usuario);
-            res.cookie (process.env.REFRESH_COOKIE_NAME ?? '', refreshTokenAdmin, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'strict'});
-            
+            console.log('Password verified, generating tokens...');
 
-                res.redirect('/produtocad')
+            let redirectUrl = '/pedidocad';
+
+            if (user.tipo_usuario === 'gerente') {
+                const { authTokenAdmin, refreshTokenAdmin } = generateAdminToken(user.id_usuario, user.tipo_usuario);
+
+                res.cookie(process.env.AUTH_COOKIE_NAME ?? '', authTokenAdmin, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: 'strict',
+                });
+                res.cookie(process.env.REFRESH_COOKIE_NAME ?? '', refreshTokenAdmin, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: 'strict',
+                });
+
                 redirectUrl = '/produtocad';
-        }
+            } else {
+                const { authToken, refreshToken } = generateToken(user.id_usuario);
 
-        else{
-            const { authToken } = generateToken(user.id_usuario);
-            res.cookie (process.env.AUTH_COOKIE_NAME ?? '', authToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'strict'});
+                res.cookie(process.env.AUTH_COOKIE_NAME ?? '', authToken, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: 'strict',
+                });
+                res.cookie(process.env.REFRESH_COOKIE_NAME ?? '', refreshToken, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === 'production',
+                    sameSite: 'strict',
+                });
 
-            const { refreshToken } = generateToken(user.id_usuario);
-            res.cookie (process.env.REFRESH_COOKIE_NAME ?? '', refreshToken, {
-                httpOnly: true,
-                secure: true,
-                sameSite: 'strict'});
-            
-            redirectUrl = '/pedidocad';
-        }
-    }
+                redirectUrl = '/pedidocad';
+            }
+
+            console.log(`Redirecting to ${redirectUrl}`);
+            res.status(200).json({
+                message: "Login bem-sucedido!",
+                redirectUrl: redirectUrl
+            });
+        } catch (error) {
+            console.error('Error during login:', error);
+            return next(new UnauthorizedError('An error occurred during login'));
+        }
+    }
 }

@@ -1,17 +1,23 @@
 import jwt from 'jsonwebtoken';
 
 export const generateToken = (id: number) => {
-    const authToken = jwt.sign({ id }, process.env.SECRET_KEY ?? '', { expiresIn: process.env.AUTH_EXPIRATION })
+    const secretKey = process.env.SECRET_KEY ?? '';
+    const authExpiration = process.env.AUTH_EXPIRATION ?? '1h';
+    const refreshExpiration = process.env.REFRESH_EXPIRATION ?? '7d';
 
-    const refreshToken = jwt.sign({ id }, process.env.SECRET_KEY ?? '', { expiresIn: process.env.REFRESH_EXPIRATION })
+    const authToken = jwt.sign({ id }, secretKey, { expiresIn: authExpiration });
+    const refreshToken = jwt.sign({ id }, secretKey, { expiresIn: refreshExpiration });
     
-    return { refreshToken, authToken }
+    return { refreshToken, authToken };
 }
 
 export const generateAdminToken = (id: number, role: string) => {
-    const authTokenAdmin = jwt.sign({ id, role }, process.env.SECRET_KEY ?? '', { expiresIn: process.env.AUTH_EXPIRATION })
+    const secretKey = process.env.SECRET_KEY ?? '';
+    const authExpiration = process.env.AUTH_EXPIRATION ?? '1h';
+    const refreshExpiration = process.env.REFRESH_EXPIRATION ?? '7d';
 
-    const refreshTokenAdmin = jwt.sign({ id, role }, process.env.SECRET_KEY ?? '', { expiresIn: process.env.REFRESH_EXPIRATION })
+    const authTokenAdmin = jwt.sign({ id, role }, secretKey, { expiresIn: authExpiration });
+    const refreshTokenAdmin = jwt.sign({ id, role }, secretKey, { expiresIn: refreshExpiration });
     
-    return { refreshTokenAdmin, authTokenAdmin }
+    return { refreshTokenAdmin, authTokenAdmin };
 }

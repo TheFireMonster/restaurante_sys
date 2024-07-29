@@ -7,60 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../public/css/Login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="../public/css/styles.css", rel="stylesheet">
     <title>Login</title>
-    <script src="../public/js/validations.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("formlogin").addEventListener("submit", function (event) {
-                event.preventDefault();
-
-                const email = document.getElementById("email").value;
-                const password = document.getElementById("password").value;
-
-                const isEmailValid = validate_email("email", "formlogin");
-                const isPasswordValid = validate_password("password", "formlogin");
-
-                if (isEmailValid && isPasswordValid) {
-                    const emailSanitized = filterXSS(email);
-                    const passSanitized = filterXSS(password);
-                    
-
-                    const formData =  {
-                        email: emailSanitized,
-                        password: passSanitized
-                    };
-
-                    
-
-                    fetch("/login-fim", {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify(formData)
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.redirectUrl) {
-                            alert(data.message);
-                            window.location.href = data.redirectUrl;
-                        } else {
-                            alert("Senha ou email inválidos.");
-                        }
-                    })
-                    .catch(error => {
-                        console.error('Error:', error);
-                        alert("Por favor corrija os campos incorretos");
-                    })
-                } 
-            });
-        });
-    </script>
 </head>
 
 <body>
-
+    <%- include('./templates/Header') %>
     <div class="wrapper">
         <form id="formlogin">
             <i class='bx bxs-pizza' id="icone"></i>
@@ -86,6 +38,54 @@
             </div>
         </form>
     </div>
+
+    <script src="../public/js/validations.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("formlogin").addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                const isEmailValid = validate_email("email", "formlogin");
+                const isPasswordValid = validate_password("password", "formlogin");
+
+                if (isEmailValid && isPasswordValid) {
+                    const emailSanitized = filterXSS(email);
+                    const passSanitized = filterXSS(password);
+
+                    const formData = {
+                        email: emailSanitized,
+                        password: passSanitized
+                    };
+
+                    try {
+                        const response = await fetch("/login-fim", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            alert(data.message || "Login bem-sucedido!");
+                            window.location.href = data.redirectUrl;
+                        } else {
+                            alert(data.message || "Senha ou email inválidos.");
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert("Ocorreu um erro ao processar a solicitação.");
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
