@@ -6,12 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../public/css/Pedidos.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="../public/css/styles.css", rel="stylesheet">
     <title>Pedidos</title>
     <!--<script src="../src/Pedidos.js"></script>-->
+    <script src="../public/js/validations.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("formped").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                idUsuario = document.getElementById("ped_id_usuario").value;
+                numeroMesa = document.getElementById("ped_numero_mesa").value;
+                idProduto = document.getElementById("ped_id_produto").value;
+                quantidadeProduto = document.getElementById("ped_quantidade_produto").value;
+                valorPedido = document.getElementById("valor_ped").value;
+
+                const isIdUsuarioValid = validate_id("ped_id_usuario", "formped");
+                console.log("Id User valid:", isIdUsuarioValid);
+                const isNumeroMesaValid = validate_id("ped_numero_mesa", "formped");
+                console.log("Number valid:", isNumeroMesaValid);
+                const isIdProdutoValid = validate_id("ped_id_produto", "formped");
+                console.log("Id Product valid:", isIdProdutoValid);
+                const isQuantidadeProdutoValid = validate_quant("ped_quantidade_produto", "formped");
+                console.log("Quant valid:", isQuantidadeProdutoValid);
+                const isPriceValid = validate_price("valor_ped", "formped");
+                console.log("PRICE valid:", isPriceValid);
+
+
+
+                if (isIdUsuarioValid && isNumeroMesaValid && isIdProdutoValid && isQuantidadeProdutoValid && isPriceValid) {
+
+                    const idUsuarioSanitized = filterXSS(idUsuario);
+                    const numeroMesaSanitized = filterXSS(numeroMesa);
+                    const idProdutoSanitized = filterXSS(idProduto);
+                    const quantidadeProdutoSanitized = filterXSS(quantidadeProduto);
+                    const valorPedidoSanitized = filterXSS(valorPedido);
+
+                    idUsuario = idUsuarioSanitized;
+                    numeroMesa = numeroMesaSanitized;
+                    idProduto = idProdutoSanitized;
+                    quantidadeProduto = quantidadeProdutoSanitized;
+                    valorPedido = valorPedidoSanitized;
+
+                    const formData = {
+                        idUsuario: idUsuarioSanitized,
+                        numeroMesa: numeroMesaSanitized,
+                        idProduto: idProdutoSanitized,
+                        quantidadeProduto: quantidadeProdutoSanitized,
+                        valorPedido: valorPedidoSanitized
+                    };
+
+                    fetch("/ped-fim", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(formData)
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                alert("Login realizado com sucesso");
+                                document.getElementById("formped").reset();
+                            } else {
+                                alert("Senha ou email inválidos.");
+                            }
+                        })
+                } else {
+                    alert("Por favor corrija os campos incorretos");
+                }
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="wrapper">
-        <form action="/ped-fim" method="POST">
+        <form id="formped">
             <h1>Fazer Pedido</h1>
             <!--<div class="input-box">
                 <input type="text" placeholder="Nome do produto" id="ped_nome_produto" required>

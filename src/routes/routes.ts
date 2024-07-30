@@ -2,10 +2,19 @@ import express, { Request, Response, Router } from 'express';
 import Usuario from '../../models/Usuario';
 import Produto from '../../models/Produto';
 import Pedido from '../../models/Pedido';
+import { LoginController } from '../controllers/LoginController';
+import { LogoutController } from '../controllers/LogoutController';
+import { verifyAndRefreshTokenAdmin } from '../middlewares/verifyAndRefreshTokenAdmin';
+import { verifyAndRefreshToken } from '../middlewares/verifyAndRefreshToken';
+import { UserController } from '../controllers/userController';
+
+const router = express.Router();
+const loginController = new LoginController();
+const userController = new UserController();
 
 class MenuRoute {
     static getMenu(req: Request, res: Response) {
-        res.send('Hello World'); 
+        res.send('Hello World');
     }
 }
 
@@ -19,16 +28,11 @@ class SignupRoute {
     static getSignup(req: Request, res: Response) {
         res.render('Cadastro');
     }
-    
-    static async postSignup(req: Request, res: Response) {
-        const { email, nome, senha, fone, cpf } = req.body;
-        try {
-            await Usuario.create({ senha_usuario: senha, nome_usuario: nome, cpf_usuario: cpf, telefone_usuario: fone, email_usuario: email });
-            res.send("Usuário cadastrado com sucesso");
-        } catch (error) {
-            console.error(error);
-            res.send("Não foi possível finalizar o cadastro");
-        }
+}
+
+class LoginRoute {
+    static getLogin(req: Request, res: Response) {
+        res.render('Login');
     }
 }
 
@@ -70,26 +74,30 @@ class Routes {
     public router: Router;
 
     constructor() {
-        this.router = express.Router();
+        this.router = Router();
         this.initRoutes();
     }
 
     private initRoutes() {
         const { getMenu } = MenuRoute;
         const { getHome } = HomeRoute;
-        const { getSignup, postSignup } = SignupRoute;
+        const { getSignup } = SignupRoute;
         const { getRegProd, postRegProd } = RegProdRoute;
         const { getRegOrd, postRegOrd } = RegOrdRoute;
+        const { getLogin } = LoginRoute;
 
         this.router.get('/cardapio', getMenu);
         this.router.get('/home', getHome);
         this.router.get('/cadastro', getSignup);
-        this.router.post('/cad-fim', postSignup);
-        this.router.get('/produtocad', getRegProd);
-        this.router.post('/prod-fim', postRegProd);
-        this.router.get('/pedidocad', getRegOrd);
-        this.router.post('/ped-fim', postRegOrd);
+        this.router.post('/cad-fim', (req, res) => userController.register(req, res));
+        this.router.get('/login', getLogin);
+        this.router.post('/login-fim', (req, res, next) => loginController.login(req, res, next));
+        this.router.post('/logout', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, new LogoutController().logout);
+        this.router.get('/produtocad', verifyAndRefreshTokenAdmin, getRegProd);
+        this.router.post('/prod-fim', verifyAndRefreshTokenAdmin, postRegProd);
+        this.router.get('/pedidocad', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, getRegOrd);
+        this.router.post('/ped-fim', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, postRegOrd);
     }
 }
 
-export = new Routes().router;
+export default new Routes().router;

@@ -1,38 +1,85 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../public/css/Login.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href="../public/css/styles.css", rel="stylesheet">
     <title>Login</title>
 </head>
+
 <body>
-
-    <div class="wrapper"
-        <form action="">
-            <i class='bx bxs-pizza' id="icone"></i>
-            <h1>Login</h1>
+    <div class="wrapper">
+        <form id="formlogin">
+            <h1>Pizzaria</h1>
+            <a>Informe seus dados para entrar</a>
             <div class="input-box">
-                <input type="E-mail" placeholder="E-mail" required>
-                <i class='bx bxs-user'></i>
+                <input type="email" id="email" placeholder="E-mail" required>
             </div>
-
             <div class="input-box">
-                <input type="password" placeholder="Senha" required>
-                <i class='bx bxs-lock-alt' ></i>
+                <input type="password" id="password" placeholder="Senha" required>
             </div>
-
+            <!--estou estuando tailwind aula 2, tentando fazer a página de login.-->
             <div class="remember-forgot">
-                <label><input type="checkbox">Lembrar Email</label>
-                <a href="#">Esqueceu Senha?</a>
+                <p>Esqueceu a senha? <a href="#">clique aqui para recuperar</a></p>
             </div>
-            <button type="submit" class="btn">Login</button>
-
+            <button type="submit" class="btn" placeholder="entrar"></button>
             <div class="register-link">
                 <p>Não tem uma conta? <a href='#'>Clique aqui para registrar</a></p>
             </div>
         </form>
+    </div>
+
+    <script src="../public/js/validations.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("formlogin").addEventListener("submit", async function (event) {
+                event.preventDefault();
+
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                const isEmailValid = validate_email("email", "formlogin");
+                const isPasswordValid = validate_password("password", "formlogin");
+
+                if (isEmailValid && isPasswordValid) {
+                    const emailSanitized = filterXSS(email);
+                    const passSanitized = filterXSS(password);
+
+                    const formData = {
+                        email: emailSanitized,
+                        password: passSanitized
+                    };
+
+                    try {
+                        const response = await fetch("/login-fim", {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            alert(data.message || "Login bem-sucedido!");
+                            window.location.href = data.redirectUrl;
+                        } else {
+                            alert(data.message || "Senha ou email inválidos.");
+                        }
+                    } catch (error) {
+                        console.error('Error:', error);
+                        alert("Ocorreu um erro ao processar a solicitação.");
+                    }
+                }
+            });
+        });
+    </script>
 </body>
+
 </html>
