@@ -1,5 +1,4 @@
 import express, { Request, Response, Router } from 'express';
-import Usuario from '../../models/Usuario';
 import Produto from '../../models/Produto';
 import Pedido from '../../models/Pedido';
 import { LoginController } from '../controllers/LoginController';
@@ -87,7 +86,7 @@ class Routes {
         const { getLogin } = LoginRoute;
 
         this.router.get('/cardapio', getMenu);
-        this.router.get('/home', getHome);
+        this.router.get('/home', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, getHome);
         this.router.get('/cadastro', getSignup);
         this.router.post('/cad-fim', (req, res) => userController.register(req, res));
         this.router.get('/login', getLogin);
