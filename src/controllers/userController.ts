@@ -17,7 +17,6 @@ export class UserController {
                 cpf_usuario: cpf,
                 telefone_usuario: phone,
                 email_usuario: email,
-                tipo_usuario: 'gerente', 
             });
 
             console.log('Usuário cadastrado com sucesso');
