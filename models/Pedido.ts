@@ -7,6 +7,7 @@ interface PedidoAttributes {
     id_pedido?: number;
     id_usuario_pedido: number;
     id_mesa_pedido: number;
+    obs_pedido?: string;
     status_pedido?: string;
     data_pedido?: Date;
     total_pedido?: number;
@@ -16,6 +17,7 @@ class Pedido extends Model<PedidoAttributes> implements PedidoAttributes {
     public id_pedido!: number;
     public id_usuario_pedido!: number;
     public id_mesa_pedido!: number;
+    public obs_pedido?: string;
     public status_pedido?: string;
     public data_pedido?: Date;
     public total_pedido?: number;
@@ -43,6 +45,12 @@ Pedido.init({
         references: {
             model: Mesa,
             key: 'id_mesa'
+        }
+    },
+    obs_pedido: {
+        type: DataTypes.STRING,
+        validate: {
+            len: [0, 150]
         }
     },
     status_pedido: {

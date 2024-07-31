@@ -16,7 +16,7 @@ app.use('/public', express.static('public'));
 app.use(routes);
 
 app.get('/', (req: Request, res: Response) => {
-    res.redirect('/home');
+    res.redirect('/login');
 });
 
 const port = process.env.PORT || 3000; 
