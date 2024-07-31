@@ -74,22 +74,14 @@
     <div class="wrapper">
         <form id="formprod" action="/prod-fim" method="POST" autocomplete="off">
             <h1>Registre um novo produto</h1>
-            <div class="input-box">
                 <input type="text" placeholder="Nome do produto" id="nome_produto" name="nome_produto" required>
                 <i class='bx bx-box'></i>
-            </div>
-            <div class="input-box">
                 <input type="text" placeholder="Descrição do produto" id="descricao_produto" name="descricao_produto" required>
                 <i class='bx bx-box'></i>
-            </div>
-            <div class="input-box">
                 <input type="number" placeholder="Preço do produto" id="preco_produto" name="preco_produto" step="0.01" min="0" required>
                 <i class='bx bx-box'></i>
-            </div>
-            <div class="input-box">
                 <input type="number" placeholder="Quantidade do produto" id="quantidade_produto" name="quantidade_produto" required>
                 <i class='bx bx-box'></i>
-            </div>
             <!--<div class="input-box">
                 <input type="number" placeholder="Valor do produto" id="valor_produto" name="valor_produto" required>
                 <i class='bx bx-dollar-circle'></i>
@@ -100,6 +92,7 @@
                     <option value="bebida">Bebida</option>
                 </select>
                     <input type="hidden" id="produto_transformacao" name="produto_transformacao" value="false">
+                <input type="file">
                <!--<div class="remember-forgot">
                     <label><input type="checkbox" id="produto_transformacao" name="valor_produto">É produto de transformação?</label>
                 </div>-->
