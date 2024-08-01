@@ -182,7 +182,7 @@ function validate_product_type(productId: string, formId: string): boolean{
         return false;
     }
 
-        const productElement = document.getElementById(productId) as HTMLInputElement;
+        const productElement = document.getElementById(productId) as HTMLSelectElement;
         if (!productElement) {
             console.error("Elemento nome não encontrado")
             return false;

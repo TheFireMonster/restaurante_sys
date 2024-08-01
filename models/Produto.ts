@@ -46,8 +46,11 @@ Produto.init({
         }
     },
     preco_produto: {
-        type: DataTypes.DECIMAL(8, 2),
-        allowNull: false
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+            len: [1, 20]
+        }
     },
     quantidade_produto: {
         type: DataTypes.INTEGER
@@ -72,6 +75,6 @@ Produto.init({
     ]
 })
 
-//Produto.sync()
+//Produto.sync({ alter: true })
 
 export default Produto;

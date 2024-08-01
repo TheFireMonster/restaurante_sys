@@ -1,8 +1,8 @@
 import express, { Request, Response, Router } from 'express';
-import Produto from '../../models/Produto';
 import Pedido from '../../models/Pedido';
 import { LoginController } from '../controllers/LoginController';
 import { LogoutController } from '../controllers/LogoutController';
+import { ProdController } from '../controllers/prodController';
 import { verifyAndRefreshTokenAdmin } from '../middlewares/verifyAndRefreshTokenAdmin';
 import { verifyAndRefreshToken } from '../middlewares/verifyAndRefreshToken';
 import { UserController } from '../controllers/userController';
@@ -10,6 +10,7 @@ import { UserController } from '../controllers/userController';
 const router = express.Router();
 const loginController = new LoginController();
 const userController = new UserController();
+const prodController = new ProdController();
 
 class MenuRoute {
     static getMenu(req: Request, res: Response) {
@@ -29,13 +30,13 @@ class SignupRoute {
     }
 }
 
-class LoginRoute {
-    static getLogin(req: Request, res: Response) {
-        res.render('Login');
-    }
-}
+//class LoginRoute {
+//    static getLogin(req: Request, res: Response) {
+//        res.render('Login');
+//    }
+//}
 
-class RegProdRoute {
+/* class RegProdRoute {
     static getRegProd(req: Request, res: Response) {
         res.render('RegistrarProd');
     }
@@ -51,7 +52,7 @@ class RegProdRoute {
         }
     }
 }
-
+ */
 class RegOrdRoute {
     static getRegOrd(req: Request, res: Response) {
         res.render('RegistrarPed');
@@ -81,19 +82,19 @@ class Routes {
         const { getMenu } = MenuRoute;
         const { getHome } = HomeRoute;
         const { getSignup } = SignupRoute;
-        const { getRegProd, postRegProd } = RegProdRoute;
+        //const { getRegProd, postRegProd } = RegProdRoute;
         const { getRegOrd, postRegOrd } = RegOrdRoute;
-        const { getLogin } = LoginRoute;
+        //const { getLogin } = LoginRoute;
 
         this.router.get('/cardapio', getMenu);
         this.router.get('/home', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, getHome);
         this.router.get('/cadastro', getSignup);
         this.router.post('/cad-fim', (req, res) => userController.register(req, res));
-        this.router.get('/login', getLogin);
+        this.router.get('/login', (req, res,) => loginController.getLogin(req, res));
         this.router.post('/login-fim', (req, res, next) => loginController.login(req, res, next));
         this.router.post('/logout', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, new LogoutController().logout);
-        this.router.get('/produtocad', verifyAndRefreshTokenAdmin, getRegProd);
-        this.router.post('/prod-fim', verifyAndRefreshTokenAdmin, postRegProd);
+        this.router.get('/produtocad', verifyAndRefreshTokenAdmin, (req, res,) => prodController.getRegProd(req, res));
+        this.router.post('/prod-fim', verifyAndRefreshTokenAdmin, (req, res,) => prodController.prodRegister(req, res));
         this.router.get('/pedidocad', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, getRegOrd);
         this.router.post('/ped-fim', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, postRegOrd);
     }
