@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/home.css" rel="stylesheet">
+    <title>Home</title>
+
+    <!--GOOGLE FONTS--raleway-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!---->
+
+
+
+</head>
+
+<body>
+    <div class="main">
+
+
+
+
+        <div class="header-line">
+
+
+
+            <div class="titulo">
+                <p>Novo pedido</p>
+            </div>
+
+
+
+
+
+
+        </div>
+
+
+
+        <div class="search">
+            <input type="text" placeholder="Pesquisar" class="search-text">
+            <span class="material-symbols-sharp">search</span>
+
+        </div>
+
+
+        <div class="menulateral">
+
+
+            <div class="logo">
+                <img src="../public/css/imgs/logocomnome2.png">
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">view_comfy_alt</span>
+                <a href="menu-lineussuarios.html">
+                    <div class="txt">Pedidos</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">
+                    fastfood
+                </span>
+                <a href="menu-lineprodutos.html">
+                    <div class="txt">Cardapio</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">
+                    manage_accounts
+                </span>
+                <a href="#">
+                    <div class="txt">Usuarios</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">work</span>
+                <a href="#">
+                    <div class="txt">Compras</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <a href="#">
+                    <div class="txt">Vendas</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">local_shipping</span>
+                <a href="#">
+                    <div class="txt">Fornecedores</div>
+                </a>
+            </div>
+
+
+
+        </div>
+
+        <div class="central">
+            <div class="cardapio">
+                <ul class="tabs">
+                    <li class="tab active" data-tab="lanches">Lanches</li>
+                    <li class="tab" data-tab="bebidas">Bebidas</li>
+                    <li class="tab" data-tab="pizzas">Pizzas</li>
+                    <li class="tab" data-tab="porcoes">Porções</li>
+                </ul>
+
+                <!-- Lanches -->
+                <div class="tab-content active" id="lanches">
+                    <div class="item">
+                        <p>Hambúrguer Clássico - R$15,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Cheeseburger - R$18,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>X-Bacon - R$22,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Sanduíche de Frango - R$17,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Beirute de Carne - R$20,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <!-- Adicione mais itens de lanches aqui -->
+                </div>
+
+                <!-- Bebidas -->
+                <div class="tab-content" id="bebidas">
+                    <div class="item">
+                        <p>Refrigerante - R$5,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Suco de Laranja - R$7,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Água Mineral - R$3,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Cerveja - R$8,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Caipirinha - R$12,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <!-- Adicione mais itens de bebidas aqui -->
+                </div>
+
+                <!-- Pizzas -->
+                <div class="tab-content" id="pizzas">
+                    <div class="item">
+                        <p>Pizza Margherita - R$30,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Pizza Calabresa - R$32,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Pizza Quatro Queijos - R$35,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Pizza Portuguesa - R$33,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Pizza de Frango com Catupiry - R$34,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <!-- Adicione mais itens de pizzas aqui -->
+                </div>
+
+                <!-- Porções -->
+                <div class="tab-content" id="porcoes">
+                    <div class="item">
+                        <p>Batata Frita - R$12,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Anéis de Cebola - R$15,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p> Frango à Passarinho - R$25,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Calabresa - R$20,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+                    <div class="item">
+                        <p>Queijo Coalho - R$18,00</p>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+            <!-- Fundo Escurecido -->
+            <div class="overlay"></div>
+
+            <!-- Pop-up de Pedido -->
+            <div class="order-popup">
+                <h3>Pedido</h3>
+                <label for="order-table">Mesa:</label>
+                <input type="text" id="order-table" placeholder="Número da mesa">
+                <div class="order-items">
+                    <!-- Itens adicionados aparecerão aqui -->
+                </div>
+                <div class="order-total">
+                    <p>Total: R$ <span id="order-total-value">0,00</span></p>
+                </div>
+                <textarea id="order-observations" placeholder="Observações"></textarea>
+                <button id="send-order">Enviar Pedido</button>
+                <button id="close-order-popup">Fechar</button>
+            </div>
+
+
+        </div><!--central-->
+
+
+        <div class="navbar">
+            <span class="material-symbols-outlined" onclick="ExpandeMenu()" >
+                menu
+            </span>
+
+            <span class="material-symbols-outlined">
+                Home
+            </span>
+
+            <span class="material-symbols-outlined">
+                fastfood
+            </span>
+
+            <div class="order-icon">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <div class="order-count">0</div>
+            </div>
+
+
+        </div>
+
+
+
+
+    </div><!--main-->
+
+
+</body>
+
+</html>
+
+<script>
+
+
+   //menu lateral
+   function ExpandeMenu() {
+    var menulateral = document.querySelector(".menulateral");
+
+    if (menulateral.classList.contains('expande')) {
+        menulateral.classList.remove('expande');  
+    } else {
+        menulateral.classList.add('expande'); 
+    }
+}
+
+    function RetraiMenu() {
+
+       
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function () {
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            this.classList.add('active');
+            document.getElementById(this.getAttribute('data-tab')).classList.add('active');
+        });
+    });
+
+    let order = [];
+    let total = 0.0;
+
+    document.querySelectorAll('.add-to-order').forEach(button => {
+        button.addEventListener('click', function () {
+            const itemName = this.parentElement.querySelector('p').innerText.split(' - ')[0];
+            const itemPrice = parseFloat(this.parentElement.querySelector('p').innerText.split(' - ')[1].replace('R$', '').replace(',', '.'));
+
+            const existingItem = order.find(item => item.name === itemName);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                order.push({ name: itemName, price: itemPrice, quantity: 1 });
+            }
+
+            updateOrderIcon();
+            updateOrderArea();
+        });
+    });
+
+    document.querySelector('.order-icon').addEventListener('click', function () {
+        document.querySelector('.overlay').style.display = 'block';
+        document.querySelector('.order-popup').style.display = 'flex';
+    });
+
+    document.getElementById('close-order-popup').addEventListener('click', function () {
+        document.querySelector('.overlay').style.display = 'none';
+        document.querySelector('.order-popup').style.display = 'none';
+    });
+
+    document.getElementById('send-order').addEventListener('click', function () {
+        const tableNumber = document.getElementById('order-table').value;
+        const observations = document.getElementById('order-observations').value;
+        console.log("Pedido enviado:", { tableNumber, order, observations });
+        alert("Pedido enviado com sucesso!");
+        // Lógica para enviar o pedido
+        // Reseta os dados após envio
+        order = [];
+        document.getElementById('order-table').value = '';
+        document.getElementById('order-observations').value = '';
+        updateOrderIcon();
+        updateOrderArea();
+        document.querySelector('.overlay').style.display = 'none';
+        document.querySelector('.order-popup').style.display = 'none';
+    });
+
+    function updateOrderIcon() {
+        const orderCount = order.reduce((acc, item) => acc + item.quantity, 0);
+        document.querySelector('.order-icon .order-count').innerText = orderCount;
+    }
+
+    function updateOrderArea() {
+        const orderItemsContainer = document.querySelector('.order-items');
+        orderItemsContainer.innerHTML = '';
+
+        order.forEach(item => {
+            const orderItemDiv = document.createElement('div');
+            orderItemDiv.classList.add('order-item');
+
+            const itemNameP = document.createElement('p');
+            itemNameP.innerText = `${item.name} x${item.quantity}`;
+
+            const itemQuantityInput = document.createElement('input');
+            itemQuantityInput.type = 'number';
+            itemQuantityInput.value = item.quantity;
+            itemQuantityInput.min = 1;
+            itemQuantityInput.addEventListener('change', function () {
+                const newQuantity = parseInt(this.value);
+                item.quantity = newQuantity;
+                updateOrderIcon();
+                updateOrderArea();
+            });
+
+            orderItemDiv.appendChild(itemQuantityInput);
+            orderItemDiv.appendChild(itemNameP);
+
+            orderItemsContainer.appendChild(orderItemDiv);
+        });
+
+        total = order.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
+        document.getElementById('order-total-value').innerText = total.replace('.', ',');
+    }
+
+
+</script>

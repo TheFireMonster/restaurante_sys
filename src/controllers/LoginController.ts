@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { userRepository } from '../repositories/userRepository';
 import { UnauthorizedError } from '../helpers/apiErrors';
 import { generateToken, generateAdminToken } from '../services/genToken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcrypt'
 
 export class LoginController {
     async login(req: Request, res: Response, next: NextFunction) {
@@ -27,7 +27,7 @@ export class LoginController {
 
             console.log('Password verified, generating tokens...');
 
-            let redirectUrl = '/pedidocad';
+            let redirectUrl = '/home';
 
             if (user.tipo_usuario === 'gerente') {
                 const { authTokenAdmin, refreshTokenAdmin } = generateAdminToken(user.id_usuario, user.tipo_usuario);
@@ -43,7 +43,8 @@ export class LoginController {
                     sameSite: 'strict',
                 });
 
-                redirectUrl = '/produtocad';
+                redirectUrl = '/home';
+                
             } else {
                 const { authToken, refreshToken } = generateToken(user.id_usuario);
 
@@ -58,8 +59,9 @@ export class LoginController {
                     sameSite: 'strict',
                 });
 
-                redirectUrl = '/pedidocad';
-            }
+             redirectUrl = '/home';
+            
+             }
 
             console.log(`Redirecting to ${redirectUrl}`);
             res.status(200).json({

@@ -10,8 +10,7 @@ class Usuario extends Model {
     public email_usuario!: string;
     public tipo_usuario!: string;
 
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+    
 }
 
 Usuario.init({
@@ -47,8 +46,8 @@ Usuario.init({
 }, {
     sequelize,
     modelName: 'Usuario',
-    tableName: 'Usuarios',
-    timestamps: true,
+    tableName: 'usuario',
+    timestamps: false,
 });
 
 export default Usuario;

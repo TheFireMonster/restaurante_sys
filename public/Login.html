@@ -3,10 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-    <link href="css/login.css" rel="stylesheet">
+    <link href="../public/css/login.css" rel="stylesheet">
+    <title>Login</title>
 
     <!--google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,8 +16,10 @@
      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     
-    
-     <title>Login</title>
+     
+     <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+
+     
 
 </head>
 
@@ -27,16 +28,18 @@
 
         <div class="container">
 
-            <form id="formlogin" class="form">
+            <form id="formlogin" class="form" action="/login"  method="post">
 
                 <div class="title">
-                    <h1>Waitertrack</h1>
+                    <div class="logo">
+                       <img src="../public/css/imgs/logocomnome2.png">
+                    </div>
                     <a>Insira seus dados</a>
                 </div>
 
-                <input type="email" id="email" placeholder="E-mail" required>
-                <input type="password" id="password" placeholder="Senha" required>
-
+                <input type="email" name="email" placeholder="E-mail" required>
+                <input type="password" name="senha" placeholder="Senha" required>
+                <div class="error-message" id="error-message"></div>
                 <input type="submit" class="btn" placeholder="entrar"></button>
                 <div class="line">
 
@@ -50,52 +53,14 @@
 
     </div>
 
-    <script src="../public/js/validations.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+    
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("formlogin").addEventListener("submit", async function (event) {
-                event.preventDefault();
-
-                const email = document.getElementById("email").value;
-                const password = document.getElementById("password").value;
-
-                const isEmailValid = validate_email("email", "formlogin");
-                const isPasswordValid = validate_password("password", "formlogin");
-
-                if (isEmailValid && isPasswordValid) {
-                    const emailSanitized = filterXSS(email);
-                    const passSanitized = filterXSS(password);
-
-                    const formData = {
-                        email: emailSanitized,
-                        password: passSanitized
-                    };
-
-                    try {
-                        const response = await fetch("/login-fim", {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json'
-                            },
-                            body: JSON.stringify(formData)
-                        });
-
-                        const data = await response.json();
-
-                        if (response.ok) {
-                            alert(data.message || "Login bem-sucedido!");
-                            window.location.href = data.redirectUrl;
-                        } else {
-                            alert(data.message || "Senha ou email inválidos.");
-                        }
-                    } catch (error) {
-                        console.error('Error:', error);
-                        alert("Ocorreu um erro ao processar a solicitação.");
-                    }
-                }
-            });
-        });
+      // Se houver mensagens de erro definidas na URL (após login mal-sucedido)
+      const urlParams = new URLSearchParams(window.location.search);
+            const errorMessage = urlParams.get('error');
+            if (errorMessage) {
+                document.getElementById('error-message').textContent = errorMessage;
+            }
     </script>
 </body>
 
