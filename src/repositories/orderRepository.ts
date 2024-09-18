@@ -1,10 +1,10 @@
-import Pedido from '../../models/Produto';
+import Pedido from '../../models/Pedido';
 
 export const orderRepository = {
-    findById: async (id: number) => {
+    findByTableNum: async (id: number) => {
         return await Pedido.findOne({
             where: {
-                id_pedido: id
+                id_mesa_pedido: id
             },
             attributes: [
                 'id_pedido', 

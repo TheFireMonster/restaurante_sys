@@ -75,6 +75,13 @@ Produto.init({
     ]
 })
 
-//Produto.sync({ alter: true })
+Produto.sync()
+    .then(() => {
+        console.log('Modelo Produto sincronizado com o banco de dados.');
+    })
+    .catch((error) => {
+        console.error('Erro ao sincronizar modelo Produto com o banco de dados:', error);
+    });
+
 
 export default Produto;

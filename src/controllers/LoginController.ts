@@ -9,9 +9,8 @@ export class LoginController {
         const authToken = req.cookies[process.env.AUTH_COOKIE_NAME ?? ''];
         const refreshToken = req.cookies[process.env.REFRESH_COOKIE_NAME ?? ''];
         if (authToken && refreshToken) {
-            let redirectUrl = '/home'
-            res.redirect(redirectUrl)
-            console.log(`Redirecting to ${redirectUrl}`);
+            res.redirect('/home')
+            console.log('Redirecting to /home');
         } else {
             res.render('Login');
         }
