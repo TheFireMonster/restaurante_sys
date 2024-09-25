@@ -5,6 +5,16 @@ import { generateToken, generateAdminToken } from '../services/genToken';
 import bcrypt from 'bcrypt';
 
 export class LoginController {
+    async getLogin(req: Request, res: Response) {
+        const authToken = req.cookies[process.env.AUTH_COOKIE_NAME ?? ''];
+        const refreshToken = req.cookies[process.env.REFRESH_COOKIE_NAME ?? ''];
+        if (authToken && refreshToken) {
+            res.redirect('/home')
+            console.log('Redirecting to /home');
+        } else {
+            res.render('Login');
+        }
+    }
     async login(req: Request, res: Response, next: NextFunction) {
         const { email, password } = req.body;
 
@@ -27,7 +37,7 @@ export class LoginController {
 
             console.log('Password verified, generating tokens...');
 
-            let redirectUrl = '/pedidocad';
+            let redirectUrl = '/home';
 
             if (user.tipo_usuario === 'gerente') {
                 const { authTokenAdmin, refreshTokenAdmin } = generateAdminToken(user.id_usuario, user.tipo_usuario);
@@ -43,7 +53,6 @@ export class LoginController {
                     sameSite: 'strict',
                 });
 
-                redirectUrl = '/produtocad';
             } else {
                 const { authToken, refreshToken } = generateToken(user.id_usuario);
 
@@ -58,7 +67,6 @@ export class LoginController {
                     sameSite: 'strict',
                 });
 
-                redirectUrl = '/pedidocad';
             }
 
             console.log(`Redirecting to ${redirectUrl}`);

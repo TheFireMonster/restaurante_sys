@@ -45,6 +45,12 @@ class Ingrediente extends Model{
         ]
     });
     
-/*     Ingrediente.sync(); */
-    
-    export default Ingrediente;
+Ingrediente.sync()
+    .then(() => {
+        console.log('Modelo Ingrediente sincronizado com o banco de dados.');
+    })
+    .catch((error) => {
+        console.error('Erro ao sincronizar modelo Ingrediente com o banco de dados:', error);
+    });
+
+export default Ingrediente;
