@@ -1,5 +1,7 @@
 import express, { Request, Response, Router } from 'express';
 import { HomeController } from '../controllers/HomeController';
+import { IngredientController } from '../controllers/IngredientController';
+import { ItemOrderController } from '../controllers/ItemOrderController';
 import { LoginController } from '../controllers/LoginController';
 import { LogoutController } from '../controllers/LogoutController';
 import { MenuController } from '../controllers/MenuController';
@@ -22,6 +24,8 @@ const orderController = new OrderController();
 const prodController = new ProdController();
 const userController = new UserController();
 const payController = new PayController();
+const ingredientController = new IngredientController();
+const itemOrderController = new ItemOrderController();
 
 
 //class MenuRoute {

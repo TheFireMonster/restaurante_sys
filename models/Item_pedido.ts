@@ -4,7 +4,7 @@ import Pedido from './Pedido';
 import Produto from './Produto';
 
 interface ItemPedidoAttributes {
-    id_item_pedido: number;
+    id_item_pedido?: number;
     id_pedido_item_pedido: number;
     quantidade_item_pedido: number;
     id_produto_item_pedido: number;
