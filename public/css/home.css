@@ -11,7 +11,7 @@
 .main{
     width: 100vw;
     height: 100vh;
-    background-color:#fafafa
+    background-color:white;
 }
 
 .arrow{display: none;}
@@ -21,34 +21,41 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    background-color: black;
     position: fixed;
     top:0;
-    left: 12%;
-    width: 86vw;
+    width: 100vw;
     height: 6vh;
     z-index: 90;
     
 }
 
+
 .search{
     display: none;
 }
 
+
 .titulo{
-    width: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin-left: 11.5vw;
+}
+
+.titulo p{
+    font-size: 1.2rem;
+    color: white
+}
+
+.button{
+    margin-right: 2vw;
     
 }
 
-
-
-.titulo p{
-    font-size: 1.5rem;
-    color: black
+.button input{
+    width: 180px;
+    height: 3vh;
+    border: none;
+    border-radius: 2px;
 }
-
 
 
 .create-order-button {
@@ -129,13 +136,13 @@
 
 .central{
     position: absolute;
-    top: 8vh;
-    left: 11.5%;
-    width: 87vw;
-    height: 90%;
+    top: 6vh;
+    
+    width: 100vw;
+    height: 100%;
     background-color: white;
-    box-shadow: -1px -1px 2px rgb(230, 230, 230);
-    border-radius: 10px;
+    
+   
     
 }
 
@@ -158,7 +165,8 @@
 }
 
 .cardapio {
-    width: 100%;
+    width: 87%;
+    margin-left: 11vw;
     
 }
 

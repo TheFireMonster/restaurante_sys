@@ -1,5 +1,5 @@
 import { Model, DataTypes } from 'sequelize';
-import { sequelize } from '../config/cnxsequelize';
+import { sequelize } from '../db/banco/old/config/cnxsequelize';
 
 class Usuario extends Model {
     public id_usuario!: number;

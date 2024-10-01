@@ -52,6 +52,42 @@ routes.post('/login', function (req: Request, res: Response, next: NextFunction)
 });
   
 
+routes.get('/pedidos', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/pedidos.html"));
+  });
+
+
+
+routes.post('/pedidos', async (req, res) => {
+    try {
+        const { id_usuario_pedido, id_mesa_pedido, obs_pedido, total_pedido } = req.body;
+
+        
+        const novoPedido = await Pedido.create({
+            id_usuario_pedido,
+            id_mesa_pedido,
+            obs_pedido,
+            total_pedido,
+            data_pedido: new Date(),  
+            status_pedido: 'Em andamento'  
+        });
+
+        
+        res.status(201).json({
+            message: 'Pedido criado com sucesso',
+            pedido: novoPedido
+        });
+
+    } catch (error) {
+        console.error('Erro ao criar pedido:', error);
+        res.status(500).json({
+            message: 'Erro ao criar pedido',
+            error
+        });
+    }
+});
+
+
 
 routes.get('/login', function (_req: Request, res: Response) {
     res.sendFile(path.join(__dirname + "../../../public/login.html"));

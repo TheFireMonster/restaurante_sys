@@ -4,7 +4,7 @@ import routes from './src/routes/routes';
 import cookieParser from 'cookie-parser';
 import passport from 'passport';
 import session from 'express-session';
-import { sequelize } from './config/cnxsequelize';
+import { sequelize } from './db/banco/old/config/cnxsequelize';
 const LocalStrategy = require('passport-local').Strategy;
 
 const app = express();
