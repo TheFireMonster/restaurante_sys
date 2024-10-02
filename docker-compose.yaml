@@ -1,0 +1,19 @@
+services:
+  system:
+    build: .
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    volumes:
+      - ./src/uploads:/app/uploads
+
+  db:
+    image: postgres
+    container_name: db_restaurant_sys_container
+    environment:
+      - POSTGRES_USER=restaurant_sys
+      - POSTGRES_PASSWORD=Res@sys27
+      - POSTGRES_DB=restaurant_sys
+    ports:
+      - 5432:5432

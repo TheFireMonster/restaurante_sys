@@ -2,7 +2,7 @@
   "name": "sistema-restaurante",
   "version": "0.3.0-alpha",
   "main": "src/index.ts",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "dev": "nodemon --exec ts-node ./src/index.ts",
     "migration:generate": "typeorm-ts-node-commonjs-d ./src/data-source.ts migration:generate ./src/migrations/default",
