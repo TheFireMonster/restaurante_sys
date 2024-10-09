@@ -24,6 +24,18 @@
     <!---->
 
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Teko:wght@300..700&display=swap"
+        rel="stylesheet">
+
+    <!--Raleway-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap"
+        rel="stylesheet">
 
 </head>
 
@@ -35,16 +47,31 @@
 
         <div class="header-line">
 
-          
+            <div class="header-s">
                 <div class="titulo">
-                    <p>Novo pedido</p>
+                    <h2>Novo pedido</h2>
                 </div>
 
-                <div class="button">
-                    <input type="submit" value="Cadastrar produtos">
+
+
+                <div class="header-sm">
+
+                    <div class="button">
+                        <span id="add_button" class="material-symbols-outlined">new_label</span>
+                        <!-- <input type="submit" id="add"  value="Cadastrar produtos"> -->
+                    </div>
+
+
+                    <div class="order-icon">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        <div class="order-count">0</div>
+                    </div>
+                
+
                 </div>
 
-            
+
+            </div>
 
         </div>
 
@@ -61,7 +88,8 @@
 
 
             <div class="logo">
-                <img src="../public/css/imgs/logocomnome2.png">
+                <!-- <img src="../public/css/imgs/logocomnome2.png"> -->
+                <span>WAITERTRACK</span>
             </div>
 
             <div class="menu-line">
@@ -126,129 +154,207 @@
                 <!-- Lanches -->
                 <div class="tab-content active" id="lanches">
                     <div class="item">
-                        <p>Hambúrguer Clássico - R$15,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
+
                     <div class="item">
-                        <p>Cheeseburger - R$18,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Cheeseburger - R$18,00</h3>
+                            <p>Delicioso cheeseburger com queijo cheddar e bacon.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Cheeseburger">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
+
                     <div class="item">
-                        <p>X-Bacon - R$22,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
+
                     <div class="item">
-                        <p>Sanduíche de Frango - R$17,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
+
                     <div class="item">
-                        <p>Beirute de Carne - R$20,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
-                    <!-- Adicione mais itens de lanches aqui -->
+
                 </div>
 
                 <!-- Bebidas -->
                 <div class="tab-content" id="bebidas">
                     <div class="item">
-                        <p>Refrigerante - R$5,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <div class="item">
-                        <p>Suco de Laranja - R$7,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <div class="item">
-                        <p>Água Mineral - R$3,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <div class="item">
-                        <p>Cerveja - R$8,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <div class="item">
-                        <p>Caipirinha - R$12,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Refrigerante - R$5,00</h3>
+                            <p>Escolha entre as opções de Coca-Cola, Guaraná ou Fanta.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Refrigerante">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
                     <!-- Adicione mais itens de bebidas aqui -->
+
+                    <div class="item">
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
+                    </div>
+                    <div class="item">
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
+                    </div>
+
+
                 </div>
 
                 <!-- Pizzas -->
                 <div class="tab-content" id="pizzas">
                     <div class="item">
-                        <p>Pizza Margherita - R$30,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Pizza Margherita - R$30,00</h3>
+                            <p>Pizza com molho de tomate, queijo mussarela e manjericão fresco.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Pizza Margherita">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
+                    </div>
+
+                    <div class="item">
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
                     <div class="item">
-                        <p>Pizza Calabresa - R$32,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
                     <div class="item">
-                        <p>Pizza Quatro Queijos - R$35,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
-                    <div class="item">
-                        <p>Pizza Portuguesa - R$33,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <div class="item">
-                        <p>Pizza de Frango com Catupiry - R$34,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <!-- Adicione mais itens de pizzas aqui -->
+
                 </div>
 
                 <!-- Porções -->
                 <div class="tab-content" id="porcoes">
                     <div class="item">
-                        <p>Batata Frita - R$12,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <div class="item">
-                        <p>Anéis de Cebola - R$15,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <div class="item">
-                        <p> Frango à Passarinho - R$25,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <div class="item">
-                        <p>Calabresa - R$20,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
-                    </div>
-                    <div class="item">
-                        <p>Queijo Coalho - R$18,00</p>
-                        <button class="add-to-order"><span class="material-symbols-outlined">add</span>
-                        </button>
+                        <div class="item-details">
+                            <h3>Batata Frita - R$12,00</h3>
+                            <p>Crocantes batatas fritas, servidas com molho especial.</p>
+                        </div>
+
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Batata Frita">
+                        </div>
+
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                     </div>
 
+                    <div class="item">
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
+                    </div>
+                    <div class="item">
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
+                    </div>
+                    <div class="item">
+                        <div class="item-details">
+                            <h3>Hambúrguer Clássico - R$15,00</h3>
+                            <p>Suculento hambúrguer de carne com queijo, alface e tomate.</p>
+                        </div>
+                        <div class="item-img">
+                            <img src="css/imgs/logosemnome2.png" alt="Hambúrguer Clássico">
+                        </div>
+                        <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
+                    </div>
                 </div>
             </div>
 
 
-            <div class="order-icon">
-                <span class="material-symbols-outlined">shopping_cart</span>
-                <div class="order-count">0</div>
-            </div>
+
 
 
             <!-- Fundo Escurecido -->
@@ -287,13 +393,76 @@
                 fastfood
             </span>
 
-            <!-- <div class="order-icon">
+            <div class="order-icon">
                 <span class="material-symbols-outlined">shopping_bag</span>
                 <div class="order-count">0</div>
-            </div> -->
+            </div>
 
 
         </div>
+
+
+        <!-- Pop-up Form -->
+        <div id="popupForm" class="addform">
+
+
+            <span class="close_button" id="closeFormButton">&times;</span>
+
+            <div class="add_form">
+
+                <form action="/pedidos" method="post" class="form" id="form">
+
+                    <h2>Cadastro de produtos</h2>
+                    <div class="add_form_line">
+                        <input type="text" class="add_form_field" placeholder="Nome" id="nome" name="nome" required>
+                        <input type="number" class="add_form_field" placeholder="Quantidade" id="quantidade"
+                            name="quantidade">
+                    </div>
+                    <div class="add_form_line">
+                        <input type="number" class="add_form_field" placeholder="Lote" id="lote" name="lote" required>
+                        <input type="number" class="add_form_field" placeholder="Preço" id="preco" name="preco"
+                            required>
+                    </div>
+                    <div class="add_form_sline">
+                        <div class="add_form_group">
+                            <label for="idfornecedor" class="add_form_label">Id Fornecedor</label>
+                            <select id="idfornecedor" name="idfornecedor" class="add_form_select" required>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                        <div class="add_form_group">
+                            <label for="idestoque" class="add_form_label">Id Estoque</label>
+                            <select id="idestoque" name="idestoque" class="add_form_select" required>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                        <div class="add_form_group">
+                            <label for="idcategoria" class="add_form_label">Id Categoria</label>
+                            <select id="idcategoria" name="idcategoria" id="idcategoria" class="add_form_select"
+                                required>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </div>
+                        <div class="add_form_group">
+                            <label for="datavalidade" class="add_form_label">Validade</label>
+                            <input type="date" id="datavalidade" name="datavalidade" class="add_form_field" required>
+                        </div>
+                    </div>
+                    <div class="add_form_line">
+                        <input type="submit" id="cadastrarProduto" name="cadastrarProduto" value="Cadastrar Produto">
+                    </div>
+                </form><!--Form-->
+            </div><!-- add_form -->
+
+
+
+        </div><!-- popupForm -->
 
 
 
@@ -326,6 +495,32 @@
 
 
 
+    //popupForm adiciona Produtos
+
+    document.addEventListener("DOMContentLoaded", function () {
+        var popupForm = document.getElementById("popupForm");
+        var addButton = document.getElementById("add_button");
+        var closeFormButton = document.getElementById("closeFormButton");
+
+        addButton.addEventListener("click", function () {
+            popupForm.style.display = "flex";
+        });
+
+        closeFormButton.addEventListener("click", function () {
+            popupForm.style.display = "none";
+        });
+
+        window.addEventListener("click", function (event) {
+            if (event.target === popupForm) {
+                popupForm.style.display = "none";
+            }
+        });
+    });
+
+
+
+
+
 
 
 
@@ -350,22 +545,23 @@
     let total = 0.0;
 
     document.querySelectorAll('.add-to-order').forEach(button => {
-        button.addEventListener('click', function () {
-            const itemName = this.parentElement.querySelector('p').innerText.split(' - ')[0];
-            const itemPrice = parseFloat(this.parentElement.querySelector('p').innerText.split(' - ')[1].replace('R$', '').replace(',', '.'));
+    button.addEventListener('click', function () {
+        const itemName = this.parentElement.querySelector('.item-details h3').innerText.split(' - ')[0];
+        const itemPrice = parseFloat(this.parentElement.querySelector('.item-details h3').innerText.split(' - ')[1].replace('R$', '').replace(',', '.'));
 
-            const existingItem = order.find(item => item.name === itemName);
+        const existingItem = order.find(item => item.name === itemName);
 
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                order.push({ name: itemName, price: itemPrice, quantity: 1 });
-            }
+        if (existingItem) {
+            existingItem.quantity++;
+        } else {
+            order.push({ name: itemName, price: itemPrice, quantity: 1 });
+        }
 
-            updateOrderIcon();
-            updateOrderArea();
-        });
+        updateOrderIcon();
+        updateOrderArea();
     });
+});
+
 
     document.querySelector('.order-icon').addEventListener('click', function () {
         document.querySelector('.overlay').style.display = 'block';

@@ -2,16 +2,19 @@
     padding: 0;
     margin:0;
     overflow: hidden;
-    font-family: 'Roboto', sans-serif;
+    font-family: "Raleway";
    
 }
 
 
 
-.main{
+.main {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
     width: 100vw;
     height: 100vh;
-    background-color:white;
+    background-color: white;
 }
 
 .arrow{display: none;}
@@ -21,9 +24,9 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background-color: black;
+    background-color: white;
     position: fixed;
-    top:0;
+    top:5;
     width: 100vw;
     height: 6vh;
     z-index: 90;
@@ -31,24 +34,42 @@
 }
 
 
+.header-s{
+    display: flex;
+    justify-content: space-between;
+    width: 85vw;
+    margin-left: 13%;
+    max-width: 1930px;
+}
+
+
+.header-sm{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-right: 2vw;
+}
+
+
+.button{
+  
+    margin-right:1vw ;
+
+}
+
 .search{
     display: none;
 }
 
 
-.titulo{
-    margin-left: 11.5vw;
-}
+
 
 .titulo p{
     font-size: 1.2rem;
-    color: white
+    color: black
 }
 
-.button{
-    margin-right: 2vw;
-    
-}
+
 
 .button input{
     width: 180px;
@@ -121,6 +142,14 @@
   
 }
 
+.logo span{
+    font-family:"Playfair Display" ;
+    font-size: 1vw;
+    font-weight: 700; 
+    margin-top: 3%;
+    margin-bottom: 20%;
+}
+
 .menu-line{
     display: flex;
     flex-direction: row;
@@ -135,12 +164,20 @@
 }
 
 .central{
-    position: absolute;
-    top: 6vh;
     
-    width: 100vw;
-    height: 100%;
+    
+  
+   
+    position: relative;
+    top: 8vh;
+    left: 13%;
+    right: 10%;
+    max-width: 1900px;
+    width: 85vw;
+    height: 70vh;
     background-color: white;
+    overflow-y: auto;
+   
     
    
     
@@ -165,28 +202,22 @@
 }
 
 .cardapio {
-    width: 87%;
-    margin-left: 11vw;
-    
+    width: 100%;
 }
 
 .tabs {
-   
-    
     display: flex;
     width: 100%;
-    border-bottom: 1px solid #ddd;
     margin-bottom: 20px;
+    background-color: #f4f4f4;
+    border-radius: 10px;
 }
 
 .tab {
-    
     cursor: pointer;
     padding: 10px 20px;
-   
     border-radius: 5px 5px 0 0;
     transition: background-color 0.3s;
-    
 }
 
 .tab.active {
@@ -200,40 +231,74 @@
 }
 
 .tab-content.active {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
 }
 
 .item {
     display: flex;
+    
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    width: 98%;
-    padding: 10px 10px ;
-    border-bottom: 1px solid #ddd;
+    padding: 10px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: auto;
 }
 
-.item p {
+.item-details {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.item-details h3 {
     margin: 0;
-    font-size: 18px;
+    font-size: 20px;
+    color: #333;
 }
 
-.item button{
+.item-details p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #666;
+}
+
+.item-img {
+    width: 100px;
+    height: 100px;
+    
+    background-color: #f4f4f4;
+    border-radius: 10px;
     display: flex;
+    justify-content: center;
     align-items: center;
-   
+}
+
+.item-img img {
+    z-index: 90;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
 }
 
 .add-to-order {
-    background-color: #002574;
+    z-index:98 ;
+    margin-left: -25px;
+    margin-right: -5px;
+    margin-bottom: -60px;
+   
+    background-color: #000000;
     color: white;
     border: none;
-    padding: 5px 10px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 50%; /* Botão redondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
     transition: background-color 0.3s ease;
 }
 
@@ -241,7 +306,9 @@
     background-color: #45a049;
 }
 
-
+.add-to-order span {
+    font-size: 24px; /* Ajusta o tamanho do ícone */
+}
 /* Ícone do Pedido */
 .order-icon {
     
@@ -249,22 +316,12 @@
     flex-direction: row;
     align-items: center;
     color: black;
-    position: fixed;
-    top: 84vh;
-    right: 4vw;
-
-
-   
     
-   
 }
 
 .order-icon span{
     margin-right: -3px;
 }
-
-
-
 
 .order-icon .order-count {
     background-color: red;
@@ -299,8 +356,8 @@
     background-color: white;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    z-index: 101;
+    padding:20px ;
+    z-index: 100;
     flex-direction: column;
 }
 
@@ -317,6 +374,7 @@
 .order-popup input[type="text"] {
     width: 100%;
     padding: 10px;
+    
     margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -400,6 +458,108 @@
     
 }
 
+
+.addform {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    z-index: 99;
+}
+
+.add_form {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 5px;
+    width: 30%;
+    position: relative;
+}
+
+.close_button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.add_form_line {
+    display: flex;
+    width: 100%;
+
+    flex-direction: row;
+    margin-bottom: 10px;
+    gap: 25px;
+}
+
+
+.add_form_group {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.add_form_sline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.add_form_sline select {
+    width: 180px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #afafaf;
+}
+
+.add_form_sline input {
+    width: 150px;
+    margin-top: -7px;
+    outline: none;
+}
+
+.add_form_field {
+    width: 100%;
+    height: 25px;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #afafaf;
+    color: black;
+    margin-top: 2%;
+}
+
+.add_form input[type="submit"] {
+    width: 100%;
+    height: 40px;
+    margin-top: 6%;
+    border: none;
+    background-color: rgb(39, 39, 39);
+    color: white;
+    border-radius: 1%;
+    cursor: pointer;
+}
+
+
+.add_form_label {
+
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.add_form h2 {
+    margin-bottom: 10px;
+}
+
+
+
+
+
 @media (max-width:480px){
     
     
@@ -430,9 +590,9 @@
         height: 10vh;
     }
     
-    .titulo p{
+    .titulo h2{
         margin-top: 3vh;
-        margin-left: 3vw;
+        
     }
     .search input{
         width: 89vw;
@@ -480,7 +640,7 @@
         background-color: #fafafa;
         top: 18vh;
         left: 0;
-       
+        overflow: auto;
     }
 
     .navbar{
@@ -494,4 +654,19 @@
     .order-popup{
         width: 90vw;
     }
+
+
+    .tab-content.active {
+        display: flex;
+        flex-direction: column;
+        grid-gap: 15px;
+        margin-left: 20px;
+    }
+    
+
+
+
 }
+
+
+
