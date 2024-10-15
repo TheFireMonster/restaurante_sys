@@ -27,6 +27,17 @@ SET default_table_access_method = heap;
 -- Name: Ingredientes; Type: TABLE; Schema: public; Owner: postgres
 --
 
+CREATE ROLE restaurant_sys WITH LOGIN PASSWORD 'Res@sys27';
+
+-- Create a new database
+CREATE DATABASE restaurant_sys;
+
+-- Grant privileges on the new database to the new role
+GRANT ALL PRIVILEGES ON DATABASE restaurant_sys TO restaurant_sys;
+
+-- Connect to the new database
+\connect restaurant_sys;
+
 CREATE TABLE public."Ingredientes" (
     id_ingrediente integer NOT NULL,
     quantidade_ingrediente integer,
