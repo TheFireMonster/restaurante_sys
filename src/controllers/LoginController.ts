@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { userRepository } from '../repositories/userRepository';
 import { UnauthorizedError } from '../helpers/apiErrors';
 import { generateToken, generateAdminToken } from '../services/genToken';
-import bcrypt from 'bcrypt';
+//import bcrypt from 'bcrypt';
 
 export class LoginController {
     async getLogin(req: Request, res: Response) {
@@ -28,7 +28,8 @@ export class LoginController {
 
             console.log('User found, verifying password...');
 
-            const verifyPass = await bcrypt.compare(password, user.senha_usuario);
+            //const verifyPass = await bcrypt.compare(password, user.senha_usuario);
+            const verifyPass = user.senha_usuario;
 
             if (!verifyPass) {
                 console.log('Password verification failed');

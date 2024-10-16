@@ -6,7 +6,7 @@ import { LoginController } from '../controllers/LoginController';
 import { LogoutController } from '../controllers/LogoutController';
 import { MenuController } from '../controllers/MenuController';
 import { OrderController } from '../controllers/OrderController';
-import { PayController } from '../controllers/PayController';
+//import { PayController } from '../controllers/PayController';
 import { ProdController } from '../controllers/ProdController';
 import { UserController } from '../controllers/UserController';
 import { verifyAndRefreshTokenAdmin } from '../middlewares/verifyAndRefreshTokenAdmin';
@@ -23,7 +23,7 @@ const menuController = new MenuController
 const orderController = new OrderController();
 const prodController = new ProdController();
 const userController = new UserController();
-const payController = new PayController();
+//const payController = new PayController();
 const ingredientController = new IngredientController();
 const itemOrderController = new ItemOrderController();
 
