@@ -11,7 +11,7 @@ const app = express();
 
 // Configurando o express-session
 app.use(session({
-    secret: 'seuSegredoAqui', // Use um segredo seguro em produção
+    secret: 'segredo', // Use um segredo seguro em produção
     resave: false,
     saveUninitialized: false,
     cookie: { secure: false } // Defina como true se estiver usando HTTPS
