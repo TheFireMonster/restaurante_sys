@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../config/cnxsequelize'; 
+import { sequelize } from '../db/banco/old/config/cnxsequelize'; 
 import Usuario from './Usuario'; 
 import Mesa from './Mesa'; 
 
