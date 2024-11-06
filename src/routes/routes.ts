@@ -108,6 +108,7 @@ class Routes {
         this.router.post('/login-fim', (req, res, next) => loginController.login(req, res, next));
         this.router.post('/logout', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, (req, res) => logoutController.logout(req, res));
         this.router.get('/produtocad', verifyAndRefreshTokenAdmin, (req, res) => prodController.getRegProd(req, res));
+        this.router.get('/pedidocad', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, (req, res) => prodController.prodShow(req, res));
         this.router.post('/prod-fim', verifyAndRefreshTokenAdmin, (req, res) => prodController.prodRegister(req, res));
         this.router.get('/pedidocad', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, (req, res) => orderController.getRegOrder(req, res));
         this.router.post('/ped-fim', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, (req, res, next) => orderController.orderRegister(req, res, next));

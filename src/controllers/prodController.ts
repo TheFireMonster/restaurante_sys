@@ -21,4 +21,10 @@ export class ProdController {
             res.send("Não foi possível finalizar o cadastro do produto");
         }
     }
+    async prodShow(req: Request, res: Response){
+        const products = await Produto.findAll({
+            attributes: ['id_produto', 'nome_produto', 'quantidade_produto'],
+        });
+        res.render('products', { products });
+    }
 }
