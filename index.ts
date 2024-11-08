@@ -7,6 +7,7 @@ import session from 'express-session';
 import { sequelize } from './db/banco/old/config/cnxsequelize';
 const LocalStrategy = require('passport-local').Strategy;
 
+
 const app = express();
 
 // Configurando o express-session
@@ -25,6 +26,8 @@ app.use(passport.session());
 
 
 app.use('/public', express.static('public'));
+app.use(express.static('public'));
+
 
 
 app.use(routes);

@@ -1,36 +1,49 @@
 import express, { NextFunction, Request, Response, Router } from 'express';
 import path from 'path';
-
+import multer from 'multer';
+import pedidos from '../../models/pedidos';
 import passport from '../../config/js/auth';
 import Produto from '../../models/Produto';
-import Pedido from '../../models/Pedido';
-import { LoginController } from '../controllers/LoginController';
-import { LogoutController } from '../controllers/LogoutController';
-import { verifyAndRefreshTokenAdmin } from '../middlewares/verifyAndRefreshTokenAdmin';
-import { verifyAndRefreshToken } from '../middlewares/verifyAndRefreshToken';
-import { UserController } from '../controllers/userController';
+import Pedido from '../../models/pedidos';
+import session from 'express-session';
+// import '../../config/types/express-session';
 
 const routes = express.Router();
-// const loginController = new LoginController();
-// const userController = new UserController();
 
-// class MenuRoute {
-//     static getMenu(req: Request, res: Response) {
-//         res.send('Hello World');
-//     }
-// }
 
-// class HomeRoute {
-//     static getHome(req: Request, res: Response) {
-//         res.render('home');
-//     }
-// }
 
-// class SignupRoute {
-//     static getSignup(req: Request, res: Response) {
-//         res.render('Cadastro');
-//     }
-// }
+declare module 'express-session' {
+    interface SessionData {
+      mensagem?: string;  // Define a propriedade 'mensagem' como opcional
+    }
+  }
+  
+
+// Configuração do Multer para salvar as imagens em uma pasta "uploads"
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Caminho onde as imagens serão salvas
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname); // Nomeia o arquivo com a data e nome original
+    }
+});
+
+
+const upload = multer({ storage: storage });
+
+
+
+
+
+
+
+routes.get('/login', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/login.html"));
+});
+
+
+
 
 routes.post('/login', function (req: Request, res: Response, next: NextFunction) {
     passport.authenticate('local', function (err: any, user: { email_usuario: string; }, info: { message: string | number | boolean; }) {
@@ -50,117 +63,75 @@ routes.post('/login', function (req: Request, res: Response, next: NextFunction)
         });
     })(req, res, next);
 });
-  
 
-routes.get('/pedidos', function (_req: Request, res: Response) {
-    res.sendFile(path.join(__dirname + "../../../public/pedidos.html"));
-  });
+
+
+
+routes.get('/pedidos', async (req,res) => {
+    if (req.query.json === 'true') {
+    try {
+        const cardapioProdutos = await Produto.findAll(); // Busca todos os produtos no banco
+        res.json(cardapioProdutos); // Retorna JSON
+        console.log(cardapioProdutos)
+      } catch (error) {
+        res.status(500).json({ error: 'Erro ao buscar os produtos.' });
+      }
+    }else{
+        res.sendFile(path.join(__dirname + "../../../public/pedidos.html"));
+      }
+      
+    });
+
+   
 
 
 
 routes.post('/pedidos', async (req, res) => {
+    // try {
+    //   const cardapioProdutos = await Produto.findAll(); // Busca todos os produtos no banco
+    //   res.json(cardapioProdutos); // Retorna JSON
+    // } catch (error) {
+    //   res.status(500).json({ error: 'Erro ao buscar os produtos.' });
+    // }
+  });
+  
+
+
+
+
+  routes.post('/cad-produtos', upload.single('imagem'), async (req: Request, res: Response) => {
+    const { nome_produto, descricao_produto, preco_produto, quantidade_produto, idcategoria } = req.body;
+
     try {
-        const { id_usuario_pedido, id_mesa_pedido, obs_pedido, total_pedido } = req.body;
+        const novoProduto = await Produto.create({
+            nome_produto,
+            descricao_produto,
+            preco_produto,
+            tipo_produto: idcategoria, // Use o id da categoria conforme seu modelo e necessidade
+            produto_transformacao: false, // Defina um valor padrão ou ajuste conforme necessário
+            imagem_produto: req.file ? req.file.path : null
+        })
+        ;
 
-        
-        const novoPedido = await Pedido.create({
-            id_usuario_pedido,
-            id_mesa_pedido,
-            obs_pedido,
-            total_pedido,
-            data_pedido: new Date(),  
-            status_pedido: 'Em andamento'  
-        });
-
-        
-        res.status(201).json({
-            message: 'Pedido criado com sucesso',
-            pedido: novoPedido
-        });
-
+        res.redirect('/pedidos?mensagem=Produto cadastrado com sucesso!');
     } catch (error) {
-        console.error('Erro ao criar pedido:', error);
-        res.status(500).json({
-            message: 'Erro ao criar pedido',
-            error
-        });
+        console.error('Erro ao cadastrar o produto:', error);
+        res.status(500).json({ error: 'Erro ao cadastrar o produto' });
     }
 });
 
 
 
-routes.get('/login', function (_req: Request, res: Response) {
-    res.sendFile(path.join(__dirname + "../../../public/login.html"));
-  });
 
 
-  routes.get('/home', function (_req: Request, res: Response) {
+
+
+
+routes.get('/home', function (_req: Request, res: Response) {
     res.sendFile(path.join(__dirname + "../../../public/home.html"));
-  });
+});
 
-  
-// class RegProdRoute {
-//     static getRegProd(req: Request, res: Response) {
-//         res.render('RegistrarProd');
-//     }
 
-//     static async postRegProd(req: Request, res: Response) {
-//         const { nome_produto, descricao_produto, preco_produto, quantidade_produto, tipo_produto, produto_transformacao } = req.body;
-//         try {
-//             await Produto.create({ nome_produto, descricao_produto, preco_produto, quantidade_produto, tipo_produto, produto_transformacao });
-//             res.render('RegistrarNovoProd');
-//         } catch (error) {
-//             console.error(error);
-//             res.send("Não foi possível finalizar o cadastro do produto");
-//         }
-//     }
-// }
 
-// class RegOrdRoute {
-//     static getRegOrd(req: Request, res: Response) {
-//         res.render('RegistrarPed');
-//     }
-
-//     static async postRegOrd(req: Request, res: Response) {
-//         const { ped_id_usuario, ped_numero_mesa } = req.body;
-//         try {
-//             await Pedido.create({ id_mesa_pedido: ped_numero_mesa, id_usuario_pedido: ped_id_usuario });
-//             res.send("Pedido cadastrado com sucesso");
-//         } catch (error) {
-//             console.error(error);
-//             res.send("Não foi possível finalizar o pedido");
-//         }
-//     }
-// }
-
-// class Routes {
-//     public router: Router;
-
-//     constructor() {
-//         this.router = Router();
-//         this.initRoutes();
-//     }
-
-//     private initRoutes() {
-//         const { getMenu } = MenuRoute;
-//         const { getHome } = HomeRoute;
-//         const { getSignup } = SignupRoute;
-//         const { getRegProd, postRegProd } = RegProdRoute;
-//         const { getRegOrd, postRegOrd } = RegOrdRoute;
-//         const { getLogin } = LoginRoute;
-
-//         this.router.get('/cardapio', getMenu);
-//         this.router.get('/home', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, getHome);
-//         this.router.get('/cadastro', getSignup);
-//         this.router.post('/cad-fim', (req, res) => userController.register(req, res));
-//         this.router.get('/login', getLogin);
-//         this.router.post('/login-fim', (req, res, next) => loginController.login(req, res, next));
-//         this.router.post('/logout', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, new LogoutController().logout);
-//         this.router.get('/produtocad', verifyAndRefreshTokenAdmin, getRegProd);
-//         this.router.post('/prod-fim', verifyAndRefreshTokenAdmin, postRegProd);
-//         this.router.get('/pedidocad', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, getRegOrd);
-//         this.router.post('/ped-fim', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, postRegOrd);
-//     }
-// }
 
 export default routes

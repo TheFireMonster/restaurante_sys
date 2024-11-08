@@ -13,7 +13,11 @@
 		"forceConsistentCasingInFileNames": true,
 		"strict": true,
 		"noImplicitAny": true,
-		"strictPropertyInitialization": false
+		"strictPropertyInitialization": false,
+		"typeRoots": [
+			"./node_modules/@types",
+			"./config/types"  // Adicione o diretório onde os tipos personalizados estão
+		  ]
 	},
 	"include": ["src/**/**/*", "index.ts"],
 	"exclude": ["node_modules", "dist"],

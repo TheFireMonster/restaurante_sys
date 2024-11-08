@@ -1,22 +1,24 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../db/banco/old/config/cnxsequelize'; 
-import Usuario from './Usuario'; 
-import Mesa from './Mesa'; 
+import Usuario from './usuarios'; 
+import Mesa from './mesas'; 
 
 interface PedidoAttributes {
     id_pedido?: number;
     id_usuario_pedido: number;
     id_mesa_pedido: number;
+    qtd_produto?:number,
     obs_pedido?: string;
     status_pedido?: string;
     data_pedido?: Date;
     total_pedido?: number;
 }
 
-class Pedido extends Model<PedidoAttributes> implements PedidoAttributes {
+class pedidos extends Model<PedidoAttributes> implements PedidoAttributes {
     public id_pedido!: number;
     public id_usuario_pedido!: number;
     public id_mesa_pedido!: number;
+    public qtd_produto: number;
     public obs_pedido?: string;
     public status_pedido?: string;
     public data_pedido?: Date;
@@ -26,7 +28,7 @@ class Pedido extends Model<PedidoAttributes> implements PedidoAttributes {
     public readonly updatedAt!: Date;
 }
 
-Pedido.init({
+pedidos.init({
     id_pedido: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -47,6 +49,11 @@ Pedido.init({
             key: 'id_mesa'
         }
     },
+
+    qtd_produto:{
+        type:DataTypes.INTEGER
+    },
+
     obs_pedido: {
         type: DataTypes.STRING,
         validate: {
@@ -65,7 +72,7 @@ Pedido.init({
     }
 }, {
     sequelize,
-    modelName: 'Pedido',
+    modelName: 'pedidos',
     indexes: [
         {
             unique: true,
@@ -74,17 +81,11 @@ Pedido.init({
     ]
 });
 
-Pedido.belongsTo(Usuario, { foreignKey: 'id_usuario_pedido' });
-Usuario.hasMany(Pedido, { foreignKey: 'id_usuario_pedido' });
-Pedido.belongsTo(Mesa, { foreignKey: 'id_mesa_pedido' });
-Mesa.hasMany(Pedido, { foreignKey: 'id_mesa_pedido' });
+pedidos.belongsTo(Usuario, { foreignKey: 'id_usuario_pedido' });
+Usuario.hasMany(pedidos, { foreignKey: 'id_usuario_pedido' });
+pedidos.belongsTo(Mesa, { foreignKey: 'id_mesa_pedido' });
+Mesa.hasMany(pedidos, { foreignKey: 'id_mesa_pedido' });
 
-/* Pedido.sync()
-    .then(() => {
-        console.log('Modelo Pedido sincronizado com o banco de dados.');
-    })
-    .catch((error) => {
-        console.error('Erro ao sincronizar modelo Pedido com o banco de dados:', error);
-    }); */
 
-export default Pedido;
+
+export default pedidos;

@@ -1,8 +1,9 @@
 import express, { Request, Response } from 'express';
 import { Strategy as LocalStrategy } from 'passport-local';
 import passport from 'passport';
-import Usuario from '../../models/Usuario'
-import bcrypt from 'bcrypt';
+import usuarios from '../../models/usuarios'
+
+
 
 
 
@@ -23,7 +24,7 @@ passport.use(new LocalStrategy({
 
      
         // Use Sequelize para encontrar o usuário
-        const user = await Usuario.findOne({ where: { email_usuario:email , senha_usuario:senha} });
+        const user = await usuarios.findOne({ where: { email_usuario:email , senha_usuario:senha} });
 
         if (!user) {
             return done(null, false, { message: 'Credenciais inválidas' });
@@ -44,7 +45,7 @@ passport.serializeUser((user: any, done: Function) => {
 passport.deserializeUser(async (email: string, done: Function) => {
     try {
         // Use Sequelize para encontrar o usuário pelo email
-        const user = await Usuario.findOne({ where: { email_usuario:email} });
+        const user = await usuarios.findOne({ where: { email_usuario:email} });
 
         if (!user) {
             return done(new Error('Usuário não encontrado'));

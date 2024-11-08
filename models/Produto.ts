@@ -1,5 +1,5 @@
-import { DataTypes, Model } from 'sequelize'
-import { sequelize } from '../db/banco/old/config/cnxsequelize'
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '../db/banco/old/config/cnxsequelize';
 
 interface ProdutoAttributes {
     id_produto?: number;
@@ -9,6 +9,7 @@ interface ProdutoAttributes {
     quantidade_produto?: number;
     tipo_produto?: string;
     produto_transformacao?: boolean;
+    imagem_produto: string | null;
 }
 
 class Produto extends Model<ProdutoAttributes> implements ProdutoAttributes {
@@ -19,6 +20,7 @@ class Produto extends Model<ProdutoAttributes> implements ProdutoAttributes {
     public quantidade_produto?: number;
     public tipo_produto?: string;
     public produto_transformacao?: boolean;
+    public imagem_produto: string | null;
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
@@ -60,6 +62,10 @@ Produto.init({
     },
     produto_transformacao: {
         type: DataTypes.BOOLEAN
+    },
+    imagem_produto: {  
+        type: DataTypes.STRING,
+        allowNull: true 
     }
 }, {
     sequelize,
@@ -71,7 +77,5 @@ Produto.init({
         }
     ]
 })
-
-//Produto.sync()
 
 export default Produto;

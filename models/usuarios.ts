@@ -1,7 +1,7 @@
 import { Model, DataTypes } from 'sequelize';
 import { sequelize } from '../db/banco/old/config/cnxsequelize';
 
-class Usuario extends Model {
+class usuarios extends Model {
     public id_usuario!: number;
     public senha_usuario!: string;
     public nome_usuario!: string;
@@ -13,7 +13,7 @@ class Usuario extends Model {
     
 }
 
-Usuario.init({
+usuarios.init({
     id_usuario: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -45,9 +45,9 @@ Usuario.init({
     },
 }, {
     sequelize,
-    modelName: 'Usuario',
-    tableName: 'usuario',
+    modelName: 'usuarios',
+    tableName: 'usuarios',
     timestamps: false,
 });
 
-export default Usuario;
+export default usuarios;

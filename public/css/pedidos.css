@@ -6,7 +6,11 @@
    
 }
 
-
+.mensagem{
+    background-color: black;
+    width: 300px;
+    z-index: 120;
+}
 
 .main{
     width: 100vw;
