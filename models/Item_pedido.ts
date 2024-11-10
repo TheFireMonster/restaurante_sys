@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../config/cnxsequelize';
+import { sequelize } from '../db/config/cnxsequelize';
 import Pedido from './Pedido';
 import Produto from './Produto';
 
@@ -73,7 +73,7 @@ Pedido.hasMany(ItemPedido, { foreignKey: 'id_pedido_item_pedido' });
 ItemPedido.belongsTo(Produto, { foreignKey: 'id_produto_item_pedido' });
 Produto.hasMany(ItemPedido, { foreignKey: 'id_produto_item_pedido' });
 
-ItemPedido.sync()
+ItemPedido.sync({ force: true })
     .then(() => {
         console.log('Modelo Item_pedido sincronizado com o banco de dados.');
     })

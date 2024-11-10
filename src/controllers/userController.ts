@@ -1,5 +1,5 @@
-//import bcrypt from 'bcrypt';
-import Usuario from '../../models/Usuario';
+import bcrypt from 'bcryptjs';
+import usuarios from '../../models/Usuario';
 import { Request, Response } from 'express';
 
 export class UserController {
@@ -12,10 +12,9 @@ export class UserController {
         try {
             console.log('Registrando novo usuário...');
 
-            //const hashedPassword = await bcrypt.hash(password, 10);
-            const hashedPassword = password;
+            const hashedPassword = await bcrypt.hash(password, 10);
             
-            await Usuario.create({
+            await usuarios.create({
                 senha_usuario: hashedPassword,
                 nome_usuario: name,
                 cpf_usuario: cpf,

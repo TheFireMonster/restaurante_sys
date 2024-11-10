@@ -1,7 +1,7 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../db/banco/old/config/cnxsequelize'; 
-import Usuario from './usuarios'; 
-import Mesa from './mesas'; 
+import { sequelize } from '../db/config/cnxsequelize'; 
+import Usuario from './Usuario'; 
+import Mesa from './Mesa'; 
 
 interface PedidoAttributes {
     id_pedido?: number;
@@ -14,7 +14,7 @@ interface PedidoAttributes {
     total_pedido?: number;
 }
 
-class pedidos extends Model<PedidoAttributes> implements PedidoAttributes {
+class Pedido extends Model<PedidoAttributes> implements PedidoAttributes {
     public id_pedido!: number;
     public id_usuario_pedido!: number;
     public id_mesa_pedido!: number;
@@ -28,7 +28,7 @@ class pedidos extends Model<PedidoAttributes> implements PedidoAttributes {
     public readonly updatedAt!: Date;
 }
 
-pedidos.init({
+Pedido.init({
     id_pedido: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -81,11 +81,11 @@ pedidos.init({
     ]
 });
 
-pedidos.belongsTo(Usuario, { foreignKey: 'id_usuario_pedido' });
-Usuario.hasMany(pedidos, { foreignKey: 'id_usuario_pedido' });
-pedidos.belongsTo(Mesa, { foreignKey: 'id_mesa_pedido' });
-Mesa.hasMany(pedidos, { foreignKey: 'id_mesa_pedido' });
+Pedido.belongsTo(Usuario, { foreignKey: 'id_usuario_pedido' });
+Usuario.hasMany(Pedido, { foreignKey: 'id_usuario_pedido' });
+Pedido.belongsTo(Mesa, { foreignKey: 'id_mesa_pedido' });
+Mesa.hasMany(Pedido, { foreignKey: 'id_mesa_pedido' });
 
 
 
-export default pedidos;
+export default Pedido;

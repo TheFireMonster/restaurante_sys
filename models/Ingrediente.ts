@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../config/cnxsequelize';
+import { sequelize } from '../db/config/cnxsequelize';
 
 interface IngredienteAttributes {
     id_ingrediente: number;

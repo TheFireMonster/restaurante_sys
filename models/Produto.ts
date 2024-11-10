@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../db/banco/old/config/cnxsequelize';
+import { sequelize } from '../db/config/cnxsequelize';
 
 interface ProdutoAttributes {
     id_produto?: number;
@@ -77,5 +77,13 @@ Produto.init({
         }
     ]
 })
+
+Produto.sync({ force: true })
+    .then(() => {
+        console.log('Modelo Produto sincronizado com o banco de dados.');
+    })
+    .catch((error) => {
+        console.error('Erro ao sincronizar modelo Item_pedido com o banco de dados:', error);
+    });
 
 export default Produto;
