@@ -1,18 +1,18 @@
 import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../config/cnxsequelize';
+import { sequelize } from '../db/banco/old/config/cnxsequelize';
 
 interface MesaAttributes {
     id_mesa: number;
 }
 
-class Mesa extends Model<MesaAttributes> implements MesaAttributes {
+class mesas extends Model<MesaAttributes> implements MesaAttributes {
     public id_mesa!: number;
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
 
-Mesa.init({
+mesas.init({
     id_mesa: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -32,4 +32,4 @@ Mesa.sync()
         console.error('Erro ao sincronizar modelo Mesa com o banco de dados:', error);
     });
 
-export default Mesa;
+export default mesas;

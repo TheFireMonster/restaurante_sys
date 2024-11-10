@@ -1,118 +1,139 @@
-import express, { Request, Response, Router } from 'express';
-import { HomeController } from '../controllers/HomeController';
-import { IngredientController } from '../controllers/IngredientController';
-import { ItemOrderController } from '../controllers/ItemOrderController';
-import { LoginController } from '../controllers/LoginController';
-import { LogoutController } from '../controllers/LogoutController';
-import { MenuController } from '../controllers/MenuController';
-import { OrderController } from '../controllers/OrderController';
-//import { PayController } from '../controllers/PayController';
-import { ProdController } from '../controllers/ProdController';
-import { UserController } from '../controllers/UserController';
-import { verifyAndRefreshTokenAdmin } from '../middlewares/verifyAndRefreshTokenAdmin';
-import { verifyAndRefreshToken } from '../middlewares/verifyAndRefreshToken';
+import express, { NextFunction, Request, Response, Router } from 'express';
+import path from 'path';
+import multer from 'multer';
+import pedidos from '../../models/pedidos';
+import passport from '../../config/js/auth';
+import Produto from '../../models/Produto';
+import Pedido from '../../models/pedidos';
+import session from 'express-session';
+// import '../../config/types/express-session';
+
+const routes = express.Router();
 
 
 
-
-const router = express.Router();
-const homeController = new HomeController();
-const loginController = new LoginController();
-const logoutController = new LogoutController();
-const menuController = new MenuController
-const orderController = new OrderController();
-const prodController = new ProdController();
-const userController = new UserController();
-//const payController = new PayController();
-const ingredientController = new IngredientController();
-const itemOrderController = new ItemOrderController();
-
-
-//class MenuRoute {
-//    static 
-//}
-
-//class HomeRoute {
-//    static getHome(req: Request, res: Response) {
-//        res.render('home');
-//    }
-//}
-
-//class SignupRoute {
-//    static getSignup(req: Request, res: Response) {
-//        res.render('Cadastro');
-//    }
-//}
-
-//class LoginRoute {
-//    static getLogin(req: Request, res: Response) {
-//        res.render('Login');
-//    }
-//}
-
-/* class RegProdRoute {
-    static getRegProd(req: Request, res: Response) {
-        res.render('RegistrarProd');
+declare module 'express-session' {
+    interface SessionData {
+      mensagem?: string;  // Define a propriedade 'mensagem' como opcional
     }
+  }
+  
 
-    static async postRegProd(req: Request, res: Response) {
-        const { nome_produto, descricao_produto, preco_produto, quantidade_produto, tipo_produto, produto_transformacao } = req.body;
-        try {
-            await Produto.create({ nome_produto, descricao_produto, preco_produto, quantidade_produto, tipo_produto, produto_transformacao });
-            res.render('RegistrarNovoProd');
-        } catch (error) {
-            console.error(error);
-            res.send("Não foi possível finalizar o cadastro do produto");
+// Configuração do Multer para salvar as imagens em uma pasta "uploads"
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'uploads/'); // Caminho onde as imagens serão salvas
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname); // Nomeia o arquivo com a data e nome original
+    }
+});
+
+
+const upload = multer({ dest: 'uploads/' });
+
+
+
+
+
+
+
+routes.get('/login', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/login.html"));
+});
+
+
+
+
+routes.post('/login', function (req: Request, res: Response, next: NextFunction) {
+    passport.authenticate('local', function (err: any, user: { email_usuario: string; }, info: { message: string | number | boolean; }) {
+        if (err) {
+            return next(err);
         }
-    }
-}
- */
-/* class RegOrdRoute {
-    static getRegOrd(req: Request, res: Response) {
-        res.render('RegistrarPed');
-    }
-
-    static async postRegOrd(req: Request, res: Response) {
-        const { ped_id_usuario, ped_numero_mesa } = req.body;
-        try {
-            await Pedido.create({ id_mesa_pedido: ped_numero_mesa, id_usuario_pedido: ped_id_usuario });
-            res.send("Pedido cadastrado com sucesso");
-        } catch (error) {
-            console.error(error);
-            res.send("Não foi possível finalizar o pedido");
+        if (!user) {
+            // Se não houver usuário, redirecione para a página de login com uma mensagem de erro
+            return res.redirect('/login?error=' + encodeURIComponent(info.message));
         }
+        req.logIn(user, function (err) {
+            if (err) {
+                return next(err);
+            }
+            // Redireciona para a página inicial
+            return res.redirect('/home');
+        });
+    })(req, res, next);
+});
+
+
+
+
+routes.get('/pedidos', async (req,res) => {
+    if (req.query.json === 'true') {
+    try {
+        const cardapioProdutos = await Produto.findAll(); // Busca todos os produtos no banco
+        console.log(cardapioProdutos)
+        res.json(cardapioProdutos); // Retorna JSON
+        
+      } catch (error) {
+        console.log('Erro ao buscar produtos', error)
+        res.status(500).json({ error: 'Erro ao buscar os produtos.' });
+      }
+    }else{
+        res.sendFile(path.join(__dirname + "../../../public/pedidos.html"));
+      }
+      
+    });
+
+   
+
+
+
+routes.post('/pedidos', async (req, res) => {
+    // try {
+    //   const cardapioProdutos = await Produto.findAll(); // Busca todos os produtos no banco
+    //   res.json(cardapioProdutos); // Retorna JSON
+    // } catch (error) {
+    //   res.status(500).json({ error: 'Erro ao buscar os produtos.' });
+    // }
+  });
+  
+
+
+
+
+  routes.post('/cad-produtos', upload.single('imagem'), async (req: Request, res: Response) => {
+    const { nome_produto, descricao_produto, preco_produto, quantidade_produto, idcategoria } = req.body;
+
+    try {
+        const novoProduto = await Produto.create({
+            nome_produto,
+            descricao_produto,
+            preco_produto,
+            tipo_produto: idcategoria, // Use o id da categoria conforme seu modelo e necessidade
+            produto_transformacao: false, // Defina um valor padrão ou ajuste conforme necessário
+            imagem_produto: req.file ? req.file.path : null
+        })
+        ;
+
+        res.redirect('/pedidos?mensagem=Produto cadastrado com sucesso!');
+    } catch (error) {
+        console.error('Erro ao cadastrar o produto:', error);
+        res.status(500).json({ error: 'Erro ao cadastrar o produto' });
     }
-} */
+});
 
-class Routes {
-    public router: Router;
 
-    constructor() {
-        this.router = Router();
-        this.initRoutes();
-    }
 
-    private initRoutes() {
-        //const { getMenu } = MenuRoute;
-        //const { getHome } = HomeRoute;
-        //const { getSignup } = SignupRoute;
-        //const { getRegProd, postRegProd } = RegProdRoute;
-        //const { getRegOrd, postRegOrd } = RegOrdRoute;
-        //const { getLogin } = LoginRoute;
 
-        this.router.get('/cardapio', (req, res) => menuController.getMenu(req, res));
-        this.router.get('/home', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, (req, res) => homeController.getHome(req, res));
-        this.router.get('/cadastro', (req, res) => userController.getRegister(req, res));
-        this.router.post('/cad-fim', (req, res) => userController.register(req, res));
-        this.router.get('/login', (req, res,) => loginController.getLogin(req, res));
-        this.router.post('/login-fim', (req, res, next) => loginController.login(req, res, next));
-        this.router.post('/logout', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, (req, res) => logoutController.logout(req, res));
-        this.router.get('/produtocad', verifyAndRefreshTokenAdmin, (req, res) => prodController.getRegProd(req, res));
-        this.router.get('/pedidocad', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, (req, res) => prodController.prodShow(req, res));
-        this.router.post('/prod-fim', verifyAndRefreshTokenAdmin, (req, res) => prodController.prodRegister(req, res));
-        this.router.get('/pedidocad', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, (req, res) => orderController.getRegOrder(req, res));
-        this.router.post('/ped-fim', verifyAndRefreshToken || verifyAndRefreshTokenAdmin, (req, res, next) => orderController.orderRegister(req, res, next));
-    }
-}
 
-export default new Routes().router;
+
+
+
+routes.get('/home', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/home.html"));
+});
+
+
+
+
+export default routes

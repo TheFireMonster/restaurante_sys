@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/login.css" rel="stylesheet">
+    <title>Login</title>
+
+    <!--google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    
+     
+     <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
+
+     
+
+</head>
+
+<body>
+    <div class="main">
+
+        <div class="container">
+
+            <form id="formlogin" class="form" action="/login"  method="post">
+
+                <div class="title">
+                    <div class="logo">
+                       <img src="../public/css/imgs/logocomnome.png">
+                    </div>
+                    <a>Insira seus dados</a>
+                </div>
+
+                <input type="email" name="email" placeholder="E-mail" required>
+                <input type="password" name="senha" placeholder="Senha" required>
+                <div class="error-message" id="error-message" style="color: red;"></div>
+                <input type="submit" class="btn" placeholder="entrar"></button>
+                <div class="line">
+
+                    <p>Não possui uma conta? <a href='#'>Clique aqui para registrar</a></p>
+                    <p>Esqueceu a senha? <a href="#">Clique aqui para recuperar</a></p>
+                </div>
+
+            </form>
+
+        </div><!--container-->
+
+    </div>
+
+    
+    <script>
+      // Se houver mensagens de erro definidas na URL (após login mal-sucedido)
+      const urlParams = new URLSearchParams(window.location.search);
+            const errorMessage = urlParams.get('error');
+            if (errorMessage) {
+                document.getElementById('error-message').textContent = errorMessage;
+            }
+    </script>
+</body>
+
+</html>
