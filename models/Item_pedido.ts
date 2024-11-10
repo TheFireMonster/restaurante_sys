@@ -4,7 +4,7 @@ import Pedido from './Pedido';
 import Produto from './Produto';
 
 interface ItemPedidoAttributes {
-    id_item_pedido: number;
+    id_item_pedido?: number;
     id_pedido_item_pedido: number;
     quantidade_item_pedido: number;
     id_produto_item_pedido: number;
@@ -73,6 +73,13 @@ Pedido.hasMany(ItemPedido, { foreignKey: 'id_pedido_item_pedido' });
 ItemPedido.belongsTo(Produto, { foreignKey: 'id_produto_item_pedido' });
 Produto.hasMany(ItemPedido, { foreignKey: 'id_produto_item_pedido' });
 
-/* ItemPedido.sync(); */
+ItemPedido.sync()
+    .then(() => {
+        console.log('Modelo Item_pedido sincronizado com o banco de dados.');
+    })
+    .catch((error) => {
+        console.error('Erro ao sincronizar modelo Item_pedido com o banco de dados:', error);
+    });
+
 
 export default ItemPedido;

@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./../public/css/Registra.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
     <script src="../public/js/validations.js"></script>
-    <script src="./../public/js/Verifica_tipo_produto.js"></script>
     <link href="../public/css/styles.css", rel="stylesheet">
     <title>Registre um novo produto</title>
     <script>
@@ -22,7 +22,7 @@
                 const tipoProduto = document.getElementById("tipo_produto").value;
 
                 const isNameValid = validate_name("nome_produto", "formprod");
-                console.log("Name valid:", isIdUsuarioValid);
+                console.log("Name valid:", isNameValid);
                 const isDescValid = validate_text("descricao_produto", "formprod");
                 console.log("Number valid:", isDescValid);
                 const isQuantProdValid = validate_quant("quantidade_produto", "formprod");
@@ -30,7 +30,7 @@
                 const isPriceValid = validate_price("preco_produto", "formprod");
                 console.log("Price valid:", isPriceValid);
                 const isTypeValid = validate_product_type("tipo_produto", "formprod");
-                console.log("Type valid:", isTypeValid);
+                console.log("Type valid:", isTypeValid, tipoProduto);
                 
                 if (isNameValid && isDescValid && isQuantProdValid && isPriceValid && isTypeValid) {
 
@@ -48,7 +48,7 @@
                         tipo_produto: tipoProdutoSanitized
                     };
 
-                    fetch("/cad-produto", {
+                    fetch("/prod-fim", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
@@ -78,7 +78,7 @@
                 <i class='bx bx-box'></i>
                 <input type="text" placeholder="Descrição do produto" id="descricao_produto" name="descricao_produto" required>
                 <i class='bx bx-box'></i>
-                <input type="number" placeholder="Preço do produto" id="preco_produto" name="preco_produto" step="0.01" min="0" required>
+                <input type="text" placeholder="Preço do produto" id="preco_produto" name="preco_produto" min="0" required>
                 <i class='bx bx-box'></i>
                 <input type="number" placeholder="Quantidade do produto" id="quantidade_produto" name="quantidade_produto" required>
                 <i class='bx bx-box'></i>
@@ -86,14 +86,14 @@
                 <input type="number" placeholder="Valor do produto" id="valor_produto" name="valor_produto" required>
                 <i class='bx bx-dollar-circle'></i>
             </div>-->
-                <select class="custom-select" id="tipo_produto"  name="tipo_produto" onchange="verificaTipoProduto(this.value)">
+                <select class="custom-select" id="tipo_produto"  name="tipo_produto">
                     <option value="" disabled selected hidden>Tipo do produto</option>
-                    <option value="pizza">Pizza</option>
-                    <option value="bebida">Bebida</option>
+                    <option value="Pizza">Pizza</option>
+                    <option value="Bebida">Bebida</option>
                 </select>
                     <input type="hidden" id="produto_transformacao" name="produto_transformacao" value="false">
-                <input type="file">
-               <!--<div class="remember-forgot">
+                <!--<input type="file">
+               <div class="remember-forgot">
                     <label><input type="checkbox" id="produto_transformacao" name="valor_produto">É produto de transformação?</label>
                 </div>-->
             <button type="submit" class="btn">Registrar produto</button>
