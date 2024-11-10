@@ -7,19 +7,19 @@ interface DBConfig {
   username: string;
   password: string;
   database: string;
-  port: any;
+  port: number;
   define: {
     timestamps: boolean;
   };
 }
 
 const config: DBConfig = {
-  dialect: process.env.DB_DIALECT || 'postgresql', 
-  host: process.env.DB_HOST || '127.0.0.1',
+  dialect: process.env.DB_DIALECT || 'postgres', 
+  host: process.env.DB_HOST || 'db',
   username: process.env.DB_USER || 'root',
   password: process.env.DB_PASS || '',
   database: process.env.DB_NAME || '',
-  port: process.env.DB_PORT || 5432,
+  port: Number(process.env.DB_PORT) || 5432,
   define: {
     timestamps: true,
   },
