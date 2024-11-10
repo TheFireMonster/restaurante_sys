@@ -28,7 +28,7 @@ app.use(passport.session());
 app.use('/public', express.static('public'));
 app.use(express.static('public'));
 
-
+app.use('/uploads', express.static('uploads'));
 
 app.use(routes);
 

@@ -44,7 +44,7 @@ Produto.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            len: [1, 50]
+            len: [1, 255]
         }
     },
     preco_produto: {

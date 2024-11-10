@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../public/css/home.css" rel="stylesheet">
+    <link href="../public/css/pedidos.css" rel="stylesheet">
     <title>Home</title>
 
     <!--GOOGLE FONTS--raleway-->
@@ -160,11 +160,7 @@
                   <li class="tab" data-tab="porcoes">Porções</li>
                 </ul>
           
-                <!-- Categorias: cada um desses containers será preenchido dinamicamente -->
-                <div class="tab-content active" id="lanches"></div>
-                <div class="tab-content" id="bebidas"></div>
-                <div class="tab-content" id="pizzas"></div>
-                <div class="tab-content" id="porcoes"></div>
+                <div id="cardapio-content"></div> <!-- O conteúdo será exibido aqui -->
             </div>
 
 
@@ -315,62 +311,109 @@
 
 
 
-
-    async function carregarCardapio() {
-  try {
-    const response = await fetch('/pedidos?json=true');
-    const produtos = await response.json(); // Converte a resposta para JSON
-    console.log(produtos); // Verifique os dados retornados
+    document.addEventListener("DOMContentLoaded", () => {
+    carregarCardapio(); // Carrega o cardápio quando a página for carregada
     
-    // Estrutura de categorias mapeada com os elementos correspondentes
-    const categorias = {
-      lanches: document.getElementById('lanches'),
-      bebidas: document.getElementById('bebidas'),
-      pizzas: document.getElementById('pizzas'),
-      porcoes: document.getElementById('porcoes'),
-    };
 
-    // Percorre os produtos e adiciona aos respectivos containers
-    produtos.forEach(produto => {
-      console.log(`Verificando categoria: ${produto.categoria}`);
-      const categoriaElemento = categorias[produto.categoria];
+    document.querySelectorAll(".tab").forEach(tab => {
+        tab.addEventListener("click", function () {
+            // Alterna a aba ativa e a categoria exibida
+            document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+            this.classList.add("active");
 
-      // Se a categoria existir no HTML, adicione o produto
-      if (categoriaElemento) {
-        const itemHTML = `
-          <div class="item">
-            <div class="item-details">
-              <h3>${produto.nome} - R$${produto.preco}</h3>
-              <p>${produto.descricao}</p>
-            </div>
-            <div class="item-img">
-              <img src="${produto.imagem || 'css/imgs/logosemnome2.png'}" alt="${produto.nome}">
-            </div>
-            <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
-          </div>
-        `;
-
-        // Insere o item na categoria correspondente
-        categoriaElemento.insertAdjacentHTML('beforeend', itemHTML);
-      } else {
-        // Log para quando a categoria não for encontrada
-        console.warn(`Categoria ${produto.categoria} não encontrada no HTML.`);
-      }
+            const categoria = this.getAttribute("data-tab");
+            exibirCategoria(categoria); // Mostra os produtos da categoria clicada
+        });
     });
-    
-  } catch (error) {
-    console.error('Erro ao carregar o cardápio:', error);
-  }
+});
+
+let produtosPorCategoria = {}; // Variável global para armazenar produtos
+
+
+
+
+
+// Função para carregar os produtos do cardápio do servidor
+async function carregarCardapio() {
+    try {
+        const response = await fetch('/pedidos?json=true');
+        const produtos = await response.json();
+
+        produtosPorCategoria = { lanches: [], bebidas: [], pizzas: [], porcoes: [] }; // Inicializa as categorias
+
+        produtos.forEach(produto => {
+            const categoria = produto.tipo_produto.toLowerCase();
+            if (produtosPorCategoria[categoria]) {
+                produtosPorCategoria[categoria].push(produto);
+            }
+        });
+
+        // Verifique se a variável 'produtosPorCategoria' está preenchida corretamente
+        console.log(produtosPorCategoria); // Adicione esta linha para depuração
+
+        // Exibe a categoria ativa ("lanches" por padrão) após carregar os produtos
+        exibirCategoria("lanches");
+    } catch (error) {
+        console.error("Erro ao carregar o cardápio:", error);
+    }
 }
 
-// Carrega o cardápio ao carregar a página
-window.onload = carregarCardapio;
 
 
 
 
+// Função para exibir produtos de uma categoria específica
+function exibirCategoria(categoria) {
+    const conteudoCardapio = document.getElementById("cardapio-content");
 
+    if (!conteudoCardapio) {
+        console.error("Erro: Elemento 'cardapio-content' não encontrado.");
+        return;
+    }
 
+    conteudoCardapio.innerHTML = ""; // Limpa o conteúdo atual
+
+    const produtos = produtosPorCategoria[categoria];
+
+    if (produtos && produtos.length > 0) {
+        produtos.forEach(produto => {
+            const itemHTML = `
+                <div class="item">
+                    <div class="item-details">
+                        <h3>${produto.nome_produto} - R$${produto.preco_produto}</h3>
+                        <p>${produto.descricao_produto}</p>
+                    </div>
+                    <div class="item-img">
+                        <img src="${produto.imagem_produto || 'css/imgs/logosemnome2.png'}" alt="${produto.nome_produto}">
+                    </div>
+                    <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
+                </div>
+            `;
+            conteudoCardapio.insertAdjacentHTML("beforeend", itemHTML);
+        });
+
+        // Reatribui os eventos de clique para os botões "Adicionar ao carrinho"
+        document.querySelectorAll('.add-to-order').forEach(button => {
+            button.addEventListener('click', function () {
+                const itemName = this.parentElement.querySelector('.item-details h3').innerText.split(' - ')[0];
+                const itemPrice = parseFloat(this.parentElement.querySelector('.item-details h3').innerText.split(' - ')[1].replace('R$', '').replace(',', '.'));
+
+                const existingItem = order.find(item => item.name === itemName);
+
+                if (existingItem) {
+                    existingItem.quantity++;
+                } else {
+                    order.push({ name: itemName, price: itemPrice, quantity: 1 });
+                }
+
+                updateOrderIcon();
+                updateOrderArea();
+            });
+        });
+    } else {
+        conteudoCardapio.innerHTML = "<p>Nenhum item encontrado nesta categoria.</p>";
+    }
+}
 
 
 
@@ -402,44 +445,8 @@ window.onload = carregarCardapio;
 
 
 
-
-
-
-
-
-
-
-
-    document.querySelectorAll('.tab').forEach(tab => {
-        tab.addEventListener('click', function () {
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-            this.classList.add('active');
-            document.getElementById(this.getAttribute('data-tab')).classList.add('active');
-        });
-    });
-
     let order = [];
     let total = 0.0;
-
-    document.querySelectorAll('.add-to-order').forEach(button => {
-        button.addEventListener('click', function () {
-            const itemName = this.parentElement.querySelector('.item-details h3').innerText.split(' - ')[0];
-            const itemPrice = parseFloat(this.parentElement.querySelector('.item-details h3').innerText.split(' - ')[1].replace('R$', '').replace(',', '.'));
-
-            const existingItem = order.find(item => item.name === itemName);
-
-            if (existingItem) {
-                existingItem.quantity++;
-            } else {
-                order.push({ name: itemName, price: itemPrice, quantity: 1 });
-            }
-
-            updateOrderIcon();
-            updateOrderArea();
-        });
-    });
 
 
     document.querySelector('.order-icon').addEventListener('click', function () {
@@ -508,19 +515,6 @@ window.onload = carregarCardapio;
 
 
 
-
-
-// Função para obter parâmetros da query string
-function getQueryParameter(param) {
-            const urlParams = new URLSearchParams(window.location.search);
-            return urlParams.get(param);
-        }
-
-        // Verifica se existe a mensagem na query string e exibe o alert
-        const mensagem = getQueryParameter('mensagem');
-        if (mensagem) {
-            alert(mensagem); // Exibe a mensagem em um alert
-        }
 
 
 

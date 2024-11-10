@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
 });
 
 
-const upload = multer({ storage: storage });
+const upload = multer({ dest: 'uploads/' });
 
 
 
@@ -71,9 +71,11 @@ routes.get('/pedidos', async (req,res) => {
     if (req.query.json === 'true') {
     try {
         const cardapioProdutos = await Produto.findAll(); // Busca todos os produtos no banco
-        res.json(cardapioProdutos); // Retorna JSON
         console.log(cardapioProdutos)
+        res.json(cardapioProdutos); // Retorna JSON
+        
       } catch (error) {
+        console.log('Erro ao buscar produtos', error)
         res.status(500).json({ error: 'Erro ao buscar os produtos.' });
       }
     }else{
