@@ -67,8 +67,8 @@ pedidos.init({
     total_pedido: {
         type: DataTypes.DECIMAL(8, 2)
     },
-    itens_pedido: { // Adicionando o campo JSON para itens
-        type: DataTypes.JSONB,  // ou DataTypes.JSON para MySQL
+    itens_pedido: { 
+        type: DataTypes.JSONB,  
         allowNull: false,
     }
 }, {

@@ -61,9 +61,6 @@
                     <h2>Pedidos cozinha</h2>
                 </div>
 
-                
-
-                
 
                     <div class="button">
                         <span id="add_button" class="material-symbols-outlined">add</span>
@@ -71,6 +68,12 @@
                     </div>
 
                     
+
+
+
+                   
+
+
 
                 
 
@@ -149,9 +152,7 @@
         <div class="central">
            
 
-          <!-- 
-          coloque os pedidos feitos aqui !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-           -->
+            <div id="pedidos-cozinha"></div>
 
             
 
@@ -200,6 +201,66 @@
 
 
 
+
+// Função para buscar e mostrar os pedidos pendentes
+async function fetchPedidosCozinha() {
+    try {
+        // Faz a requisição POST para a rota '/cozinha' com o parâmetro 'json' = 'true'
+        const response = await fetch('/cozinha', {
+            method: 'POST',  // Alterado para POST
+            headers: {
+                'Content-Type': 'application/json',  // Indicando que o corpo da requisição é JSON
+            },
+            body: JSON.stringify({ json: 'true' })  // Envia o parâmetro 'json' no corpo da requisição
+        });
+
+        // Verifica se a resposta é JSON e converte para objeto JavaScript
+        const pedidos = await response.json();
+
+        // Verifica se há pedidos
+        if (pedidos.length > 0) {
+            let pedidosHTML = '';
+
+            // Preenche os pedidos dinamicamente
+            pedidos.forEach(pedido => {
+                pedidosHTML += `
+                    <div class="pedido">
+                        <h3>Pedido Nº ${pedido.id_pedido}</h3>
+                        <p><strong>Mesa:</strong> ${pedido.numero_mesa}</p>
+                        <p><strong>Observações:</strong> ${pedido.obs_pedido}</p>
+                        <p><strong>Status:</strong> ${pedido.status_pedido}</p>
+                        <p><strong>Total:</strong> R$ ${pedido.total_pedido}</p>
+                        <p><strong>Hora do Pedido:</strong> ${new Date(pedido.data_pedido).toLocaleTimeString()}</p>
+
+                        <h4>Itens do Pedido:</h4>
+                        <ul>
+                            ${pedido.itens_pedido.map(item => {
+                                return `
+                                    <li>${item.nome_produto_item_pedido} - Quantidade: ${item.quantidade_item_pedido} - Preço: R$ ${item.preco_item_pedido}</li>
+                                `;
+                            }).join('')}
+                        </ul>
+                    </div>
+                    <hr>
+                `;
+            });
+
+            // Insere a lista de pedidos na página
+            document.getElementById('pedidos-cozinha').innerHTML = pedidosHTML;
+        } else {
+            // Caso não haja pedidos em andamento
+            document.getElementById('pedidos-cozinha').innerHTML = '<p>Nenhum pedido em andamento.</p>';
+        }
+    } catch (error) {
+        console.error('Erro ao buscar pedidos:', error);
+        document.getElementById('pedidos-cozinha').innerHTML = '<p>Erro ao carregar pedidos.</p>';
+    }
+}
+
+// Chama a função quando a página carrega
+document.addEventListener('DOMContentLoaded', fetchPedidosCozinha);
+
+</script>
 
     
 

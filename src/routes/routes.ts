@@ -9,6 +9,8 @@ import session from 'express-session';
 // import '../../config/types/express-session';
 import { UserController } from '../controllers/userController';
 import { OrderController } from '../controllers/orderController';
+import {cozinhaController} from '../controllers/CozinhaController';
+
 const routes = express.Router();
 
 
@@ -137,4 +139,17 @@ routes.get('/cad-usuarios', function (_req: Request, res: Response) {
 
 
 
+
+
+routes.post('/cozinha', cozinhaController.getPedidosCozinha);
+
+
+routes.get('/cozinha', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/cozinha.html"));
+});
+
+
+
+
 export default routes
+
