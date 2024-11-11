@@ -8,7 +8,7 @@ import Pedido from '../../models/pedidos';
 import session from 'express-session';
 // import '../../config/types/express-session';
 import { UserController } from '../controllers/userController';
-
+import { OrderController } from '../controllers/orderController';
 const routes = express.Router();
 
 
@@ -92,14 +92,8 @@ routes.get('/pedidos', async (req,res) => {
 
    
 
-routes.post('/pedidos', async (req, res) => {
-    // try {
-    //   const cardapioProdutos = await Produto.findAll(); // Busca todos os produtos no banco
-    //   res.json(cardapioProdutos); // Retorna JSON
-    // } catch (error) {
-    //   res.status(500).json({ error: 'Erro ao buscar os produtos.' });
-    // }
-  });
+    routes.post('/pedidos', OrderController.orderRegister);
+    
   
 
 

@@ -50,7 +50,7 @@ input[type='text'] {
 }
 
 .form input[type='submit'] {
-    height: 4vh;
+    height: 6vh;
     margin-top: 5%;
     width: 100%;
     border: none;

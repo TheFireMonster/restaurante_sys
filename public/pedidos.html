@@ -61,7 +61,7 @@
                     <h2>Novo pedido</h2>
                 </div>
 
-                <div id="mensagem" ></div>
+                <div id="mensagem"></div>
 
                 <div class="header-sm">
 
@@ -101,7 +101,7 @@
 
             </div> -->
 
-            <div class="menu-line"  id="firstmenu-line">
+            <div class="menu-line" id="firstmenu-line">
                 <span class="material-symbols-outlined">view_comfy_alt</span>
                 <a href="pedidos.html">
                     <div class="txt">Pedidos</div>
@@ -154,12 +154,12 @@
         <div class="central">
             <div class="cardapio">
                 <ul class="tabs">
-                  <li class="tab active" data-tab="lanches">Lanches</li>
-                  <li class="tab" data-tab="bebidas">Bebidas</li>
-                  <li class="tab" data-tab="pizzas">Pizzas</li>
-                  <li class="tab" data-tab="porcoes">Porções</li>
+                    <li class="tab active" data-tab="lanches">Lanches</li>
+                    <li class="tab" data-tab="bebidas">Bebidas</li>
+                    <li class="tab" data-tab="pizzas">Pizzas</li>
+                    <li class="tab" data-tab="porcoes">Porções</li>
                 </ul>
-          
+
                 <div id="cardapio-content"></div> <!-- O conteúdo será exibido aqui -->
             </div>
 
@@ -172,23 +172,29 @@
 
             <!-- Pop-up de Pedido -->
             <div class="order-popup">
-                <h3>Pedido</h3>
-                <label for="order-table">Mesa:</label>
-                <input type="text" id="order-table" placeholder="Número da mesa">
+                <form class="pedido-form" action="/pedidos" method="post">
+                    <h3>Pedido</h3>
+                    <label for="order-table">Mesa:</label>
+                    <input type="number" id="order-table" name="numero_mesa" placeholder="Número da mesa" required>
 
-                <div class="order-items">
-                    <!-- Itens adicionados aparecerão aqui -->
-                </div>
+                    <div class="order-items">
+                        <!-- Itens adicionados aparecerão aqui -->
+                    </div>
 
-                <div class="order-total">
-                    <p>Total: R$ <span id="order-total-value">0,00</span></p>
-                </div>
+                    <div class="order-total">
+                        <p>Total: R$ <span id="order-total-value">0,00</span></p>
+                    </div>
 
+                    <textarea id="order-observations" name="obs_pedido" placeholder="Observações"></textarea>
 
-                <textarea id="order-observations" placeholder="Observações"></textarea>
-                <button id="send-order">Enviar Pedido</button>
-                <button id="close-order-popup">Fechar</button>
+                    <!-- Campo oculto para armazenar os itens do pedido em formato JSON -->
+                    <input type="hidden" id="order-items-data" name="itens_pedido" value='[]'>
+
+                    <button id="send-order">Enviar Pedido</button>
+                    <button id="close-order-popup">Fechar</button>
+                </form>
             </div>
+
 
 
         </div><!--central-->
@@ -216,7 +222,7 @@
         </div>
 
 
-        <!-- Pop-up Form -->
+        <!-- Pop-up Form  CADASTRO DE PRODUTOS----------------------------------------->
         <div id="popupForm" class="addform">
 
 
@@ -226,10 +232,11 @@
 
                 <form action="/cad-produtos" method="post" enctype="multipart/form-data" class="form" id="form">
                     <h2>Cadastro de produtos</h2>
-                
+
                     <div class="add_form_line">
-                        <input type="text" class="add_form_field" placeholder="Nome" id="nome_produto" name="nome_produto" required>
-                
+                        <input type="text" class="add_form_field" placeholder="Nome" id="nome_produto"
+                            name="nome_produto" required>
+
                         <div class="add_form_group">
                             <label for="idcategoria" class="add_form_label">Categoria</label>
                             <select id="idcategoria" name="idcategoria" class="add_form_select" required>
@@ -237,32 +244,34 @@
                                 <option>Pizza</option>
                                 <option>Porções</option>
                                 <option>Bebidas</option>
-                              
+
                             </select>
                         </div>
                     </div>
-                
+
                     <div class="add_form_line">
-                        <input type="number" class="add_form_field" placeholder="Quantidade" id="quantidade" name="quantidade_produto">
-                        <input type="number" class="add_form_field" placeholder="Preço" id="preco" name="preco_produto" required>
+                        <input type="number" class="add_form_field" placeholder="Quantidade" id="quantidade"
+                            name="quantidade_produto">
+                        <input type="number" class="add_form_field" placeholder="Preço" id="preco" name="preco_produto"
+                            required>
                     </div>
-                
+
                     <div class="add_form_line">
                         <div class="add_form_group">
                             <label for="imagem" class="add_form_label">Imagem do Produto</label>
                             <input type="file" class="add_form_field" id="imagem" name="imagem" accept="image/*">
                         </div>
                     </div>
-                
+
                     <div class="add_form_line">
                         <textarea id="descricao" name="descricao_produto" placeholder="Descrição" required></textarea>
                     </div>
-                
+
                     <div class="add_form_line">
                         <input type="submit" id="cadastrarProduto" name="cadastrarProduto" value="Cadastrar Produto">
                     </div>
                 </form>
-                
+
             </div><!-- add_form -->
 
 
@@ -312,72 +321,77 @@
 
 
     document.addEventListener("DOMContentLoaded", () => {
-    carregarCardapio(); // Carrega o cardápio quando a página for carregada
-    
+        carregarCardapio(); // Carrega o cardápio quando a página for carregada
 
-    document.querySelectorAll(".tab").forEach(tab => {
-        tab.addEventListener("click", function () {
-            // Alterna a aba ativa e a categoria exibida
-            document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-            this.classList.add("active");
 
-            const categoria = this.getAttribute("data-tab");
-            exibirCategoria(categoria); // Mostra os produtos da categoria clicada
+        document.querySelectorAll(".tab").forEach(tab => {
+            tab.addEventListener("click", function () {
+                // Alterna a aba ativa e a categoria exibida
+                document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+                this.classList.add("active");
+
+                const categoria = this.getAttribute("data-tab");
+                exibirCategoria(categoria); // Mostra os produtos da categoria clicada
+            });
         });
     });
-});
 
-let produtosPorCategoria = {}; // Variável global para armazenar produtos
-
-
-
-
-
-// Função para carregar os produtos do cardápio do servidor
-async function carregarCardapio() {
-    try {
-        const response = await fetch('/pedidos?json=true');
-        const produtos = await response.json();
-
-        produtosPorCategoria = { lanches: [], bebidas: [], pizzas: [], porcoes: [] }; // Inicializa as categorias
-
-        produtos.forEach(produto => {
-            const categoria = produto.tipo_produto.toLowerCase();
-            if (produtosPorCategoria[categoria]) {
-                produtosPorCategoria[categoria].push(produto);
-            }
-        });
-
-        // Verifique se a variável 'produtosPorCategoria' está preenchida corretamente
-        console.log(produtosPorCategoria); // Adicione esta linha para depuração
-
-        // Exibe a categoria ativa ("lanches" por padrão) após carregar os produtos
-        exibirCategoria("lanches");
-    } catch (error) {
-        console.error("Erro ao carregar o cardápio:", error);
-    }
-}
+    let produtosPorCategoria = {}; // Variável global para armazenar produtos
 
 
 
 
 
-// Função para exibir produtos de uma categoria específica
-function exibirCategoria(categoria) {
-    const conteudoCardapio = document.getElementById("cardapio-content");
+    // Função para carregar os produtos do cardápio do servidor
+    async function carregarCardapio() {
+        try {
+            const response = await fetch('/pedidos?json=true');
+            const produtos = await response.json();
 
-    if (!conteudoCardapio) {
-        console.error("Erro: Elemento 'cardapio-content' não encontrado.");
-        return;
+            produtosPorCategoria = { lanches: [], bebidas: [], pizzas: [], porcoes: [] }; // Inicializa as categorias
+
+            produtos.forEach(produto => {
+                const categoria = produto.tipo_produto.toLowerCase();
+                if (produtosPorCategoria[categoria]) {
+                    produtosPorCategoria[categoria].push(produto);
+                }
+            });
+
+            // Verifique se a variável 'produtosPorCategoria' está preenchida corretamente
+            console.log(produtosPorCategoria); // Adicione esta linha para depuração
+
+            // Exibe a categoria ativa ("lanches" por padrão) após carregar os produtos
+            exibirCategoria("lanches");
+        } catch (error) {
+            console.error("Erro ao carregar o cardápio:", error);
+        }
     }
 
-    conteudoCardapio.innerHTML = ""; // Limpa o conteúdo atual
 
-    const produtos = produtosPorCategoria[categoria];
+    // Função para atualizar o campo oculto com os itens do pedido
+    function updateOrderItemsData() {
+        const orderItemsData = document.getElementById('order-items-data');
+        orderItemsData.value = JSON.stringify(order); // Converte o array de itens em JSON
+    }
 
-    if (produtos && produtos.length > 0) {
-        produtos.forEach(produto => {
-            const itemHTML = `
+
+
+    // Função para exibir produtos de uma categoria específica
+    function exibirCategoria(categoria) {
+        const conteudoCardapio = document.getElementById("cardapio-content");
+
+        if (!conteudoCardapio) {
+            console.error("Erro: Elemento 'cardapio-content' não encontrado.");
+            return;
+        }
+
+        conteudoCardapio.innerHTML = ""; // Limpa o conteúdo atual
+
+        const produtos = produtosPorCategoria[categoria];
+
+        if (produtos && produtos.length > 0) {
+            produtos.forEach(produto => {
+                const itemHTML = `
                 <div class="item">
                     <div class="item-details">
                         <h3>${produto.nome_produto} - R$${produto.preco_produto}</h3>
@@ -389,35 +403,44 @@ function exibirCategoria(categoria) {
                     <button class="add-to-order"><span class="material-symbols-outlined">add</span></button>
                 </div>
             `;
-            conteudoCardapio.insertAdjacentHTML("beforeend", itemHTML);
-        });
-
-        // Reatribui os eventos de clique para os botões "Adicionar ao carrinho"
-        document.querySelectorAll('.add-to-order').forEach(button => {
-            button.addEventListener('click', function () {
-                const itemName = this.parentElement.querySelector('.item-details h3').innerText.split(' - ')[0];
-                const itemPrice = parseFloat(this.parentElement.querySelector('.item-details h3').innerText.split(' - ')[1].replace('R$', '').replace(',', '.'));
-
-                const existingItem = order.find(item => item.name === itemName);
-
-                if (existingItem) {
-                    existingItem.quantity++;
-                } else {
-                    order.push({ name: itemName, price: itemPrice, quantity: 1 });
-                }
-
-                updateOrderIcon();
-                updateOrderArea();
+                conteudoCardapio.insertAdjacentHTML("beforeend", itemHTML);
             });
-        });
-    } else {
-        conteudoCardapio.innerHTML = "<p>Nenhum item encontrado nesta categoria.</p>";
+
+
+
+
+
+            // Reatribui os eventos de clique para os botões "Adicionar ao carrinho"
+            document.querySelectorAll('.add-to-order').forEach(button => {
+                button.addEventListener('click', function () {
+                    const itemElement = this.closest('.item');
+                    const itemName = itemElement.querySelector('.item-details h3').innerText.split(' - ')[0];
+                    const itemPrice = parseFloat(itemElement.querySelector('.item-details h3').innerText.split(' - ')[1].replace('R$', '').replace(',', '.'));
+
+                    // Verifica se o item já está no carrinho
+                    const existingItem = order.find(item => item.name === itemName);
+
+                    if (existingItem) {
+                        existingItem.quantity++;
+                    } else {
+                        order.push({ name: itemName, price: itemPrice, quantity: 1 });
+                    }
+
+                    updateOrderIcon();
+                    updateOrderArea();
+
+                    // Atualiza o campo oculto
+                    updateOrderItemsData();
+                });
+            });
+        } else {
+            conteudoCardapio.innerHTML = "<p>Nenhum item encontrado nesta categoria.</p>";
+        }
     }
-}
 
 
 
-    //popupForm adiciona Produtos
+    //popupForm CADASTRO DE PRODUTOS --------------------------
 
     document.addEventListener("DOMContentLoaded", function () {
         var popupForm = document.getElementById("popupForm");
@@ -440,15 +463,7 @@ function exibirCategoria(categoria) {
     });
 
 
-
-
-
-
-
-    let order = [];
-    let total = 0.0;
-
-
+    // Função para abrir e fechar o POP-UP DE PEDIDOS------------------------------------
     document.querySelector('.order-icon').addEventListener('click', function () {
         document.querySelector('.overlay').style.display = 'block';
         document.querySelector('.order-popup').style.display = 'flex';
@@ -459,55 +474,63 @@ function exibirCategoria(categoria) {
         document.querySelector('.order-popup').style.display = 'none';
     });
 
-    document.getElementById('send-order').addEventListener('click', function () {
-        const tableNumber = document.getElementById('order-table').value;
-        const observations = document.getElementById('order-observations').value;
-        console.log("Pedido enviado:", { tableNumber, order, observations });
-        alert("Pedido enviado com sucesso!");
-        // Lógica para enviar o pedido
-        // Reseta os dados após envio
-        order = [];
-        document.getElementById('order-table').value = '';
-        document.getElementById('order-observations').value = '';
-        updateOrderIcon();
-        updateOrderArea();
-        document.querySelector('.overlay').style.display = 'none';
-        document.querySelector('.order-popup').style.display = 'none';
-    });
 
+
+
+
+
+
+
+    let order = [];  // Array para armazenar os itens no carrinho
+    let total = 0.0;  // Variável para armazenar o total do pedido
+
+
+
+
+
+
+
+    // Função para atualizar o ícone do carrinho (quantidade de itens no carrinho)
     function updateOrderIcon() {
         const orderCount = order.reduce((acc, item) => acc + item.quantity, 0);
         document.querySelector('.order-icon .order-count').innerText = orderCount;
     }
 
+
+
+
+    // Função para atualizar a área de itens no carrinho
     function updateOrderArea() {
         const orderItemsContainer = document.querySelector('.order-items');
-        orderItemsContainer.innerHTML = '';
+        orderItemsContainer.innerHTML = '';  // Limpa a lista de itens no carrinho
 
         order.forEach(item => {
             const orderItemDiv = document.createElement('div');
             orderItemDiv.classList.add('order-item');
 
             const itemNameP = document.createElement('p');
-            itemNameP.innerText = `${item.name} x${item.quantity}`;
+            itemNameP.innerText = `${item.name} x${item.quantity}`;  // Exibe o nome e a quantidade
 
+            // Cria o campo de input para alterar a quantidade
             const itemQuantityInput = document.createElement('input');
             itemQuantityInput.type = 'number';
             itemQuantityInput.value = item.quantity;
-            itemQuantityInput.min = 1;
+            itemQuantityInput.min = 1;  // Não permite valores abaixo de 1
             itemQuantityInput.addEventListener('change', function () {
                 const newQuantity = parseInt(this.value);
-                item.quantity = newQuantity;
+                item.quantity = newQuantity;  // Atualiza a quantidade do item
                 updateOrderIcon();
                 updateOrderArea();
             });
 
+            // Adiciona o nome e a quantidade ao carrinho
             orderItemDiv.appendChild(itemQuantityInput);
             orderItemDiv.appendChild(itemNameP);
 
             orderItemsContainer.appendChild(orderItemDiv);
         });
 
+        // Atualiza o total do pedido
         total = order.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2);
         document.getElementById('order-total-value').innerText = total.replace('.', ',');
     }
@@ -520,6 +543,69 @@ function exibirCategoria(categoria) {
 
 
 
+
+    document.getElementById('send-order').addEventListener('click', function (event) {
+    event.preventDefault();
+
+    const numeroMesa = document.querySelector('#order-table').value;
+
+     // Verificar se o campo 'numero_mesa' foi preenchido
+     if (!numeroMesa) {
+        alert('Por favor, preencha o número da mesa.');
+        return;
+    }
+     
+     // Verificar se os itens do pedido não estão vazios
+     if (order.length === 0) {
+        alert('Por favor, adicione pelo menos um item ao pedido.');
+        return;
+    }
+
+
+    const observacoes = document.querySelector('#order-observations').value;
+
+    // Calcular o valor total do pedido, assumindo que "price" é a propriedade de cada item com o preço
+    const totalPedido = order.reduce((total, item) => {
+        // Verifique se "item.price" existe e se "item.quantity" está correto
+        return total + (item.price * item.quantity);
+    }, 0);
+
+    // Enviar os dados para o backend
+    fetch('/pedidos', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            numero_mesa: numeroMesa,
+            obs_pedido: observacoes,
+            itens_pedido: order.map(item => ({
+                nome_produto_item_pedido: item.name, // Nome do produto
+                quantidade_item_pedido: item.quantity, // Quantidade do item
+                preco_item_pedido: item.price // Preço do item (se necessário no backend)
+            })),
+            total_pedido: totalPedido // Total calculado do pedido
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Pedido enviado com sucesso!');
+        order = [];  // Limpa o carrinho após o envio
+        updateOrderArea();
+        updateOrderIcon();
+       
+         // Fechar o pop-up após o envio
+         const popUp = document.querySelector('#order-popup');
+        if (popUp) {
+            popUp.style.display = 'none'; // Esconde o pop-up, altere conforme sua estrutura
+        }
+
+    })
+    .catch(error => {
+        alert('Erro ao enviar o pedido.');
+        console.error(error);
+    });
+});
 
 
 </script>

@@ -1,50 +1,42 @@
 import { Request, Response, NextFunction } from 'express';
-import Pedido from '../../models/Pedido';
-import { orderRepository } from '../repositories/orderRepository';
+import Pedido from '../../models/pedidos';
 import { ConflictError } from '../helpers/apiErrors';
 
-export class OrderController {
-    async getRegOrder (req: Request, res: Response) {
-        res.render('RegistrarPed');
-    }
-    async orderRegister(req: Request, res: Response, next: NextFunction) {
-        const { ped_id_usuario, ped_numero_mesa } = req.body;
+export const OrderController = {
+    // Método de instância para registrar o pedido
+    async orderRegister(req: Request, res: Response) {
+        // Verifica se o usuário está autenticado e acessa o ID do usuário
+        const id_usuario_pedido = (req.user as any)?.id_usuario;
+
+        if (!id_usuario_pedido) {
+            return res.status(401).send('Usuário não autenticado');
+        }
+
+        const { numero_mesa, obs_pedido, total_pedido, itens_pedido } = req.body;
+
         try {
-            const order = await orderRepository.findByTableNum(ped_numero_mesa)
-            if (order){
-                return next(new ConflictError('Order already exists'));
-            }else{
-                await Pedido.create({ id_mesa_pedido: ped_numero_mesa, id_usuario_pedido: ped_id_usuario });
-                res.send("Pedido cadastrado com sucesso");
+            // Verifica se já existe um pedido com o mesmo id do usuário e número da mesa
+            const existingOrder = await Pedido.findOne({ where: { id_usuario_pedido, numero_mesa } });
+            if (existingOrder) {
+                return res.status(409).json({ error: 'Este pedido já existe para este usuário e mesa.' });
             }
+
+            // Criação de um novo pedido com os itens como JSON
+            const newOrder = await Pedido.create({
+                id_usuario_pedido,
+                numero_mesa,
+                obs_pedido,
+                total_pedido,
+                status_pedido: 'Em andamento',
+                data_pedido: new Date(),
+                itens_pedido: itens_pedido,  // Armazena os itens como um JSON
+            });
+
+            // Retorna uma resposta com o novo pedido
+            res.status(201).json({ message: 'Pedido cadastrado com sucesso', pedido: newOrder });
         } catch (error) {
-            console.error(error);
-            res.send("Não foi possível finalizar o pedido");
+            console.error('Erro ao cadastrar pedido:', error);
+            res.status(500).send('Não foi possível finalizar o pedido');
         }
     }
-    async orderEnd(req: Request, res: Response, next: NextFunction) {
-        const orderId= req.params.orderId;
-        try {
-            
-            const order = await Pedido.findByPk(orderId);
-        
-            if (order) {
-            
-             order.status_pedido == "Pedido Finalizado"; 
-              await order.save();
-        
-              res.redirect('/'); 
-            } else {
-              res.status(404).send('Pedido não encontrado');
-            }
-          } catch (err) {
-            console.error(err);
-            res.status(500).send('Algo deu errado');
-          }
-        let redirectUrl = '/home';
-        res.status(200).json({
-            message: "Pedido Finalizado!",
-            redirectUrl: redirectUrl
-        });
-    }
-}
+};
