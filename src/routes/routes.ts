@@ -7,6 +7,7 @@ import Produto from '../../models/Produto';
 import Pedido from '../../models/pedidos';
 import session from 'express-session';
 // import '../../config/types/express-session';
+import { UserController } from '../controllers/userController';
 
 const routes = express.Router();
 
@@ -59,11 +60,16 @@ routes.post('/login', function (req: Request, res: Response, next: NextFunction)
                 return next(err);
             }
             // Redireciona para a página inicial
-            return res.redirect('/home');
+            return res.redirect('/pedidos');
         });
     })(req, res, next);
 });
 
+
+
+routes.get('/home', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/home.html"));
+});
 
 
 
@@ -85,8 +91,6 @@ routes.get('/pedidos', async (req,res) => {
     });
 
    
-
-
 
 routes.post('/pedidos', async (req, res) => {
     // try {
@@ -123,16 +127,19 @@ routes.post('/pedidos', async (req, res) => {
 });
 
 
-
-
-
-
-
-
-routes.get('/home', function (_req: Request, res: Response) {
-    res.sendFile(path.join(__dirname + "../../../public/home.html"));
+routes.get('/cad-usuarios', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/cad_usuarios.html"));
 });
 
+
+// Rota para processar o cadastro
+(async () => {
+    const userController = await UserController();  // Obtendo os métodos de UserController
+
+    routes.post('/cad-usuarios', (req: Request, res: Response) => 
+        userController.register(req, res)
+    );
+})();
 
 
 

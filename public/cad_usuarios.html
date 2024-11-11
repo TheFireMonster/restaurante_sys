@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="../public/css/login.css" rel="stylesheet">
-    <title>Login</title>
+    <link href="../public/css/cad_usuarios.css" rel="stylesheet">
+    <title>Cadastro de usuarios</title>
 
     <!--google fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -28,24 +28,22 @@
 
         <div class="container">
 
-            <form id="formlogin" class="form" action="/login"  method="post">
+            <form id="formcadastro" class="form" action="/cad-usuarios"  method="post">
 
                 <div class="title">
                     <div class="logo">
                        <img src="../public/css/imgs/logocomnome.png">
                     </div>
-                    <a>Insira seus dados</a>
+                    <a>Cadastro de usuario</a>
                 </div>
-
+                <input type="text" name="name" placeholder="Nome completo" required>
                 <input type="email" name="email" placeholder="E-mail" required>
-                <input type="password" name="senha" placeholder="Senha" required>
-                <div class="error-message" id="error-message" style="color: red;"></div>
-                <input type="submit" class="btn" placeholder="entrar"></button>
-                <div class="line">
+                <input type="password" name="password" placeholder="Senha" required>
+                <input type="password" name="password2" placeholder="Senha novamente" required>
 
-                    <p>Não possui uma conta? <a href='cad_usuarios.html'>Clique aqui para registrar</a></p>
-                    <p>Esqueceu a senha? <a href="#">Clique aqui para recuperar</a></p>
-                </div>
+                <div class="error-message" id="error-message" style="color: red;"></div>
+                <input type="submit" class="btn" placeholder="Cadastrar"></button>
+               
 
             </form>
 
