@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/cozinha.css" rel="stylesheet">
+    <title>Home</title>
+
+    <!--GOOGLE FONTS--raleway-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!---->
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Teko:wght@300..700&display=swap"
+        rel="stylesheet">
+
+    <!--Raleway-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="main">
+
+
+
+        <div class="topbar">
+
+            <div class="logo">
+                <img src="../public/css/imgs/logocomnome2.png">
+            </div>
+
+        </div>
+
+
+
+        <div class="header-line">
+
+            <div class="header-s">
+                <div class="titulo">
+                    <h2>Pedidos cozinha</h2>
+                </div>
+
+                
+
+                
+
+                    <div class="button">
+                        <span id="add_button" class="material-symbols-outlined">add</span>
+                        <!-- <input type="submit" id="add"  value="Cadastrar produtos"> -->
+                    </div>
+
+                    
+
+                
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="search">
+            <input type="text" placeholder="Pesquisar" class="search-text">
+            <span class="material-symbols-sharp">search</span>
+
+        </div>
+
+
+        <div class="menulateral" onmouseover="MenuAberto()" onmouseout="MenuFechado()">
+
+
+            <!-- <div class="logo">
+                <img src="../public/css/imgs/logocomnome2.png">
+
+            </div> -->
+
+            <div class="menu-line"  id="firstmenu-line">
+                <span class="material-symbols-outlined">view_comfy_alt</span>
+                <a href="pedidos.html">
+                    <div class="txt">Pedidos</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">
+                    fastfood
+                </span>
+                <a href="menu-lineprodutos.html">
+                    <div class="txt">Cardapio</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">
+                    manage_accounts
+                </span>
+                <a href="#">
+                    <div class="txt">Usuarios</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">cooking</span>
+                <a href="#">
+                    <div class="txt">Cozinha</div>
+                </a>
+            </div>
+
+            <!-- <div class="menu-line">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <a href="#">
+                    <div class="txt">Vendas</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">local_shipping</span>
+                <a href="#">
+                    <div class="txt">Fornecedores</div>
+                </a>
+            </div> -->
+
+
+
+        </div>
+
+        <div class="central">
+           
+
+          <!-- 
+          coloque os pedidos feitos aqui !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+           -->
+
+            
+
+        </div><!--central-->
+
+
+
+
+
+
+    </div><!--main-->
+
+
+</body>
+
+</html>
+
+<script>
+
+
+    //menu lateral (mobile)
+    function ExpandeMenu() {
+        var menulateral = document.querySelector(".menulateral");
+
+        if (menulateral.classList.contains('expande')) {
+            menulateral.classList.remove('expande');
+        } else {
+            menulateral.classList.add('expande');
+        }
+    }
+
+    //menu lateral (desktop)
+
+    function MenuAberto() {
+
+        var menulateral = document.querySelector(".menulateral")
+        menulateral.classList.add('expande');
+
+    }
+
+    function MenuFechado() {
+
+        var menulateral = document.querySelector(".menulateral")
+        menulateral.classList.remove('expande');
+    }
+
+
+
+
+    
+
+
+
+
+
+
+</script>
