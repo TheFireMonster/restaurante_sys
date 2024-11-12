@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   db:
-    image: postgres
+    image: gilsoncarlosf/postgres:latest
     container_name: db_restaurant_sys_container
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -15,6 +15,7 @@ services:
     restart: always
 
   system:
+    image: gilsoncarlosf/restaurante_sys:latest
     build: .
     ports:
       - 3000:3000
