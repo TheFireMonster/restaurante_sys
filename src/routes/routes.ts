@@ -7,6 +7,9 @@ import Produto from '../../models/Produto';
 import session from 'express-session';
 import { UserController } from '../controllers/userController';
 // import '../../config/types/express-session';
+import { UserController } from '../controllers/userController';
+import { OrderController } from '../controllers/orderController';
+import {cozinhaController} from '../controllers/CozinhaController';
 
 const routes = express.Router();
 
@@ -62,11 +65,16 @@ routes.post('/login', function (req: Request, res: Response, next: NextFunction)
                 return next(err);
             }
             // Redireciona para a página inicial
-            return res.redirect('/home');
+            return res.redirect('/pedidos');
         });
     })(req, res, next);
 });
 
+
+
+routes.get('/home', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/home.html"));
+});
 
 
 
@@ -89,16 +97,8 @@ routes.get('/pedidos', async (req,res) => {
 
    
 
-
-
-routes.post('/pedidos', async (req, res) => {
-    // try {
-    //   const cardapioProdutos = await Produto.findAll(); // Busca todos os produtos no banco
-    //   res.json(cardapioProdutos); // Retorna JSON
-    // } catch (error) {
-    //   res.status(500).json({ error: 'Erro ao buscar os produtos.' });
-    // }
-  });
+    routes.post('/pedidos', OrderController.orderRegister);
+    
   
 
 
@@ -126,17 +126,33 @@ routes.post('/pedidos', async (req, res) => {
 });
 
 
+routes.get('/cad-usuarios', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/cad_usuarios.html"));
+});
+
+
+// Rota para processar o cadastro
+(async () => {
+    const userController = await UserController();  // Obtendo os métodos de UserController
+
+    routes.post('/cad-usuarios', (req: Request, res: Response) => 
+        userController.register(req, res)
+    );
+})();
 
 
 
 
 
+routes.post('/cozinha', cozinhaController.getPedidosCozinha);
 
-routes.get('/home', function (_req: Request, res: Response) {
-    res.sendFile(path.join(__dirname + "../../../public/home.html"));
+
+routes.get('/cozinha', function (_req: Request, res: Response) {
+    res.sendFile(path.join(__dirname + "../../../public/cozinha.html"));
 });
 
 
 
 
 export default routes
+

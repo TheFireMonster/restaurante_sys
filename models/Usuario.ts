@@ -29,7 +29,7 @@ usuarios.init({
     },
     cpf_usuario: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     telefone_usuario: {
         type: DataTypes.STRING,

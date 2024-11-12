@@ -1,38 +1,36 @@
-import bcrypt from 'bcryptjs';
-import usuarios from '../../models/Usuario';
+import Usuario from '../../models/usuarios';
 import { Request, Response } from 'express';
 
-export class UserController {
-    async getRegister (req: Request, res: Response){
-        res.render('Cadastro');
-    }
-    async register(req: Request, res: Response) {
-        const { email, name, password, phone, cpf } = req.body;
-        
-        try {
-            console.log('Registrando novo usuário...');
+// Função assíncrona UserController
+export async function UserController() {
+    return {
+        async register(req: Request, res: Response) {
+            const { email, name, password } = req.body;
 
-            const hashedPassword = await bcrypt.hash(password, 10);
-            
-            await usuarios.create({
-                senha_usuario: hashedPassword,
-                nome_usuario: name,
-                cpf_usuario: cpf,
-                telefone_usuario: phone,
-                email_usuario: email,
-            });
+            try {
+                console.log('Registrando novo usuário...');
 
-            let redirectUrl = '/home';
+                // const hashedPassword = await bcrypt.hash(password, 10);
+                const hashedPassword = password;
 
-            console.log('Usuário cadastrado com sucesso');
-            console.log(`Redirecting to ${redirectUrl}`);
-            res.status(200).json({
-                message: "Login bem-sucedido!",
-                redirectUrl: redirectUrl
-            });
-        } catch (error) {
-            console.error('Erro ao cadastrar usuário:', error);
-            res.send("Não foi possível finalizar o cadastro");
+                await Usuario.create({
+                    senha_usuario: hashedPassword,
+                    nome_usuario: name,
+                    email_usuario: email,
+                });
+
+                const redirectUrl = '/login';
+
+                res.redirect(redirectUrl);
+                console.log('Usuário cadastrado com sucesso');
+                console.log(`Redirecting to ${redirectUrl}`);
+               
+                  
+               
+            } catch (error) {
+                console.error('Erro ao cadastrar usuário:', error);
+                res.status(500).send("Não foi possível finalizar o cadastro");
+            }
         }
-    }
+    };
 }

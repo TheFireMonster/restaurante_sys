@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../public/css/cozinha.css" rel="stylesheet">
+    <title>Home</title>
+
+    <!--GOOGLE FONTS--raleway-->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <!---->
+
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Teko:wght@300..700&display=swap"
+        rel="stylesheet">
+
+    <!--Raleway-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Teko:wght@300..700&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <div class="main">
+
+
+
+        <div class="topbar">
+
+            <div class="logo">
+                <img src="../public/css/imgs/logocomnome2.png">
+            </div>
+
+        </div>
+
+
+
+        <div class="header-line">
+
+            <div class="header-s">
+                <div class="titulo">
+                    <h2>Pedidos cozinha</h2>
+                </div>
+
+
+                <div class="button">
+                    <span id="add_button" class="material-symbols-outlined">add</span>
+                    <!-- <input type="submit" id="add"  value="Cadastrar produtos"> -->
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="search">
+            <input type="text" placeholder="Pesquisar" class="search-text">
+            <span class="material-symbols-sharp">search</span>
+
+        </div>
+
+
+        <div class="menulateral" onmouseover="MenuAberto()" onmouseout="MenuFechado()">
+
+
+            <!-- <div class="logo">
+                <img src="../public/css/imgs/logocomnome2.png">
+
+            </div> -->
+
+            <div class="menu-line" id="firstmenu-line">
+                <span class="material-symbols-outlined">view_comfy_alt</span>
+                <a href="pedidos.html">
+                    <div class="txt">Pedidos</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">
+                    fastfood
+                </span>
+                <a href="menu-lineprodutos.html">
+                    <div class="txt">Cardapio</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">
+                    manage_accounts
+                </span>
+                <a href="#">
+                    <div class="txt">Usuarios</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">cooking</span>
+                <a href="#">
+                    <div class="txt">Cozinha</div>
+                </a>
+            </div>
+
+            <!-- <div class="menu-line">
+                <span class="material-symbols-outlined">shopping_bag</span>
+                <a href="#">
+                    <div class="txt">Vendas</div>
+                </a>
+            </div>
+
+            <div class="menu-line">
+                <span class="material-symbols-outlined">local_shipping</span>
+                <a href="#">
+                    <div class="txt">Fornecedores</div>
+                </a>
+            </div> -->
+
+
+
+        </div>
+
+        <div class="central">
+
+
+            <div id="pedidos-cozinha"></div>
+
+
+
+        </div><!--central-->
+
+
+
+
+
+
+    </div><!--main-->
+
+
+</body>
+
+</html>
+
+<script>
+
+
+    //menu lateral (mobile)
+    function ExpandeMenu() {
+        var menulateral = document.querySelector(".menulateral");
+
+        if (menulateral.classList.contains('expande')) {
+            menulateral.classList.remove('expande');
+        } else {
+            menulateral.classList.add('expande');
+        }
+    }
+
+    //menu lateral (desktop)
+
+    function MenuAberto() {
+
+        var menulateral = document.querySelector(".menulateral")
+        menulateral.classList.add('expande');
+
+    }
+
+    function MenuFechado() {
+
+        var menulateral = document.querySelector(".menulateral")
+        menulateral.classList.remove('expande');
+    }
+
+
+
+
+    // Função para buscar e mostrar os pedidos pendentes
+    async function fetchPedidosCozinha() {
+        try {
+            // Faz a requisição POST para a rota '/cozinha' com o parâmetro 'json' = 'true'
+            const response = await fetch('/cozinha', {
+                method: 'POST',  // Alterado para POST
+                headers: {
+                    'Content-Type': 'application/json',  // Indicando que o corpo da requisição é JSON
+                },
+                body: JSON.stringify({ json: 'true' })  // Envia o parâmetro 'json' no corpo da requisição
+            });
+
+            // Verifica se a resposta é JSON e converte para objeto JavaScript
+            const pedidos = await response.json();
+
+            // Verifica se há pedidos
+            if (pedidos.length > 0) {
+                let pedidosHTML = '';
+
+                // Preenche os pedidos dinamicamente
+                pedidos.forEach(pedido => {
+                    pedidosHTML += `
+ <div class="pedido" data-id="${pedido.id_pedido}">
+    <div class='pedido_main'>                    
+       <div class='pedido_details'>
+        <h3>Pedido Nº ${pedido.id_pedido}</h3>
+        <p><strong>Mesa:</strong> ${pedido.numero_mesa}</p>
+        <p><strong>Observações:</strong> ${pedido.obs_pedido}</p>
+        <p class="total"><strong>Total:</strong> R$ ${pedido.total_pedido}</p>
+        <p class="hora"><strong>Hora do Pedido:</strong> ${new Date(pedido.data_pedido).toLocaleTimeString()}</p>
+      </div>
+
+      <div class="itens_pedido">
+       
+          <div class='status_p'>
+            <p><strong>Status:</strong> <span class="status ${pedido.status_pedido === 'Em andamento' ? 'status-pendente' : 'status-concluido'}">${pedido.status_pedido}</span></p>
+            <button class="status-button" onclick="atualizarStatus(${pedido.id_pedido})"><span>&#10003;</span></button>
+          </div>
+         <h4>Itens do Pedido:</h4>
+         <ul>
+            ${pedido.itens_pedido.map(item => {
+                        return `
+                    <li>${item.nome_produto_item_pedido} - Quantidade: ${item.quantidade_item_pedido} - Preço: R$ ${item.preco_item_pedido}</li>
+                `;
+                    }).join('')}
+         </ul>
+        
+      </div>
+    </div>
+</div>
+<hr>
+
+                `;
+                });
+
+                // Insere a lista de pedidos na página
+                document.getElementById('pedidos-cozinha').innerHTML = pedidosHTML;
+            } else {
+                // Caso não haja pedidos em andamento
+                document.getElementById('pedidos-cozinha').innerHTML = '<p>Nenhum pedido em andamento.</p>';
+            }
+        } catch (error) {
+            console.error('Erro ao buscar pedidos:', error);
+            document.getElementById('pedidos-cozinha').innerHTML = '<p>Erro ao carregar pedidos.</p>';
+        }
+    }
+
+
+    function atualizarStatus(idPedido) {
+        // Seleciona o elemento de status e o botão com base no id do pedido
+        const statusElement = document.querySelector(`.pedido[data-id="${idPedido}"] .status`);
+        const buttonElement = document.querySelector(`.pedido[data-id="${idPedido}"] .status-button`);
+
+        // Atualiza o texto e a classe de status para "Concluído"
+        statusElement.textContent = "Concluído";
+        statusElement.classList.remove("status-pendente");
+        statusElement.classList.add("status-concluido");
+
+        // Remove o botão de confirmação
+        buttonElement.style.display = "none";
+    }
+
+
+
+    // Chama a função quando a página carrega
+    document.addEventListener('DOMContentLoaded', fetchPedidosCozinha);
+
+</script>
+
+
+
+
+
+
+
+
+</script>

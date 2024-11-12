@@ -1,34 +1,35 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../db/config/cnxsequelize'; 
-import Usuario from './Usuario'; 
-import Mesa from './Mesa'; 
+import { DataTypes, Model } from 'sequelize'; 
+import { sequelize } from '../db/banco/old/config/cnxsequelize';
+import Usuario from './usuarios';
 
 interface PedidoAttributes {
     id_pedido?: number;
     id_usuario_pedido: number;
-    id_mesa_pedido: number;
-    qtd_produto?:number,
+    numero_mesa?: number;
+    qtd_produto?: number;
     obs_pedido?: string;
     status_pedido?: string;
     data_pedido?: Date;
     total_pedido?: number;
+    itens_pedido?: any; // Campo para armazenar os itens como JSON
 }
 
-class Pedido extends Model<PedidoAttributes> implements PedidoAttributes {
+class pedidos extends Model<PedidoAttributes> implements PedidoAttributes {
     public id_pedido!: number;
     public id_usuario_pedido!: number;
-    public id_mesa_pedido!: number;
+    public numero_mesa?: number;
     public qtd_produto: number;
     public obs_pedido?: string;
     public status_pedido?: string;
     public data_pedido?: Date;
     public total_pedido?: number;
+    public itens_pedido?: any; // Definindo como JSON
 
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
 
-Pedido.init({
+pedidos.init({
     id_pedido: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -42,18 +43,14 @@ Pedido.init({
             key: 'id_usuario'
         }
     },
-    id_mesa_pedido: {
+    numero_mesa: { 
         type: DataTypes.INTEGER,
-        references: {
-            model: Mesa,
-            key: 'id_mesa'
-        }
+        allowNull: true,
+        field: 'id_mesa_pedido' 
     },
-
-    qtd_produto:{
-        type:DataTypes.INTEGER
+    qtd_produto: {
+        type: DataTypes.INTEGER
     },
-
     obs_pedido: {
         type: DataTypes.STRING,
         validate: {
@@ -69,6 +66,10 @@ Pedido.init({
     },
     total_pedido: {
         type: DataTypes.DECIMAL(8, 2)
+    },
+    itens_pedido: { 
+        type: DataTypes.JSONB,  
+        allowNull: false,
     }
 }, {
     sequelize,
@@ -81,11 +82,8 @@ Pedido.init({
     ]
 });
 
-Pedido.belongsTo(Usuario, { foreignKey: 'id_usuario_pedido' });
-Usuario.hasMany(Pedido, { foreignKey: 'id_usuario_pedido' });
-Pedido.belongsTo(Mesa, { foreignKey: 'id_mesa_pedido' });
-Mesa.hasMany(Pedido, { foreignKey: 'id_mesa_pedido' });
+// Relacionamento com o usuário
+pedidos.belongsTo(Usuario, { foreignKey: 'id_usuario_pedido' });
+Usuario.hasMany(pedidos, { foreignKey: 'id_usuario_pedido' });
 
-
-
-export default Pedido;
+export default pedidos;
