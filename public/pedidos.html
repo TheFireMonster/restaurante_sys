@@ -175,7 +175,7 @@
                 <form class="pedido-form" action="/pedidos" method="post">
                     <h3>Pedido</h3>
                     <label for="order-table">Mesa:</label>
-                    <input type="number" id="order-table" name="numero_mesa" placeholder="Número da mesa" required>
+                    <input type="number" id="order-table" name="numero_mesa" placeholder="Número da mesa">
 
                     <div class="order-items">
                         <!-- Itens adicionados aparecerão aqui -->
@@ -460,19 +460,14 @@
                 popupForm.style.display = "none";
             }
         });
+
+
+
     });
 
 
-    // Função para abrir e fechar o POP-UP DE PEDIDOS------------------------------------
-    document.querySelector('.order-icon').addEventListener('click', function () {
-        document.querySelector('.overlay').style.display = 'block';
-        document.querySelector('.order-popup').style.display = 'flex';
-    });
 
-    document.getElementById('close-order-popup').addEventListener('click', function () {
-        document.querySelector('.overlay').style.display = 'none';
-        document.querySelector('.order-popup').style.display = 'none';
-    });
+
 
 
 
@@ -545,67 +540,67 @@
 
 
     document.getElementById('send-order').addEventListener('click', function (event) {
-    event.preventDefault();
+        event.preventDefault();
 
-    const numeroMesa = document.querySelector('#order-table').value;
+        const numeroMesa = document.querySelector('#order-table').value;
 
-     // Verificar se o campo 'numero_mesa' foi preenchido
-     if (!numeroMesa) {
-        alert('Por favor, preencha o número da mesa.');
-        return;
-    }
-     
-     // Verificar se os itens do pedido não estão vazios
-     if (order.length === 0) {
-        alert('Por favor, adicione pelo menos um item ao pedido.');
-        return;
-    }
-
-
-    const observacoes = document.querySelector('#order-observations').value;
-
-    // Calcular o valor total do pedido, assumindo que "price" é a propriedade de cada item com o preço
-    const totalPedido = order.reduce((total, item) => {
-        // Verifique se "item.price" existe e se "item.quantity" está correto
-        return total + (item.price * item.quantity);
-    }, 0);
-
-    // Enviar os dados para o backend
-    fetch('/pedidos', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            numero_mesa: numeroMesa,
-            obs_pedido: observacoes,
-            itens_pedido: order.map(item => ({
-                nome_produto_item_pedido: item.name, // Nome do produto
-                quantidade_item_pedido: item.quantity, // Quantidade do item
-                preco_item_pedido: item.price // Preço do item (se necessário no backend)
-            })),
-            total_pedido: totalPedido // Total calculado do pedido
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        alert('Pedido enviado com sucesso!');
-        order = [];  // Limpa o carrinho após o envio
-        updateOrderArea();
-        updateOrderIcon();
-       
-         // Fechar o pop-up após o envio
-         const popUp = document.querySelector('#order-popup');
-        if (popUp) {
-            popUp.style.display = 'none'; // Esconde o pop-up, altere conforme sua estrutura
+        // Verificar se o campo 'numero_mesa' foi preenchido
+        if (!numeroMesa) {
+            alert('Por favor, preencha o número da mesa.');
+            return;
         }
 
-    })
-    .catch(error => {
-        alert('Erro ao enviar o pedido.');
-        console.error(error);
+        // Verificar se os itens do pedido não estão vazios
+        if (order.length === 0) {
+            alert('Por favor, adicione pelo menos um item ao pedido.');
+            return;
+        }
+
+
+        const observacoes = document.querySelector('#order-observations').value;
+
+        // Calcular o valor total do pedido, assumindo que "price" é a propriedade de cada item com o preço
+        const totalPedido = order.reduce((total, item) => {
+            // Verifique se "item.price" existe e se "item.quantity" está correto
+            return total + (item.price * item.quantity);
+        }, 0);
+
+        // Enviar os dados para o backend
+        fetch('/pedidos', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                numero_mesa: numeroMesa,
+                obs_pedido: observacoes,
+                itens_pedido: order.map(item => ({
+                    nome_produto_item_pedido: item.name, // Nome do produto
+                    quantidade_item_pedido: item.quantity, // Quantidade do item
+                    preco_item_pedido: item.price // Preço do item (se necessário no backend)
+                })),
+                total_pedido: totalPedido // Total calculado do pedido
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                alert('Pedido enviado com sucesso!');
+                order = [];  // Limpa o carrinho após o envio
+                updateOrderArea();
+                updateOrderIcon();
+
+                // Fechar o pop-up após o envio
+                const popUp = document.querySelector('#order-popup');
+                if (popUp) {
+                    popUp.style.display = 'none'; // Esconde o pop-up, altere conforme sua estrutura
+                }
+
+            })
+            .catch(error => {
+                alert('Erro ao enviar o pedido.');
+                console.error(error);
+            });
     });
-});
 
 
 </script>
