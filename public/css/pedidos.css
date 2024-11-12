@@ -287,15 +287,26 @@
     grid-gap: 20px;
 }
 
+
+
 .item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px;
+    padding: 15px;
+    margin:5px;
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     height: auto;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+.item:hover{
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+
 }
 
 .item-details {
@@ -456,7 +467,8 @@
 .order-item input[type="number"] {
     width: 50px;
     margin-right: 10px;
-    border: none
+    border: none;
+    
 }
 
 .order-total {
@@ -466,39 +478,45 @@
 
 #order-observations {
     width: 100%;
-    height: 80px;
-    margin-bottom: 15px;
-    padding: 10px;
-    font-size: 16px;
+    height: 100px;
+    padding: 12px;
+    font-size: 15px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
+    color: #333;
+    resize: none;
 }
 
-#send-order, #close-order-popup {
-    background-color: #4CAF50;
-    color: white;
+#send-order,
+#close-order-popup {
+    display: block;
+    background-color: #333;
+    color: #fff;
     border: none;
-    padding: 10px;
+    padding: 12px;
     cursor: pointer;
-    border-radius: 2px;
+    border-radius: 8px;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     width: 100%;
-    transition: background-color 0.3s ease;
     margin-top: 10px;
 }
 
-#send-order:hover, #close-order-popup:hover {
-    background-color: #45a049;
+#send-order:hover {
+    background-color: #2d72d9;
+    transform: translateY(-2px);
 }
 
 #close-order-popup {
-    background-color: #f44336;
-
+    background-color: #e63946;
+    margin-top: 5px;
 }
 
 #close-order-popup:hover {
-    background-color: #e53935;
+    background-color: #d62828;
+    transform: translateY(-2px);
 }
-
 
 .navbar{
     display: none;

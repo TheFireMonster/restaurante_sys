@@ -466,6 +466,16 @@
     });
 
 
+       // Função para abrir e fechar o POP-UP DE PEDIDOS------------------------------------
+       document.querySelector('.order-icon').addEventListener('click', function () {
+        document.querySelector('.overlay').style.display = 'block';
+        document.querySelector('.order-popup').style.display = 'flex';
+    });
+
+    document.getElementById('close-order-popup').addEventListener('click', function () {
+        document.querySelector('.overlay').style.display = 'none';
+        document.querySelector('.order-popup').style.display = 'none';
+    });
 
 
 
