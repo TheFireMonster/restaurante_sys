@@ -1,10 +1,8 @@
 import express, { NextFunction, Request, Response, Router } from 'express';
 import path from 'path';
 import multer from 'multer';
-import pedidos from '../../models/pedidos';
 import passport from '../../config/js/auth';
 import Produto from '../../models/Produto';
-import Pedido from '../../models/pedidos';
 import session from 'express-session';
 // import '../../config/types/express-session';
 import { UserController } from '../controllers/userController';

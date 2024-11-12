@@ -32,9 +32,9 @@ app.use('/uploads', express.static('uploads'));
 
 app.use(routes);
 
-sequelize.sync().then(() => {
+/* sequelize.sync().then(() => {
     console.log('Banco de dados sincronizado!');
-});
+}); */
 
 const port = process.env.PORT || 3000; 
 app.listen(port, () => {

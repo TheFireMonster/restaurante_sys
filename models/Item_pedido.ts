@@ -84,13 +84,5 @@ Pedido.hasMany(ItemPedido, { foreignKey: 'id_pedido_item_pedido' });
 ItemPedido.belongsTo(Produto, { foreignKey: 'id_produto_item_pedido' });
 Produto.hasMany(ItemPedido, { foreignKey: 'id_produto_item_pedido' });
 
-// Sincronização do modelo com o banco de dados
-ItemPedido.sync()
-    .then(() => {
-        console.log('Modelo ItemPedido sincronizado com o banco de dados.');
-    })
-    .catch((error) => {
-        console.error('Erro ao sincronizar modelo ItemPedido com o banco de dados:', error);
-    });
 
 export default ItemPedido;

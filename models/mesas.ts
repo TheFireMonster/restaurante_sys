@@ -24,12 +24,4 @@ mesas.init({
     modelName: 'Mesa'
 });
 
-Mesa.sync()
-    .then(() => {
-        console.log('Modelo Mesa sincronizado com o banco de dados.');
-    })
-    .catch((error) => {
-        console.error('Erro ao sincronizar modelo Mesa com o banco de dados:', error);
-    });
-
 export default mesas;

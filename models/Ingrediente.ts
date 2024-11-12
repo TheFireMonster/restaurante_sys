@@ -1,4 +1,4 @@
-import { DataTypes, Model } from 'sequelize';
+/* import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../config/cnxsequelize';
 
 interface IngredienteAttributes {
@@ -53,4 +53,4 @@ Ingrediente.sync()
         console.error('Erro ao sincronizar modelo Ingrediente com o banco de dados:', error);
     });
 
-export default Ingrediente;
+export default Ingrediente; */

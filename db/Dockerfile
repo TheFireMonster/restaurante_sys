@@ -4,7 +4,7 @@ FROM postgres
 # Defina as variáveis de ambiente com valores passados durante a construção
 ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=postgres
-ENV POSTGRES_DB=restaurante_sys
+ENV POSTGRES_DB=postgres
 
 # Copie os arquivos de inicialização (opcional)
 # Se você tiver scripts SQL ou arquivos de inicialização, você pode copiá-los para o contêiner
