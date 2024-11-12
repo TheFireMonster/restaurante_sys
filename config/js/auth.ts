@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import { Strategy as LocalStrategy } from 'passport-local';
 import passport from 'passport';
-import usuarios from '../../models/Usuario'
+import usuarios from '../../models/usuarios'
 
 /// Estratégia Local para login
 passport.use(new LocalStrategy({

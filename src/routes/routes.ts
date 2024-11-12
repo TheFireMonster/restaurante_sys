@@ -1,11 +1,11 @@
 import express, { NextFunction, Request, Response, Router } from 'express';
 import path from 'path';
 import multer from 'multer';
-import Pedido from '../../models/Pedido';
+import pedidos from '../../models/pedidos';
 import passport from '../../config/js/auth';
 import Produto from '../../models/Produto';
+import Pedido from '../../models/pedidos';
 import session from 'express-session';
-import { UserController } from '../controllers/userController';
 // import '../../config/types/express-session';
 import { UserController } from '../controllers/userController';
 import { OrderController } from '../controllers/orderController';
@@ -13,7 +13,7 @@ import {cozinhaController} from '../controllers/CozinhaController';
 
 const routes = express.Router();
 
-const userController = new UserController
+
 
 declare module 'express-session' {
     interface SessionData {
@@ -37,11 +37,8 @@ const upload = multer({ dest: 'uploads/' });
 
 
 
-routes.get('/cadastro', function (_req: Request, res: Response) {
-    res.sendFile(path.join(__dirname +"../../../public/Cadastro.html"));
-});
 
-routes.post('/cad-fim', (req, res) => userController.register(req, res));
+
 
 
 routes.get('/login', function (_req: Request, res: Response) {

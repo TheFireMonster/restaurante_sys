@@ -15,6 +15,7 @@ interface PedidoAttributes {
 }
 
 class pedidos extends Model<PedidoAttributes> implements PedidoAttributes {
+class pedidos extends Model<PedidoAttributes> implements PedidoAttributes {
     public id_pedido!: number;
     public id_usuario_pedido!: number;
     public numero_mesa?: number;
@@ -29,6 +30,7 @@ class pedidos extends Model<PedidoAttributes> implements PedidoAttributes {
     public readonly updatedAt!: Date;
 }
 
+pedidos.init({
 pedidos.init({
     id_pedido: {
         type: DataTypes.INTEGER,
@@ -86,4 +88,5 @@ pedidos.init({
 pedidos.belongsTo(Usuario, { foreignKey: 'id_usuario_pedido' });
 Usuario.hasMany(pedidos, { foreignKey: 'id_usuario_pedido' });
 
+export default pedidos;
 export default pedidos;
